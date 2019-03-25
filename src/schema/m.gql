@@ -1,0 +1,14 @@
+module.exports = `
+mutation ($openId: String!, $nickName: String, $avatarUrl: String, $gender: Int, $sessionKey: String){
+  data: updateUser(openId: $openId, nickName: $nickName, avatarUrl: $avatarUrl, gender: $gender, sessionKey: $sessionKey){
+    openId
+    nickName
+    password
+    gender
+    avatarUrl
+    sessionKey
+    registerTime
+    updateTime
+  }
+}
+`
