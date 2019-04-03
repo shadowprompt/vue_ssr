@@ -130,11 +130,13 @@ export default {
     // 将this传入并设置axios拦截器
     this.$http.setConfig(this);
     this._getCategories();
+    this.scrollFn = this.createDebounce(900, this.cal);
   },
   mounted() {
     this.body = document.querySelector('body');
     this.goto = document.querySelector('#goto');
     window.document.addEventListener('scroll', this.scrollFn);
+    window.vm = this;
   },
   beforeDestroy() {
     window.document.removeEventListener('scroll', this.scrollFn);
@@ -150,15 +152,18 @@ export default {
         this.goto.classList.remove('show');
       }
     },
-    scrollFn() {
-      if (this.prevTime) {
-        if (Date.now() - this.prevTime >= 100) {
-          this.cal();
-          this.prevTime = null;
+    createDebounce(ms, fn) {
+      let prevTime;
+      return () => {
+        if (prevTime) {
+          if (Date.now() - prevTime >= ms) {
+            fn();
+            prevTime = null;
+          }
+        } else {
+          prevTime = Date.now();
         }
-      } else {
-        this.prevTime = Date.now();
-      }
+      };
     },
     handleGoto() {
       window.scrollTo(0, 0);

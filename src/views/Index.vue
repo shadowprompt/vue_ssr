@@ -4,15 +4,13 @@
   </div>
 </template>
 <script>
-import { mapActions } from 'vuex';
 import List from '../components/List.vue';
-import axios from 'axios';
 export default {
   components: {
     List,
   },
   asyncData({ store, route }) {
-    console.log('list -> asyncData');
+    console.log('list -> asyncData', route);
     // 触发 action 后，会返回 Promise
     return store.dispatch('_getList');
   },

@@ -299,7 +299,8 @@ img {
   .post-detail-item {
     margin-top: -100px;
     min-height: 120px;
-    &.fade {
+    &.anim {
+      opacity: 1;
       transition: 0.4s ease-in-out;
       transform: translateY(50px);
       &.in {
