@@ -2,7 +2,6 @@
 import Vue from 'vue';
 import { createApp } from './app';
 import { axios } from './config/index';
-
 Vue.prototype.$http = axios;
 import './assets/font-awesome/scss/font-awesome.scss';
 import './assets/bootstrap.min.css';

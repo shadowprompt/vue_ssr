@@ -27,7 +27,7 @@
         <!--<a href="javascript: void 0;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">-->
         <!--<i class="icon icon-lg icon-close"></i>-->
         <!--</a>-->
-        <div class="brand-wrap" style="background-image:url('/brand.jpg')">
+        <div class="brand-wrap">
           <div class="brand">
             <a href="/" class="avatar waves-effect waves-circle waves-light">
               <img :src="avatarUrl" />
@@ -87,7 +87,7 @@ export default {
   data() {
     return {
       config,
-      // avatarUrl: require('./img/avatar.jpg'),
+      avatarUrl: 'https://www.baidu.com/img/baidu_resultlogo@2.png',
       brandStyle: {
         // backgroundImage: require('../public/brand.jpg'),
       },
@@ -184,3 +184,7 @@ export default {
   },
 };
 </script>
+<style>
+  /*@import "./assets/font-awesome/scss/font-awesome.scss";*/
+  @import "./assets/style.scss";
+</style>

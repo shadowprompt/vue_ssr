@@ -8,9 +8,9 @@ import { createRouter } from "./router";
 import { createStore } from "./store";
 import { axios } from "./config/index";
 
+
 Vue.prototype.$http = axios;
-import "./assets/font-awesome/scss/font-awesome.scss";
-import "./assets/style.scss";
+
 
 Vue.mixin({
   beforeMount() {

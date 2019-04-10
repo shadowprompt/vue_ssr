@@ -11,8 +11,9 @@ const renderer = createBundleRenderer(serverBundle, {
   template, // （可选）页面模板
   clientManifest, // （可选）客户端构建 manifest
 });
-const serve = (path, cache) =>
-  express.static(resolve(path), {
+function serve (path, cache){
+  console.log('aaa -> ', resolve(path));
+  return express.static(resolve(path), {
     //设置静态文件目录
     maxAge: 1000 * 60,
     setHeaders: function(res, path, stat) {
@@ -20,8 +21,12 @@ const serve = (path, cache) =>
       res.set('Cache-Control', 'private,max-age=' + 1000 * 50);
     },
   });
-console.log(serve);
-app.use('/', serve('./dist', true));
+}
+
+app.use('/main.js', serve('./dist/main.js', true));
+app.use('/manifest.js', serve('./dist', true));
+app.use('/common.4d971b83c0b2f695a744.css', serve('./dist', true));
+app.get('/favicon.ico', (req, res) => res.send(200));
 // 在服务器处理函数中……
 app.get('*', (req, res) => {
   const context = { url: req.url, title: 'ssr渲染' + Date.now() };
@@ -29,11 +34,11 @@ app.get('*', (req, res) => {
   // 现在我们的服务器与应用程序已经解耦！
   renderer.renderToString(context, (err, html) => {
     if (err) {
-      console.log('err ', err);
+      console.log('err2 ', err);
       if (err.code === 404) {
-        res.status(404).end('Page not found');
+        res.sendStatus(404).end('Page not found');
       } else {
-        res.status(500).end('Internal Server Error');
+        res.sendStatus(500).end('Internal Server Error');
       }
     } else {
       res.end(html);

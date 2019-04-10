@@ -1,5 +1,13 @@
 /* eslint-disable */
+import Vue from 'vue';
 import { createApp } from './app'
+import { axios } from './config/index';
+console.log('axiosaxios -> ', axios);
+Vue.prototype.$http = axios;
+import './assets/font-awesome/scss/font-awesome.scss';
+import './assets/bootstrap.min.css';
+import './assets/style.scss';
+
 export default context => {
     return new Promise((resolve, reject) => {
         const { app, router, store } = createApp();

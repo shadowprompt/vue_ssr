@@ -28,7 +28,7 @@ export function createStore() {
           date: utils.timeStampFormat(item.post_date, 'yyyy-MM-dd'),
         }));
       },
-      SET_DETAIL(state, payload) {
+      SET_DETAIL(state, payload = {}) {
         state.detail = {
           ...payload,
           date: utils.timeStampFormat(payload.post_date, 'yyyy-MM-dd'),
@@ -66,7 +66,7 @@ export function createStore() {
       async _getDetail(context, params) {
         const res = await axios.post('/graphql', params);
         if (utils.httpSuccess(res)) {
-          context.commit('SET_DETAIL', res.data.data.data);
+          context.commit('SET_DETAIL', res.data.data.data || {});
         }
         return res;
       },

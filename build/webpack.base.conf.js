@@ -7,6 +7,8 @@ const vueLoaderConfig = require('./vue-loader.conf');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 
+const isProd = process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'beta';
+
 function resolve(dir) {
   return path.join(__dirname, '..', dir);
 }
@@ -16,6 +18,8 @@ module.exports = {
   entry: {
     app: './src/main.js',
   },
+  devtool: isProd ?
+    false : '#cheap-module-source-map',
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',
@@ -29,9 +33,11 @@ module.exports = {
     alias: {
       vue$: 'vue/dist/vue.esm.js',
       '@': resolve('src'),
+      'static': resolve('static'),
     },
   },
   module: {
+    noParse: /es6-promise\.js$/, // avoid webpack shimming process
     rules: [
       {
         test: /\.vue$/,
@@ -73,27 +79,32 @@ module.exports = {
       },
     ],
   },
-  node: {
-    // prevent webpack from injecting useless setImmediate polyfill because Vue
-    // source contains it (although only uses it if it's native).
-    setImmediate: false,
-    // prevent webpack from injecting mocks to Node native modules
-    // that does not make sense for the client
-    dgram: 'empty',
-    fs: 'empty',
-    net: 'empty',
-    tls: 'empty',
-    child_process: 'empty',
-  },
-  plugins: [
+  // node: {
+  //   // prevent webpack from injecting useless setImmediate polyfill because Vue
+  //   // source contains it (although only uses it if it's native).
+  //   setImmediate: false,
+  //   // prevent webpack from injecting mocks to Node native modules
+  //   // that does not make sense for the client
+  //   dgram: 'empty',
+  //   fs: 'empty',
+  //   net: 'empty',
+  //   tls: 'empty',
+  //   child_process: 'empty',
+  // },
+  plugins: isProd ? [
     new webpack.optimize.UglifyJsPlugin({
-      compress: { warnings: false },
+      compress: { warnings: false }
     }),
     new ExtractTextPlugin({
-      filename: 'common.[chunkhash].css',
+      filename: 'common.[chunkhash].css'
     }),
     new webpack.DefinePlugin({
-      'process.env': config.build.env,
-    }),
+      'process.env': config.build.env
+    })
+  ] : [
+    new FriendlyErrorsPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': config.dev.env
+    })
   ],
 };
