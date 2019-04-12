@@ -11,6 +11,7 @@ import utils from './utils/index';
 
 export function createStore() {
   return new Vuex.Store({
+    strict: process.env.NODE_ENV !== 'production',
     state: {
       categories: [],
       list: [],
@@ -51,14 +52,27 @@ export function createStore() {
           context.commit('SET_CATEGORIES', res.data.data.data);
         }
       },
+      // async _getList(context, params) {
+      //   const res = await axios.post('/graphql', {
+      //     query: listQuery,
+      //   });
+      //   if (utils.httpSuccess(res)) {
+      //     console.log('list.length -> ', res.data.data.data.length);
+      //     context.commit('SET_LIST', res.data.data.data);
+      //   }
+      //   return res;
+      // },
       async _getList(context, params) {
-        const res = await axios.post('/graphql', {
+        console.log('_getList -> ====', );
+        return axios.post('/graphql', {
           query: listQuery,
+        }).then(res => {
+          console.log('是否成功 -> ', utils.httpSuccess(res));
+          if (utils.httpSuccess(res)) {
+            console.log('list.length -> ', res.data.data.data.length);
+            context.commit('SET_LIST', res.data.data.data);
+          }
         });
-        if (utils.httpSuccess(res)) {
-          context.commit('SET_LIST', res.data.data.data);
-        }
-        return res;
       },
       toggleLoading(context, params) {
         context.commit('TOGGLE_LOADING', params);

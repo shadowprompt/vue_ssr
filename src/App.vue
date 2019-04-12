@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div>
     <div id="loading" :class="$store.state.isLoading ? 'active' : ''"></div>
     <header id="header" class="top-header" :class="{ fixed: topFixed }">
       <div class="flex-row">
@@ -24,9 +24,6 @@
     </header>
     <aside id="menu" :class="{ show: !isCollapsed }">
       <div class="inner flex-row-vertical">
-        <!--<a href="javascript: void 0;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">-->
-        <!--<i class="icon icon-lg icon-close"></i>-->
-        <!--</a>-->
         <div class="brand-wrap">
           <div class="brand">
             <a href="/" class="avatar waves-effect waves-circle waves-light">
@@ -71,7 +68,9 @@
     <!--<header id="nav">-->
     <!--<category-nav></category-nav>-->
     <!--</header>-->
-    <section class="container body-wrapper"><router-view /></section>
+    <section class="container body-wrapper">
+      <router-view></router-view>
+    </section>
   </div>
 </template>
 
@@ -88,9 +87,6 @@ export default {
     return {
       config,
       avatarUrl: 'https://www.baidu.com/img/baidu_resultlogo@2.png',
-      brandStyle: {
-        // backgroundImage: require('../public/brand.jpg'),
-      },
       body: null,
       goto: null,
       prevTime: null,
@@ -129,7 +125,7 @@ export default {
   async created() {
     // 将this传入并设置axios拦截器
     this.$http.setConfig(this);
-    this._getCategories();
+    // this._getCategories();
     this.scrollFn = this.createDebounce(900, this.cal);
   },
   mounted() {
@@ -184,7 +180,3 @@ export default {
   },
 };
 </script>
-<style>
-  /*@import "./assets/font-awesome/scss/font-awesome.scss";*/
-  @import "./assets/style.scss";
-</style>

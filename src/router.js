@@ -13,21 +13,21 @@ export function createRouter() {
     routes: [
       {
         path: "/",
-        name: "index",
-        // component: Index,
-        component: () => import("./views/Index.vue")
+        name: "list",
+        component: List,
+        // component: () => import("./views/Index.vue")
       },
       {
         path: "/:id",
         name: "detail",
-        // component: Detail,
-        component: () => import("./views/Detail.vue")
+        component: Detail,
+        // component: () => import("./views/Detail.vue")
       },
       {
         path: "/list",
         name: "list",
-        // component: List,
-        component: () => import("./components/List.vue")
+        component: List,
+        // component: () => import("./components/List.vue")
       }
     ]
   });

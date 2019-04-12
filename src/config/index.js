@@ -1,6 +1,8 @@
 import axios from 'axios';
-const baseUrl =
-  process.env.NODE_ENV === 'production' ? 'https://www.daozhao.com.cn' : '/api';
+// const baseUrl =
+  // process.env.NODE_ENV === 'production' ? 'https://www.daozhao.com.cn' : '/api';
+const baseUrl = 'https://www.daozhao.com.cn';
+console.log('baseUrl -> ', baseUrl);
 const axiosConfig = {
   timeout: 30000,
   baseURL: baseUrl

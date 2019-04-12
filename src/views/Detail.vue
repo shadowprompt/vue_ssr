@@ -14,6 +14,7 @@
 import queryStr from '../schema/detail';
 
 export default {
+  componentName: '$detail',
   data() {
     return {
       // detail: {},
