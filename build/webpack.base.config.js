@@ -1,5 +1,6 @@
 const path = require('path');
 const { VueLoaderPlugin } = require('vue-loader');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const isProd = process.env.NODE_ENV === 'production';
 function resolve(dir) {
@@ -46,14 +47,39 @@ module.exports = {
         },
       },
       {
+        test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          name: './static/media/[name].[hash:7].[ext]',
+        },
+      },
+      {
+        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          name: './static/fonts/[name].[hash:7].[ext]',
+        },
+      },
+      {
         test: /\.scss$/,
         use: ['vue-style-loader', 'css-loader', 'sass-loader'],
       },
       {
         test: /\.css$/,
-        use: ['vue-style-loader', 'css-loader'],
+        // use: ['vue-style-loader', 'css-loader'],
+        use: isProd
+          ? ExtractTextPlugin.extract({
+            use: 'css-loader',
+            fallback: 'vue-style-loader'
+          })
+          : ['vue-style-loader', 'css-loader']
       },
     ],
   },
-  plugins: [new VueLoaderPlugin()],
+  plugins: isProd
+    // make sure to add the plugin!
+    ? [new ExtractTextPlugin({ filename: 'common.[chunkhash].css' }), new VueLoaderPlugin()]
+    : [new VueLoaderPlugin()],
 };

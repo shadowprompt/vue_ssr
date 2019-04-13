@@ -13,7 +13,7 @@ export function createRouter() {
     routes: [
       {
         path: "/",
-        name: "list",
+        name: "index",
         component: List,
         // component: () => import("./views/Index.vue")
       },

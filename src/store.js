@@ -67,7 +67,6 @@ export function createStore() {
         return axios.post('/graphql', {
           query: listQuery,
         }).then(res => {
-          console.log('是否成功 -> ', utils.httpSuccess(res));
           if (utils.httpSuccess(res)) {
             console.log('list.length -> ', res.data.data.data.length);
             context.commit('SET_LIST', res.data.data.data);

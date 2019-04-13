@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="app">
     <div id="loading" :class="$store.state.isLoading ? 'active' : ''"></div>
     <header id="header" class="top-header" :class="{ fixed: topFixed }">
       <div class="flex-row">

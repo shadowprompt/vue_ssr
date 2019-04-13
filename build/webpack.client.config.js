@@ -9,6 +9,11 @@ const config = merge(base, {
     app: './src/entry-client.js'
   },
   resolve: {},
+  optimization: {
+    splitChunks: {
+      name: 'manifest'
+    }
+  },
   plugins: [
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(
