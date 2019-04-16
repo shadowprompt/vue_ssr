@@ -21,7 +21,7 @@ export default (context) => {
       Promise.all(
         matchedComponents.map((Component) => {
           if (Component.asyncData) {
-            console.log('entry-server 有asyncData -> ');
+            // console.log('entry-server 有asyncData -> ');
             return Component.asyncData({
               store,
               route: router.currentRoute,

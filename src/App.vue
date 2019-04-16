@@ -18,52 +18,12 @@
     </header>
     <header class="index-header">
       <div class="container fade-scale in">
-        <h1 class="title">道招</h1>
+        <h1 class="title"><span class="pointer" @click="$router.push('/')">道招</span></h1>
         <h5 class="subtitle"></h5>
       </div>
     </header>
-    <aside id="menu" :class="{ show: !isCollapsed }">
-      <div class="inner flex-row-vertical">
-        <div class="brand-wrap">
-          <div class="brand">
-            <a href="/" class="avatar waves-effect waves-circle waves-light">
-              <img :src="avatarUrl" />
-            </a>
-            <hgroup class="introduce">
-              <h5 class="nickname">普若木特</h5>
-              <a
-                href="mailto:634206017@qq.com"
-                title="634206017@qq.com"
-                class="mail"
-                >634206017@qq.com</a
-              >
-            </hgroup>
-          </div>
-        </div>
-        <div class="scroll-wrap flex-col">
-          <ul class="nav">
-            <li
-              v-for="(item, index) in asides"
-              class="waves-block waves-effect"
-            >
-              <a
-                :href="item.path"
-                :target="item.target ? item.target : '_self'"
-              >
-                <i :class="['fa', 'fa-' + item.icon]"></i>
-                <span class="name">{{ item.name }}</span>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </aside>
-    <div
-      class="mask"
-      id="mask"
-      :class="{ show: !isCollapsed }"
-      @click="TOGGLE_COLLAPSE(true)"
-    ></div>
+    <aside-menu :show="!isCollapsed"></aside-menu>
+    <d-z-mask :visible="!isCollapsed"></d-z-mask>
     <div id="goto" @click="handleGoto"><i class="fa fa-arrow-up"></i></div>
     <!--<header id="nav">-->
     <!--<category-nav></category-nav>-->
@@ -71,49 +31,30 @@
     <section class="container body-wrapper">
       <router-view></router-view>
     </section>
+    <div class="test-css">adab</div>
   </div>
 </template>
 
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex';
+import DZMask from './components/common/Mask';
 import CategoryNav from './components/CategoryNav';
+import asideMenu from './components/aside/Menu';
 import { config } from './config';
 
 export default {
   components: {
+    DZMask,
     CategoryNav,
+    asideMenu,
   },
   data() {
     return {
       config,
-      avatarUrl: 'https://www.baidu.com/img/baidu_resultlogo@2.png',
       body: null,
       goto: null,
       prevTime: null,
       topFixed: false,
-      asides: [
-        {
-          icon: 'home',
-          path: '/',
-          name: '主页',
-        },
-        {
-          icon: 'archive',
-          path: '/archive',
-          name: '存档',
-        },
-        {
-          icon: 'tag',
-          path: '/tag',
-          name: '标签',
-        },
-        {
-          icon: 'github',
-          path: 'https://shadowprompt.github.com',
-          target: '_blank',
-          name: 'Github',
-        },
-      ],
     };
   },
   provide() {

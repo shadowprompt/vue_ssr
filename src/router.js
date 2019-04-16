@@ -14,20 +14,17 @@ export function createRouter() {
       {
         path: "/",
         name: "index",
-        component: List,
-        // component: () => import("./views/Index.vue")
+        component: () => import("./components/List.vue")
       },
       {
         path: "/:id",
         name: "detail",
-        component: Detail,
-        // component: () => import("./views/Detail.vue")
+        component: () => import("./views/Detail.vue")
       },
       {
         path: "/list",
         name: "list",
-        component: List,
-        // component: () => import("./components/List.vue")
+        component: () => import("./components/List.vue")
       }
     ]
   });

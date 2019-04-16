@@ -61,7 +61,7 @@ function render(req, res) {
   };
 
   const context = {
-    title: 'SSR 测试', // default title
+    title: '道招网博客', // default title
     url: req.url,
   };
   renderer.renderToString(context, (err, html) => {

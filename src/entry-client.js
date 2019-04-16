@@ -51,7 +51,6 @@ router.onReady(() => {
   // 以便我们不会二次预取(double-fetch)已有的数据。
   // 使用 `router.beforeResolve()`，以便确保所有异步组件都 resolve。
   router.beforeResolve((to, from, next) => {
-    console.log(' -> ', 988);
     const matched = router.getMatchedComponents(to);
     const prevMatched = router.getMatchedComponents(from);
     // 我们只关心之前没有渲染的组件

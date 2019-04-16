@@ -52,23 +52,11 @@ export function createStore() {
           context.commit('SET_CATEGORIES', res.data.data.data);
         }
       },
-      // async _getList(context, params) {
-      //   const res = await axios.post('/graphql', {
-      //     query: listQuery,
-      //   });
-      //   if (utils.httpSuccess(res)) {
-      //     console.log('list.length -> ', res.data.data.data.length);
-      //     context.commit('SET_LIST', res.data.data.data);
-      //   }
-      //   return res;
-      // },
       async _getList(context, params) {
-        console.log('_getList -> ====', );
         return axios.post('/graphql', {
           query: listQuery,
         }).then(res => {
           if (utils.httpSuccess(res)) {
-            console.log('list.length -> ', res.data.data.data.length);
             context.commit('SET_LIST', res.data.data.data);
           }
         });

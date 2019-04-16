@@ -1,4 +1,3 @@
-
 /**
  *
  * @param res
@@ -42,4 +41,13 @@ export const timeStampFormat = (time, format) => {
 export default {
   httpSuccess,
   timeStampFormat,
+};
+
+let zIndex = 0;
+
+export const getIndex = (index) => {
+  if (index !== void 0) {
+    zIndex = index;
+  }
+  return ++zIndex;
 };
