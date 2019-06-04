@@ -56,17 +56,33 @@ router.onReady(() => {
     // 我们只关心之前没有渲染的组件
     // 所以我们对比它们，找出两个匹配列表的差异组件
     let diffed = false;
-    const activated = matched.filter((c, i) => {
-      return diffed || (diffed = prevMatched[i] !== c);
-    });
-    if (!activated.length) {
+    let activated = [];
+    if (prevMatched.length < matched.length) {
+      activated = matched;
+    } else {
+      activated = matched.filter((c, i) => {
+        return diffed || (diffed = prevMatched[i] !== c);
+      });
+    }
+    const isUnderSameRouter = matched.every(
+      (c, i) => prevMatched[i].name === c.name,
+    );
+
+    // 如果没有activated，则判断是否是同一个组件间的路由改变
+    const target = activated.length
+      ? activated
+      : isUnderSameRouter
+      ? matched
+      : [];
+    console.log(' target-> ', target, prevMatched, matched, isUnderSameRouter);
+    if (!target.length) {
       return next();
     }
     // 这里如果有加载指示器(loading indicator)，就触发
     Promise.all(
-      activated.map((c) => {
+      target.map((c) => {
         if (c.asyncData) {
-          return c.asyncData({ store, route: to });
+          return c.asyncData({ store, route: to, vm: c });
         }
       }),
     )
