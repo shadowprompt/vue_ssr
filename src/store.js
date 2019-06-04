@@ -6,7 +6,7 @@ Vue.use(Vuex);
 import { axios } from './config/index';
 
 import categoriesQuery from './schema/category';
-import listQuery from './schema/list';
+
 import utils from './utils/index';
 
 export function createStore() {
@@ -23,7 +23,8 @@ export function createStore() {
       SET_CATEGORIES(state, payload = []) {
         state.categories = payload;
       },
-      SET_LIST(state, payload = []) {
+      SET_LIST(state, payload) {
+        payload = payload || [];
         state.list = payload.map((item) => ({
           ...item,
           date: utils.timeStampFormat(item.post_date, 'yyyy-MM-dd'),
@@ -53,9 +54,7 @@ export function createStore() {
         }
       },
       async _getList(context, params) {
-        return axios.post('/graphql', {
-          query: listQuery,
-        }).then(res => {
+        return axios.post('/graphql', params).then((res) => {
           if (utils.httpSuccess(res)) {
             context.commit('SET_LIST', res.data.data.data);
           }
@@ -81,6 +80,10 @@ export function createStore() {
             slug: '',
           },
         ].concat(state.categories);
+      },
+      listTotal(state) {
+        const [{ total = 0 } = {}] = state.list;
+        return total;
       },
     },
   });

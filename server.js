@@ -37,6 +37,10 @@ function createRenderer(bundle, options) {
 }
 
 function render(req, res) {
+  console.log(' request.url -> ', req.url);
+  if(req.url === '/favicon.ico') {
+    return res.status(200).send('favicon');
+  }
   const cacheAble = isCacheable(req);
   if (cacheAble) {
     const hit = microCache.get(req.url);

@@ -14,18 +14,38 @@ export function createRouter() {
       {
         path: "/",
         name: "index",
-        component: () => import("./components/List.vue")
+        component: () => import("./views/index.vue")
       },
       {
-        path: "/:id",
+        path: "/page/:currentPage",
+        name: "indexPage",
+        component: () => import("./views/index.vue")
+      },
+      {
+        path: "/:id.html",
         name: "detail",
         component: () => import("./views/Detail.vue")
       },
       {
-        path: "/list",
-        name: "list",
-        component: () => import("./components/List.vue")
-      }
+        path: "/category/:slug",
+        name: "categoryDetail",
+        component: () => import("./views/Category.vue")
+      },
+      {
+        path: "/category/:slug/page/:currentPage",
+        name: "categoryDetailPage",
+        component: () => import("./views/Category.vue")
+      },
+      {
+        path: "/tag/:slug",
+        name: "tagDetail",
+        component: () => import("./views/Tag.vue")
+      },
+      {
+        path: "/tag/:slug/page/:currentPage",
+        name: "tagDetailPage",
+        component: () => import("./views/Tag.vue")
+      },
     ]
   });
 }

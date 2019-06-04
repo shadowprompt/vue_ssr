@@ -178,10 +178,6 @@ body {
   #menu {
     .nav {
       line-height: 36px;
-      a {
-        height: 36px;
-        line-height: 36px;
-      }
     }
     .brand {
       padding-top: 20px;
@@ -324,34 +320,34 @@ img {
     margin-right: -24px;
     padding: 12px 24px;
     border-top: 1px solid #ddd;
-    .article-tags {
-      position: relative;
-      display: inline;
-      list-style: none;
-      padding: 0;
-      .tag-item {
-        display: inline-block;
-        margin-right: 8px;
-        margin-bottom: 8px;
-        border-radius: 2px;
-        padding: 2px 12px;
-        &:nth-child(n + 1) {
-          background: #8bc34a;
-        }
-        &:nth-child(n + 2) {
-          background: #673ab7;
-        }
-        &:nth-child(n + 3) {
-          background: #ff9800;
-        }
-        &:nth-child(n + 4) {
-          background: #f44336;
-        }
-      }
-    }
   }
 }
 
+.article-tags {
+  position: relative;
+  display: inline;
+  list-style: none;
+  padding: 0;
+  .tag-item {
+    display: inline-block;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    border-radius: 2px;
+    padding: 2px 12px;
+    &:nth-child(n + 1) {
+      background: #8bc34a;
+    }
+    &:nth-child(n + 2) {
+      background: #673ab7;
+    }
+    &:nth-child(n + 3) {
+      background: #ff9800;
+    }
+    &:nth-child(n + 4) {
+      background: #f44336;
+    }
+  }
+}
 
 #goto {
   position: fixed;

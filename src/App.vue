@@ -31,7 +31,6 @@
     <section class="container body-wrapper">
       <router-view></router-view>
     </section>
-    <div class="test-css">adab</div>
   </div>
 </template>
 
