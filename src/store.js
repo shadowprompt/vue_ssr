@@ -55,6 +55,7 @@ export function createStore() {
       },
       async _getList(context, params) {
         return axios.post('/graphql', params).then((res) => {
+          console.log('_getList res-> ', res);
           if (utils.httpSuccess(res)) {
             context.commit('SET_LIST', res.data.data.data);
           }

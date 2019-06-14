@@ -16,7 +16,7 @@ export default (context) => {
       if (!matchedComponents.length) {
         return reject({ code: 404 });
       }
-      console.log('matchedComponents -> ', matchedComponents.length);
+      console.log('++matchedComponents -> ', matchedComponents.length);
       // 对所有匹配的路由组件调用 `asyncData()`
       Promise.all(
         matchedComponents.map((Component) => {

@@ -14,12 +14,12 @@ export function createRouter() {
       {
         path: "/",
         name: "index",
-        component: () => import("./views/index.vue")
+        component: () => import("./views/Index.vue")
       },
       {
         path: "/page/:currentPage",
         name: "indexPage",
-        component: () => import("./views/index.vue")
+        component: () => import("./views/Index.vue")
       },
       {
         path: "/:id.html",
