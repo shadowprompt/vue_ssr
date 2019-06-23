@@ -1,11 +1,18 @@
 <template>
   <div class="index">
     <div class="post-list">
-      <post-brief v-for="(item, index) in list" :key="'list-' + index" :data="item"/>
+      <post-brief
+        v-for="(item, index) in list"
+        :key="'list-' + index"
+        :data="item"
+      />
     </div>
-    <div class="nav">
-      <page-nav :page-sizes="[10, 20, 30]" :current-page="currentPage" :total="listTotal" :page-size="pageSize"></page-nav>
-    </div>
+    <page-nav
+      :current-page="currentPage"
+      :total="listTotal"
+      :page-size="pageSize"
+      @current-change="onCurrentChange"
+    ></page-nav>
   </div>
 </template>
 
@@ -31,5 +38,21 @@ export default {
     ...mapState(['list']),
     ...mapGetters(['listTotal']),
   },
+  methods: {
+    onCurrentChange(currentPage) {
+      console.log('currentPagecurrentPage -> ', currentPage);
+      this.currentPage = currentPage;
+    }
+  },
+  watch: {
+    '$route.params': {
+      immediate: true,
+      handler(val) {
+        if (val && val.currentPage) {
+          this.onCurrentChange(val.currentPage * 1);
+        }
+      }
+    }
+  }
 };
 </script>

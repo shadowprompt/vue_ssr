@@ -18,6 +18,7 @@ export function createStore() {
       isLoading: false,
       isCollapsed: true, // 侧边菜单是否折叠
       detail: {},
+      bgColors: [],
     },
     mutations: {
       SET_CATEGORIES(state, payload = []) {
@@ -43,6 +44,9 @@ export function createStore() {
         state.isCollapsed =
           payload === undefined ? !state.isCollapsed : payload;
       },
+      GEN_BG_COLORS(state) {
+        state.bgColors = new Array(10).fill(1).map(() => utils.genColor());
+      }
     },
     actions: {
       async _getCategories(context, params) {
@@ -55,7 +59,7 @@ export function createStore() {
       },
       async _getList(context, params) {
         return axios.post('/graphql', params).then((res) => {
-          console.log('_getList res-> ', res);
+          // console.log('_getList res-> ', res);
           if (utils.httpSuccess(res)) {
             context.commit('SET_LIST', res.data.data.data);
           }

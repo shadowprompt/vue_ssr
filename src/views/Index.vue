@@ -10,7 +10,6 @@ export default {
   name: 'Index',
   asyncData({ store, route, vm }) {
     const currentPage = Number(route.params.currentPage) || 1;
-    console.log('this.currentPage -> ', vm);
     return store.dispatch('_getList', {
       query: listQuery,
       variables: {

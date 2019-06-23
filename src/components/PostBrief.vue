@@ -8,17 +8,20 @@
     </div>
     <router-link  class="post-title" :to="'/' + data.ID + '.html'">{{data.post_title}}</router-link>
     <article v-html="briefContent"></article>
-    <div class="post-footer">
+    <section class="post-footer">
       <ul class="article-tags">
-        <tag-item v-for="item in data.tags" :item="item" :key="item.term_id"></tag-item>
+        <li-item v-for="(item, index) in data.tags" :key="item.term_id" :bgColor="bgColors[index]">
+          <router-link :to="'/tag/' + item.slug">{{item.name}}</router-link>
+        </li-item>
       </ul>
-    </div>
+    </section>
   </section>
 </template>
 
 <script>
+  import {mapState} from 'vuex';
   import CategoryItem from '../components/CategoryItem';
-  import TagItem from '../components/TagItem';
+  import LiItem from '../components/LiItem';
 
 export default {
   name: 'PostBrief',
@@ -32,9 +35,10 @@ export default {
   },
   components: {
     CategoryItem,
-    TagItem,
+    LiItem,
   },
   computed: {
+    ...mapState(['bgColors']),
     briefContent() {
       return this.data.post_content.slice(0, 200);
     },

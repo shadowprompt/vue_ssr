@@ -65,6 +65,7 @@ export default {
   async created() {
     // 将this传入并设置axios拦截器
     this.$http.setConfig(this);
+    this.$store.commit('GEN_BG_COLORS');
     // this._getCategories();
     this.scrollFn = this.createDebounce(900, this.cal);
   },
