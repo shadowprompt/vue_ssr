@@ -5,8 +5,6 @@ Vue.use(Vuex);
 
 import { axios } from './config/index';
 
-import categoriesQuery from './schema/category';
-
 import utils from './utils/index';
 
 export function createStore() {
@@ -50,9 +48,7 @@ export function createStore() {
     },
     actions: {
       async _getCategories(context, params) {
-        const res = await axios.post('/graphql', {
-          query: categoriesQuery,
-        });
+        const res = await axios.post('/graphql', params);
         if (utils.httpSuccess(res)) {
           context.commit('SET_CATEGORIES', res.data.data.data);
         }

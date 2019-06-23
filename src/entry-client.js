@@ -46,11 +46,13 @@ if (window.__INITIAL_STATE__) {
 }
 
 router.onReady(() => {
+
   // 添加路由钩子函数，用于处理 asyncData.
   // 在初始路由 resolve 后执行，
   // 以便我们不会二次预取(double-fetch)已有的数据。
   // 使用 `router.beforeResolve()`，以便确保所有异步组件都 resolve。
   router.beforeResolve((to, from, next) => {
+    console.log(' -> ', 298);
     const matched = router.getMatchedComponents(to);
     const prevMatched = router.getMatchedComponents(from);
     // 我们只关心之前没有渲染的组件

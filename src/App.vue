@@ -25,9 +25,7 @@
     <aside-menu :show="!isCollapsed"></aside-menu>
     <d-z-mask :visible="!isCollapsed"></d-z-mask>
     <div id="goto" @click="handleGoto"><i class="fa fa-arrow-up"></i></div>
-    <!--<header id="nav">-->
-    <!--<category-nav></category-nav>-->
-    <!--</header>-->
+    <category-nav></category-nav>
     <section class="container body-wrapper">
       <router-view></router-view>
     </section>
@@ -66,7 +64,6 @@ export default {
     // 将this传入并设置axios拦截器
     this.$http.setConfig(this);
     this.$store.commit('GEN_BG_COLORS');
-    // this._getCategories();
     this.scrollFn = this.createDebounce(900, this.cal);
   },
   mounted() {

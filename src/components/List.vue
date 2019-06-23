@@ -40,7 +40,6 @@ export default {
   },
   methods: {
     onCurrentChange(currentPage) {
-      console.log('currentPagecurrentPage -> ', currentPage);
       this.currentPage = currentPage;
     }
   },

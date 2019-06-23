@@ -1,6 +1,6 @@
 export default `
-query {
-  data: categories{
+query($currentPage: Int, $pageSize: Int, $taxonomy: String) {
+  data: termTaxonomies(pageSize:$pageSize, currentPage:$currentPage, taxonomy: $taxonomy){
     name
     count
     description
