@@ -1,5 +1,5 @@
 <template>
-  <div class="index">
+  <div class="list-container">
     <div class="post-list">
       <post-brief
         v-for="(item, index) in list"

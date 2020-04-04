@@ -267,6 +267,7 @@ img {
 .post-content-detail {
   padding: 24px;
   text-align: left;
+  word-break: break-all;
   .post-meta {
     > *:not(:first-child) {
       &:before {
@@ -281,6 +282,7 @@ img {
       font-weight: 700;
       .category-item {
         display: inline;
+        margin-left: 6px;
         color: #ff4081;
       }
     }

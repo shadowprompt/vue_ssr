@@ -7,7 +7,7 @@
       </ul>
     </div>
     <router-link  class="post-title" :to="'/' + data.ID + '.html'">{{data.post_title}}</router-link>
-    <article v-html="briefContent"></article>
+    <article>{{briefContent}}</article>
     <section class="post-footer">
       <ul class="article-tags">
         <li-item v-for="(item, index) in data.tags" :key="item.term_id" :bgColor="bgColors[index]">
@@ -20,6 +20,7 @@
 
 <script>
   import {mapState} from 'vuex';
+  import { getSafeHtml } from '../utils';
   import CategoryItem from '../components/CategoryItem';
   import LiItem from '../components/LiItem';
 
@@ -40,7 +41,7 @@ export default {
   computed: {
     ...mapState(['bgColors']),
     briefContent() {
-      return this.data.post_content.slice(0, 200);
+      return getSafeHtml(this.data.post_content);
     },
   },
   data() {

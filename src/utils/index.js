@@ -95,8 +95,9 @@ export const genColor = () => {
   return `rgba(${Math.floor(Math.random()*200)},${Math.floor(Math.random()*200)},${Math.floor(Math.random()*200)},0.2)`;
 };
 
-export default {
-  httpSuccess,
-  timeStampFormat,
-  genColor
+export const getSafeHtml = (html = '', maxLength = 200) => {
+  return html.replace(/</gm, '&lt;')
+    .replace(/>/gm, '&gt;')
+    .replace(/"/gm, '&quot;')
+    .slice(0, maxLength)
 };

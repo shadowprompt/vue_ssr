@@ -23,6 +23,7 @@ Vue.mixin({
         store: this.$store,
         route: this.$route
       });
+      console.log('this.dataPromise -> ', this.dataPromise);
     }
   }
 });

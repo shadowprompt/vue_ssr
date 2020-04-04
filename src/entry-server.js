@@ -13,14 +13,16 @@ export default (context) => {
     router.push(context.url);
     router.onReady(() => {
       const matchedComponents = router.getMatchedComponents();
+      console.log('++matchedComponents -> ', matchedComponents.length);
+
       if (!matchedComponents.length) {
         return reject({ code: 404 });
       }
-      console.log('++matchedComponents -> ', matchedComponents.length);
       // 对所有匹配的路由组件调用 `asyncData()`
       Promise.all(
         matchedComponents.map((Component) => {
           if (Component.asyncData) {
+            console.log(' -> ', );
             // console.log('entry-server 有asyncData -> ');
             return Component.asyncData({
               store,

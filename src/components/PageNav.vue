@@ -6,6 +6,7 @@
     <ul class="article-tags">
       <li-item
         v-for="(page, index) in pages"
+        :key="'page_' + index"
         @click.native="emitCurrentChange(page, index, $event)"
         :bgColor="bgColors[index]"
       >

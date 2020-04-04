@@ -15,30 +15,31 @@
 import { mapGetters, mapActions } from 'vuex';
 import categoriesQuery from '../schema/category';
 export default {
+  name: 'CategoryNav',
   asyncData({ store }) {
-    return store.dispatch('_getCategories', {
-      query: categoriesQuery,
-      variables: {
-        currentPage: 1,
-        pageSize: 20,
-        taxonomy: 'category',
-      },
-    });
-  },
-  created() {
-    this._getCategories({
-      query: categoriesQuery,
-      variables: {
-        currentPage: 1,
-        pageSize: 20,
-        taxonomy: 'category',
-      },
-    });
+    // return store.dispatch('_getCategories', {
+    //   query: categoriesQuery,
+    //   variables: {
+    //     currentPage: 1,
+    //     pageSize: 20,
+    //     taxonomy: 'category',
+    //   },
+    // });
   },
   computed: {
     ...mapGetters({
       categories4Nav: 'categories4Nav',
     }),
+  },
+  mounted() {
+    this.$store.dispatch('_getCategories', {
+      query: categoriesQuery,
+      variables: {
+        currentPage: 1,
+        pageSize: 20,
+        taxonomy: 'category',
+      },
+    });
   },
   methods: {
     ...mapActions(['_getCategories']),

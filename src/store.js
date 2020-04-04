@@ -5,7 +5,7 @@ Vue.use(Vuex);
 
 import { axios } from './config/index';
 
-import utils from './utils/index';
+import * as utils from './utils/index';
 
 export function createStore() {
   return new Vuex.Store({
@@ -19,11 +19,11 @@ export function createStore() {
       bgColors: [],
     },
     mutations: {
-      SET_CATEGORIES(state, payload = []) {
-        state.categories = payload;
+      SET_CATEGORIES(state, payload) {
+        state.categories = payload || [];
       },
       SET_LIST(state, payload) {
-        payload = payload || [];
+        payload = (payload || []).filter(item => item);
         state.list = payload.map((item) => ({
           ...item,
           date: utils.timeStampFormat(item.post_date, 'yyyy-MM-dd'),

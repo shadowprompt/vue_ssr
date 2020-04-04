@@ -9,8 +9,7 @@
   import listQuery from '../schema/list';
 export default {
   name: 'Category',
-  asyncData({ store, route, vm }) {
-    console.log(' vm -> ', vm.currentPage, vm);
+  asyncData({ store, route }) {
     const slug = encodeURI(route.params.slug);
     const currentPage = Number(route.params.currentPage) || 1;
     return store.dispatch('_getList', {
