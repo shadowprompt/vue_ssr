@@ -25,6 +25,8 @@ const serve = (path, cache) =>
     maxAge: cache && isProd ? 1000 * 60 * 60 * 24 * 30 : 0,
   });
 app.use('/dist', serve('./dist', true));
+app.use('/', serve('./static', true));
+
 
 function createRenderer(bundle, options) {
   return createBundleRenderer(
@@ -38,9 +40,6 @@ function createRenderer(bundle, options) {
 
 function render(req, res) {
   console.log(' render request.url -> ', req.url);
-  if(req.url === '/favicon.ico') {
-    return res.status(200).send('favicon');
-  }
   const cacheAble = isCacheable(req);
   if (cacheAble) {
     const hit = microCache.get(req.url);
