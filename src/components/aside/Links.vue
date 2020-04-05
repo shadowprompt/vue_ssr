@@ -21,7 +21,7 @@
 
 <script>
   export default {
-    name: 'DZLinks',
+    name: 'Links',
     props: ['data'],
   }
 </script>

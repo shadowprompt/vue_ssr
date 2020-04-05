@@ -10,7 +10,3 @@
     props: ['item'],
   }
 </script>
-
-<style scoped>
-
-</style>

@@ -1,19 +1,21 @@
 <template>
-  <div class="post-content-detail">
-    <section class="post-detail-item anim" :class="$store.state.isLoading? 'in': ''">
-      <h1>{{detail.post_title}}
-      </h1>
-      <article v-html="briefContent">
-      </article>
+  <div class="post-content-container">
+    <section
+      class="post-detail-item anim"
+      :class="$store.state.isLoading ? 'in' : ''"
+    >
+      <h1>{{ detail.post_title }}</h1>
+      <article v-html="briefContent"></article>
     </section>
   </div>
 </template>
 
 <script>
-  import {mapState} from 'vuex';
+import { mapState } from 'vuex';
 import queryStr from '../schema/detail';
 
 export default {
+  name: 'postDetail',
   componentName: '$detail',
   data() {
     return {
@@ -34,6 +36,11 @@ export default {
         id: route.params.id,
       },
     });
+  },
+  mounted() {
+    // 确保每次打开请求时从头开始看
+    const top = document.querySelector('.top-header');
+    top && top.scrollIntoView(true);
   },
   beforeRouteLeave(to, from, next) {
     setTimeout(() => {

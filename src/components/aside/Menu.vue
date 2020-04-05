@@ -11,7 +11,7 @@
   import profile from './Profile';
   import links from './Links';
 export default {
-  name: 'DZAsideMenu',
+  name: 'AsideMenu',
   props: ['show'],
   components: {
     profile,
@@ -27,17 +27,17 @@ export default {
         },
         {
           icon: 'archive',
-          path: '/archive',
+          path: '/#',
           name: '存档',
         },
         {
           icon: 'tag',
-          path: '/tag',
+          path: '/#',
           name: '标签',
         },
         {
           icon: 'github',
-          path: 'https://shadowprompt.github.com',
+          path: 'https://github.com/shadowprompt/',
           target: '_blank',
           name: 'Github',
         },
@@ -46,5 +46,3 @@ export default {
   }
 };
 </script>
-
-<style scoped></style>

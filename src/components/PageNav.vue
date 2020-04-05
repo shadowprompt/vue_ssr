@@ -3,11 +3,11 @@
     <select v-if="pageSizes">
       <option v-for="option in pageSizes" :value="option">{{ option }}</option>
     </select>
-    <ul class="article-tags">
+    <ul class="article-tags" v-if="pages.length > 1">
       <li-item
         v-for="(page, index) in pages"
         :key="'page_' + index"
-        @click.native="emitCurrentChange(page, index, $event)"
+        @click.native="emitCurrentChange(page)"
         :bgColor="bgColors[index]"
       >
         <router-link
@@ -39,7 +39,7 @@ export default {
       return Math.ceil(this.total / this.pageSize);
     },
     pages() {
-      return pagination(5, true)(this.totalPages, this.currentPage);
+      return pagination(3, true)(this.totalPages, this.currentPage);
     },
     routerPathComp() {
       return this.$parent.$parent;

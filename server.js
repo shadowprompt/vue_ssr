@@ -64,7 +64,8 @@ function render(req, res) {
   };
 
   const context = {
-    title: '道招网博客', // default title
+    siteName: '道招网博客',
+    siteUrl: 'https://www.daozhao.com',
     url: req.url,
   };
   renderer.renderToString(context, (err, html) => {

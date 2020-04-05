@@ -1,12 +1,10 @@
 <template>
-  <div class="list-container">
-    <div class="post-list">
-      <post-brief
-        v-for="(item, index) in list"
-        :key="'list-' + index"
-        :data="item"
-      />
-    </div>
+  <div class="post-list">
+    <post-brief
+      v-for="(item, index) in list"
+      :key="'list-' + index"
+      :data="item"
+    />
     <page-nav
       :current-page="currentPage"
       :total="listTotal"
@@ -23,13 +21,14 @@ import postBrief from './PostBrief.vue';
 import PageNav from './PageNav.vue';
 
 export default {
+  name: 'List',
   componentName: '$list',
   components: {
     postBrief,
     PageNav,
   },
   data() {
-    return  {
+    return {
       currentPage: 1,
       pageSize: 10,
     };
@@ -41,7 +40,7 @@ export default {
   methods: {
     onCurrentChange(currentPage) {
       this.currentPage = currentPage;
-    }
+    },
   },
   watch: {
     '$route.params': {
@@ -50,8 +49,8 @@ export default {
         if (val && val.currentPage) {
           this.onCurrentChange(val.currentPage * 1);
         }
-      }
-    }
-  }
+      },
+    },
+  },
 };
 </script>

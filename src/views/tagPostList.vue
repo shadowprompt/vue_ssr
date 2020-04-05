@@ -1,14 +1,14 @@
 <template>
-  <div class="tag">
-    <list></list>
+  <div class="post-list-container tag">
+    <post-list></post-list>
   </div>
 </template>
 
 <script>
-  import List from '../components/List';
+  import PostList from '../components/PostList';
   import listQuery from '../schema/list';
   export default {
-    name: 'Tag',
+    name: 'tagPostList',
     asyncData({ store, route, vm }) {
       const slug = encodeURI(route.params.slug);
       const currentPage = Number(route.params.currentPage) || 1;
@@ -21,7 +21,7 @@
       });
     },
     components: {
-      List,
+      PostList,
     },
   };
 </script>

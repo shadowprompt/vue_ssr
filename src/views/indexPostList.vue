@@ -1,13 +1,13 @@
 <template>
-  <div class="index">
-    <list></list>
+  <div class="post-list-container index">
+    <post-list></post-list>
   </div>
 </template>
 <script>
-import List from '../components/List.vue';
+import PostList from '../components/PostList.vue';
 import listQuery from '../schema/list';
 export default {
-  name: 'Index',
+  name: 'indexPostList',
   asyncData({ store, route }) {
     const currentPage = Number(route.params.currentPage) || 1;
     return store.dispatch('_getList', {
@@ -21,7 +21,7 @@ export default {
     });
   },
   components: {
-    List,
+    PostList,
   },
   data() {
     return {

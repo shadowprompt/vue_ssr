@@ -1,8 +1,5 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Index from "./views/Index.vue";
-import Detail from "./views/Detail.vue";
-import List from "./components/List.vue";
 
 Vue.use(Router);
 
@@ -14,37 +11,37 @@ export function createRouter() {
       {
         path: "/",
         name: "index",
-        component: () => import("./views/Index.vue")
+        component: () => import("./views/indexPostList.vue")
       },
       {
         path: "/page/:currentPage",
         name: "indexPage",
-        component: () => import("./views/Index.vue")
+        component: () => import("./views/indexPostList.vue")
       },
       {
         path: "/:id.html",
         name: "detail",
-        component: () => import("./views/Detail.vue")
+        component: () => import("./views/postDetail.vue")
       },
       {
         path: "/category/:slug",
         name: "categoryDetail",
-        component: () => import("./views/Category.vue")
+        component: () => import("./views/categoryPostList.vue")
       },
       {
         path: "/category/:slug/page/:currentPage",
         name: "categoryDetailPage",
-        component: () => import("./views/Category.vue")
+        component: () => import("./views/categoryPostList.vue")
       },
       {
         path: "/tag/:slug",
         name: "tagDetail",
-        component: () => import("./views/Tag.vue")
+        component: () => import("./views/tagPostList.vue")
       },
       {
         path: "/tag/:slug/page/:currentPage",
         name: "tagDetailPage",
-        component: () => import("./views/Tag.vue")
+        component: () => import("./views/tagPostList.vue")
       },
     ]
   });

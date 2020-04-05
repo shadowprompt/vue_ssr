@@ -1,46 +1,62 @@
 <template>
   <div id="app">
     <div id="loading" :class="$store.state.isLoading ? 'active' : ''"></div>
-    <header class="top-header" :class="{ fixed: topFixed }">
-      <div class="flex-row">
+    <div class="main-con">
+      <header class="top-header" :class="{ fixed: topFixed }">
+        <div class="flex-row">
         <span class="top-icon bars-wrap" @click="TOGGLE_COLLAPSE()">
           <i class="fa fa-bars"></i>
         </span>
-        <div class="flex-col header-title ellipsis">
-          {{ config.static.websiteName }}
-        </div>
+          <div class="flex-col header-title ellipsis">
+            {{ config.static.websiteName }}
+          </div>
 
-        <span class="top-icon search-wrap"> <i class="fa fa-search"></i> </span>
-        <span class="top-icon share-wrap">
+          <span class="top-icon search-wrap"> <i class="fa fa-search"></i> </span>
+          <span class="top-icon share-wrap">
           <i class="fa fa-share-alt"></i>
         </span>
-      </div>
-    </header>
-    <header class="banner-header">
-      <div class="container fade-scale in">
-        <h1 class="title"><span class="pointer" @click="$router.push('/')">道招</span></h1>
-        <h5 class="subtitle"></h5>
-      </div>
-    </header>
-    <aside-menu :show="!isCollapsed"></aside-menu>
-    <d-z-mask :visible="!isCollapsed"></d-z-mask>
-    <div id="goto" @click="handleGoto"><i class="fa fa-arrow-up"></i></div>
-    <category-nav></category-nav>
-    <section class="container body-wrapper">
-      <router-view></router-view>
-    </section>
+        </div>
+      </header>
+      <header class="banner-header">
+        <div class="media-container fade-scale in">
+          <h1 class="title"><span class="pointer" @click="$router.push('/')">道招</span></h1>
+          <h5 class="subtitle">关注互联网|聚焦互联网</h5>
+        </div>
+      </header>
+      <category-nav></category-nav>
+      <section style="display: flex">
+        <section class="media-container body-wrapper">
+          <router-view></router-view>
+        </section>
+        <slave-list></slave-list>
+      </section>
+
+      <jumper />
+      <statement />
+    </div>
+    <div class="left-con">
+      <aside-menu :show="!isCollapsed"></aside-menu>
+      <d-z-mask :visible="!isCollapsed"></d-z-mask>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex';
 import DZMask from './components/common/Mask';
+import Jumper from './components/common/Jumper';
+import Statement from './components/Statement';
 import CategoryNav from './components/CategoryNav';
 import asideMenu from './components/aside/Menu';
+import SlaveList from './components/slave/SlaveList';
 import { config } from './config';
 
 export default {
+  name: 'App',
   components: {
+    SlaveList,
+    Statement,
+    Jumper,
     DZMask,
     CategoryNav,
     asideMenu,
@@ -79,7 +95,7 @@ export default {
     ...mapMutations(['TOGGLE_LOADING', 'TOGGLE_COLLAPSE']),
     ...mapActions(['_getCategories']),
     cal() {
-      this.topFixed = !!(window.scrollY > 72);
+      this.topFixed = window.scrollY > 72;
       if (window.scrollY > 210) {
         this.goto.classList.add('show');
       } else {
@@ -99,12 +115,9 @@ export default {
         }
       };
     },
-    handleGoto() {
-      window.scrollTo(0, 0);
-    },
   },
   watch: {
-    $route(to, from) {
+    $route() {
       // 页面跳转就开启loading效果
       this.TOGGLE_LOADING(true);
     },
