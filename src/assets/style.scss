@@ -5,6 +5,16 @@ ol,
 li {
   margin: 0;
 }
+
+$primaryColor: #3f51b5; // 主色调
+$contrastPrimaryColor: #ffffff; // 主色调对应的高反差字体颜色
+$titleFontColor: #3366ff; // 标题字体颜色
+$articleFontColor: #2c3e50;
+$hoverBgColor: #eeeeee; // 左侧链接hover颜色
+$linkFontColor: #727272; // 左侧链接字体颜色
+$normalFontColor: #2c3e50;
+
+
 @keyframes loading-anim {
   100% {
     transform: translateX(200%);
@@ -20,9 +30,9 @@ li {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
   background-color: #f6f6f6;
   overflow-x: hidden;
+  color: $normalFontColor;
 }
 #loading {
   position: fixed;
@@ -43,7 +53,7 @@ li {
   width: 100%;
   color: #fff;
   height: 56px;
-  background: #3f51b5;
+  background: $primaryColor;
   text-align: left;
   transition: padding-left 0.6s ease-in-out,
     background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.15s linear;
@@ -69,19 +79,31 @@ li {
   }
 }
 
+.banner-header {
+  padding: 72px 16px 20px 0;
+  background-color: $primaryColor;
+  color: #ffffff;
+}
+
 #nav {
   padding: 24px;
-  background-color: #3f51b5;
+  background-color: $primaryColor;
   text-align: left;
   .category-item {
     display: inline-block;
     font-size: 32px;
     font-weight: 500;
-    color: #fff;
+    color: $contrastPrimaryColor;
     &:not(last-child) {
       margin-right: 24px;
     }
   }
+}
+.links > li > a:hover {
+  background-color: initial;
+}
+.links > li:hover {
+  background-color: $hoverBgColor;
 }
 
 .container {
@@ -127,7 +149,7 @@ li {
     position: relative;
     overflow-y: auto;
   }
-  .nav {
+  .links {
     margin: 0;
     padding: 12px 0;
     height: 300px;
@@ -144,12 +166,12 @@ li {
         line-height: inherit;
       }
     }
-    a {
+    .inline-link {
       display: block;
-      padding-left: 16px;
+      padding: 10px 16px;
       line-height: 24px;
       font-weight: 500;
-      color: #727272;
+      color: $linkFontColor;
       text-decoration: none;
     }
     .name {
@@ -181,7 +203,7 @@ li {
 
 @media screen and (max-width: 760px) {
   #menu {
-    .nav {
+    .links {
       line-height: 36px;
     }
     .brand {
@@ -225,11 +247,6 @@ li {
   border-radius: 50%;
 }
 
-.index-header {
-  padding: 72px 16px 20px 0;
-  background-color: #3f51b5;
-  color: #ffffff;
-}
 .flex-col {
   flex: 1;
 }
@@ -315,23 +332,22 @@ img {
     margin-bottom: 12px;
     font-weight: bold;
     font-size: 24px;
-    color: #3366ff;
+    color: $titleFontColor;
   }
   article {
     padding-bottom: 16px;
     text-align: left;
+    color: $articleFontColor;
   }
   .post-footer {
-    margin-left: -24px;
-    margin-right: -24px;
-    padding: 12px 24px;
+    padding: 12px 0 4px 0;
     border-top: 1px solid #ddd;
   }
 }
 
 .article-tags {
   position: relative;
-  display: inline;
+  display: block;
   list-style: none;
   padding: 0;
   .tag-item {
@@ -365,14 +381,12 @@ img {
   }
 }
 
-.nav > li > a:hover {
-  background-color: initial;
-}
-.nav > li:hover {
-  background-color: #eeeeee;
-}
 .pointer {
   cursor: pointer;
+}
+
+.inline-a {
+  color: $normalFontColor;
 }
 
 .page-nav {

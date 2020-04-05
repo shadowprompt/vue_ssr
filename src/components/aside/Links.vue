@@ -1,6 +1,6 @@
 <template>
   <div class="scroll-wrap flex-col">
-    <ul class="nav">
+    <ul class="links">
       <li
         v-for="(item, index) in data"
         :key="'li-' + index"
@@ -9,6 +9,7 @@
         <a
           :href="item.path"
           :target="item.target ? item.target : '_self'"
+          class="inline-link"
         >
           <i :class="['fa', 'fa-' + item.icon]"></i>
           <span class="name">{{ item.name }}</span>

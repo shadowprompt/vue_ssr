@@ -14,6 +14,7 @@
           :tag="['<<', '>>'].includes(page) ? 'span' : 'a'"
           :to="page === 1 ? path.slice(0, path.length-1) : path + 'page/' + page"
           :title="page"
+          class="inline-a"
         >
           {{ page }}
         </router-link>

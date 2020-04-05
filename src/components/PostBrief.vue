@@ -11,7 +11,7 @@
     <section class="post-footer">
       <ul class="article-tags">
         <li-item v-for="(item, index) in data.tags" :key="item.term_id" :bgColor="bgColors[index]">
-          <router-link :to="'/tag/' + item.slug">{{item.name}}</router-link>
+          <router-link :to="'/tag/' + item.slug" class="inline-a">{{item.name}}</router-link>
         </li-item>
       </ul>
     </section>

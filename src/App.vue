@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div id="loading" :class="$store.state.isLoading ? 'active' : ''"></div>
-    <header id="header" class="top-header" :class="{ fixed: topFixed }">
+    <header class="top-header" :class="{ fixed: topFixed }">
       <div class="flex-row">
         <span class="top-icon bars-wrap" @click="TOGGLE_COLLAPSE()">
           <i class="fa fa-bars"></i>
@@ -16,7 +16,7 @@
         </span>
       </div>
     </header>
-    <header class="index-header">
+    <header class="banner-header">
       <div class="container fade-scale in">
         <h1 class="title"><span class="pointer" @click="$router.push('/')">道招</span></h1>
         <h5 class="subtitle"></h5>
