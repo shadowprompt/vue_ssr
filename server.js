@@ -3,9 +3,13 @@ const path = require('path');
 const express = require('express');
 const LRU = require('lru-cache');
 
+const manifestRouter = require('./manifestRouter');
+
 const { createBundleRenderer } = require('vue-server-renderer');
 const devServer = require('./build/setup-dev-server');
 const resolve = (file) => path.resolve(__dirname, file);
+
+const config = require('./config');
 
 const isProd = process.env.NODE_ENV === 'production';
 const app = express();
@@ -14,7 +18,7 @@ const microCache = LRU({
   max: 100,
   maxAge: 1000, // 重要提示：条目在 1 秒后过期。
 });
-const isCacheable = (req) => {
+const isCacheAble = (req) => {
   // 实现逻辑为，检查请求是否是用户特定(user-specific)。
   // 只有非用户特定(non-user-specific)页面才会缓存
   return true;
@@ -24,9 +28,9 @@ const serve = (path, cache) =>
   express.static(resolve(path), {
     maxAge: cache && isProd ? 1000 * 60 * 60 * 24 * 30 : 0,
   });
+app.use('/manifest', manifestRouter);
 app.use('/dist', serve('./dist', true));
 app.use('/', serve('./static', true));
-
 
 function createRenderer(bundle, options) {
   return createBundleRenderer(
@@ -40,7 +44,7 @@ function createRenderer(bundle, options) {
 
 function render(req, res) {
   console.log(' render request.url -> ', req.url);
-  const cacheAble = isCacheable(req);
+  const cacheAble = isCacheAble(req);
   if (cacheAble) {
     const hit = microCache.get(req.url);
     if (hit) {
@@ -64,8 +68,8 @@ function render(req, res) {
   };
 
   const context = {
-    siteName: '道招网博客',
-    siteUrl: 'https://www.daozhao.com',
+    siteName: config.static.siteName,
+    siteUrl: config.static.siteUrl,
     url: req.url,
   };
   renderer.renderToString(context, (err, html) => {
