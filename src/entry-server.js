@@ -11,25 +11,29 @@ export default (context) => {
   return new Promise((resolve, reject) => {
     const { app, router, store } = createApp(context);
     router.push(context.url);
+    router.beforeEach((to, from, next) => {
+      console.log(' router.beforeEach-> ', to);
+    });
+
     router.onReady(() => {
       const matchedComponents = router.getMatchedComponents();
-      console.log('++matchedComponents -> ', matchedComponents.length);
+      console.log('++matchedComponents -> ', matchedComponents.map(item => item.name));
 
       if (!matchedComponents.length) {
         return reject({ code: 404 });
       }
       // 对所有匹配的路由组件调用 `asyncData()`
+      // TODO 优化这种情况
+      // 渲染之前确保分类列表数据也请求好，当前该请求数据的组件并不在路由matchedComponents里面
       Promise.all(
-        matchedComponents.map((Component) => {
+        [...matchedComponents.map((Component) => {
           if (Component.asyncData) {
-            console.log(' -> ', );
-            // console.log('entry-server 有asyncData -> ');
             return Component.asyncData({
               store,
               route: router.currentRoute,
             });
           }
-        }),
+        }), store.dispatch('_getAllCategories')],
       )
         .then((result) => {
           // 在所有预取钩子(preFetch hook) resolve 后，

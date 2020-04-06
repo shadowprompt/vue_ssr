@@ -7,6 +7,8 @@ import { axios } from './config/index';
 
 import * as utils from './utils/index';
 
+import categoriesQuery from '../src/schema/category';
+
 export function createStore() {
   return new Vuex.Store({
     strict: process.env.NODE_ENV !== 'production',
@@ -47,6 +49,31 @@ export function createStore() {
       }
     },
     actions: {
+      _getAllCategories(context) {
+        return axios
+          .post('/graphql', {
+            query: categoriesQuery,
+            variables: {
+              currentPage: 1,
+              pageSize: 20,
+              taxonomy: 'category',
+            },
+          })
+          .then((res) => {
+            if (utils.httpSuccess(res)) {
+              const fetchedCategories = res.data.data.data || [];
+              const allCategories = [
+                {
+                  description: '首页',
+                  name: '首页',
+                  slug: '',
+                },
+                ...fetchedCategories,
+              ];
+              context.commit('SET_CATEGORIES', allCategories);
+            }
+          });
+      },
       async _getCategories(context, params) {
         const res = await axios.post('/graphql', params);
         if (utils.httpSuccess(res)) {
