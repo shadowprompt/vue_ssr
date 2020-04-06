@@ -6,9 +6,10 @@ li {
   margin: 0;
 }
 
-$primaryColor: #3f51b5; // 主色调
+$primaryColor: #df3473; // 主色调
+$headerGradientEnd: #ea396f;
 $contrastPrimaryColor: #ffffff; // 主色调对应的高反差字体颜色
-$titleFontColor: #3366ff; // 标题字体颜色
+$titleFontColor: #3C4858; // 标题字体颜色
 $articleFontColor: #2c3e50;
 $hoverBgColor: #eeeeee; // 左侧链接hover颜色
 $linkFontColor: #727272; // 左侧链接字体颜色
@@ -33,6 +34,12 @@ $normalFontColor: #2c3e50;
   color: $normalFontColor;
 }
 
+.inline-contrast {
+  color: $contrastPrimaryColor;
+  &:hover,&:focus,&:active {
+    color: $contrastPrimaryColor;
+  }
+}
 
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -63,7 +70,7 @@ $normalFontColor: #2c3e50;
 }
 
 .top-header {
-  position: sticky;
+  position: fixed;
   left: 0;
   top: 0;
   width: 100%;
@@ -94,27 +101,29 @@ $normalFontColor: #2c3e50;
     }
   }
 }
+.main-header {
+  //background: linear-gradient(0deg, $headerGradientEnd 0%, $primaryColor 100%);
+  background: $primaryColor;
+  .banner-header {
+    padding: 72px 16px 20px 0;
+    color: #ffffff;
+  }
 
-.banner-header {
-  padding: 72px 16px 20px 0;
-  background-color: $primaryColor;
-  color: #ffffff;
-}
-
-#nav {
-  padding: 24px;
-  background-color: $primaryColor;
-  text-align: left;
-  .category-item {
-    display: inline-block;
-    font-size: 32px;
-    font-weight: 500;
-    color: $contrastPrimaryColor;
-    &:not(last-child) {
-      margin-right: 24px;
+  #nav {
+    padding: 24px;
+    text-align: left;
+    .category-item {
+      display: inline-block;
+      font-size: 32px;
+      font-weight: 500;
+      color: $contrastPrimaryColor;
+      &:not(last-child) {
+        margin-right: 24px;
+      }
     }
   }
 }
+
 .links > li > a:hover {
   background-color: initial;
 }
@@ -150,7 +159,7 @@ $normalFontColor: #2c3e50;
   will-change: transform, -webkit-transform;
   .brand {
     padding: 40px 20px 2em;
-    background: rgba(63, 81, 181, 0.5);
+    background: $primaryColor;
   }
   .scroll-wrap {
     position: relative;
@@ -197,6 +206,16 @@ $normalFontColor: #2c3e50;
   }
 }
 
+.statements {
+  padding: 0 24px 24px 24px;
+  display: flex;
+  justify-content: space-between;
+  .state-item {
+    margin-right: 4px;
+    margin-bottom: 4px;
+  }
+}
+
 @media screen and (max-width: 1240px) {
   .main-con {
     padding-left: 0;
@@ -219,12 +238,24 @@ $normalFontColor: #2c3e50;
 }
 @media screen and (max-width: 1040px) {
   .banner-header {
-    padding: 0;
+    padding: 20px 0;
   }
   .media-container {
     width: 100%;
     padding: 20px 24px;
     text-align: left;
+  }
+}
+
+@media screen and (max-width: 760px) {
+  #menu {
+    .links {
+      line-height: 36px;
+    }
+    .brand {
+      padding-top: 20px;
+      padding-bottom: 1em;
+    }
   }
   .slave-container {
     position: fixed;
@@ -235,7 +266,7 @@ $normalFontColor: #2c3e50;
       width: 12px;
       background-color: #E1E9F5;
       position: absolute;
-      top: 200px;
+      top: 160px;
       left: 0;
       cursor: pointer;
       z-index: 10;
@@ -263,19 +294,11 @@ $normalFontColor: #2c3e50;
       }
     }
   }
-}
-
-@media screen and (max-width: 760px) {
-  #menu {
-    .links {
-      line-height: 36px;
-    }
-    .brand {
-      padding-top: 20px;
-      padding-bottom: 1em;
-    }
+  .statements {
+    display: inline-block;
   }
 }
+
 #menu-off {
   position: absolute;
   top: 0;
@@ -382,6 +405,9 @@ img {
   .post-detail-item {
     margin-top: -100px;
     min-height: 120px;
+    img {
+      display: block; // 兼容前期markdown文章，让图片自动换行
+    }
     &.anim {
       opacity: 1;
       transition: 0.4s ease-in-out;
@@ -462,14 +488,4 @@ img {
   align-items: center;
   justify-content: center;
   padding: 24px;
-}
-
-.statements {
-  padding: 0 24px 24px 24px;
-  display: flex;
-  justify-content: space-between;
-  .state-item {
-    margin-right: 4px;
-    margin-bottom: 4px;
-  }
 }

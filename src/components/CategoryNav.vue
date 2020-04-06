@@ -16,8 +16,23 @@ import { mapState, mapActions } from 'vuex';
 import categoriesQuery from '../schema/category';
 export default {
   name: 'CategoryNav',
-  asyncData({ store }) {
-    // return store.dispatch('_getCategories', {
+  // asyncData({ store }) {
+  //   return store.dispatch('_getCategories', {
+  //     query: categoriesQuery,
+  //     variables: {
+  //       currentPage: 1,
+  //       pageSize: 20,
+  //       taxonomy: 'category',
+  //     },
+  //   });
+  // },
+  computed: {
+    ...mapState({
+      categories: 'categories',
+    }),
+  },
+  mounted() {
+    // this.$store.dispatch('_getCategories', {
     //   query: categoriesQuery,
     //   variables: {
     //     currentPage: 1,
@@ -25,21 +40,6 @@ export default {
     //     taxonomy: 'category',
     //   },
     // });
-  },
-  computed: {
-    ...mapState({
-      categories: 'categories',
-    }),
-  },
-  mounted() {
-    this.$store.dispatch('_getCategories', {
-      query: categoriesQuery,
-      variables: {
-        currentPage: 1,
-        pageSize: 20,
-        taxonomy: 'category',
-      },
-    });
   },
   methods: {
     ...mapActions(['_getCategories']),

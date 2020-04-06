@@ -7,7 +7,7 @@
       </p>
     </template>
     <template v-if="content.image">
-      <img :src="content.image" />
+      <img :src="content.image" :style="{maxWidth: maxWidth}"/>
     </template>
   </section>
 </template>
@@ -17,6 +17,9 @@
     name: 'Block',
     props: {
       minWidth: {
+        default: '200px',
+      },
+      maxWidth: {
         default: '200px',
       },
       height: {

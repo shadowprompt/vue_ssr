@@ -6,7 +6,7 @@
           v-if="item.href"
           :href="item.href"
           :title="item.title"
-          class="state-item"
+          class="state-item inline-a"
           >{{ item.title }}</a
         >
         <span v-else>{{ item.title }}</span>
@@ -18,7 +18,7 @@
           v-if="item.href"
           :href="item.href"
           :title="item.title"
-          class="state-item"
+          class="state-item inline-a"
           >{{ item.title }}</a
         >
         <span v-else>{{ item.title }}</span>
@@ -44,12 +44,12 @@ export default {
           position: 'left',
         },
         {
-          title: '主题参考自hexo-theme-material-indigo',
+          title: 'Draw lessons from hexo-theme-material-indigo',
           href: 'https://github.com/yscoder/hexo-theme-indigo',
           position: 'right',
         },
         {
-          title: 'Designed by 锅巴匆匆',
+          title: 'Redesigned by Shadow Prompt',
           position: 'right',
         },
       ],

@@ -4,26 +4,35 @@
     <div class="main-con">
       <header class="top-header" :class="{ fixed: topFixed }">
         <div class="flex-row">
-        <span class="top-icon bars-wrap" @click="TOGGLE_COLLAPSE()">
-          <i class="fa fa-bars"></i>
-        </span>
+          <span class="top-icon bars-wrap" @click="TOGGLE_COLLAPSE()">
+            <i class="fa fa-bars"></i>
+          </span>
           <div class="flex-col header-title ellipsis">
-            {{ config.static.websiteName }}
+            {{ config.static.siteName }}
           </div>
 
-          <span class="top-icon search-wrap"> <i class="fa fa-search"></i> </span>
+          <span class="top-icon search-wrap">
+            <i class="fa fa-search"></i>
+          </span>
           <span class="top-icon share-wrap">
-          <i class="fa fa-share-alt"></i>
-        </span>
+            <i class="fa fa-share-alt"></i>
+          </span>
         </div>
       </header>
-      <header class="banner-header">
-        <div class="media-container fade-scale in">
-          <h1 class="title"><span class="pointer" @click="$router.push('/')">道招</span></h1>
-          <h5 class="subtitle">关注互联网|聚焦互联网</h5>
-        </div>
-      </header>
-      <category-nav></category-nav>
+      <section class="main-header">
+        <header class="banner-header">
+          <div class="media-container fade-scale in">
+            <h1 class="title">
+              <a class="pointer inline-contrast" href="/">
+                {{ config.static.siteName }}
+              </a>
+            </h1>
+            <h5 class="subtitle">{{ config.static.siteDes }}</h5>
+          </div>
+        </header>
+        <category-nav></category-nav>
+      </section>
+
       <section style="display: flex">
         <section class="media-container body-wrapper">
           <router-view></router-view>
@@ -31,7 +40,7 @@
         <slave-list></slave-list>
       </section>
 
-      <jumper />
+      <!--      <jumper />-->
       <statement />
     </div>
     <div class="left-con">
@@ -95,6 +104,9 @@ export default {
     ...mapMutations(['TOGGLE_LOADING', 'TOGGLE_COLLAPSE']),
     ...mapActions(['_getCategories']),
     cal() {
+      if (!this.goto) {
+        return;
+      }
       this.topFixed = window.scrollY > 72;
       if (window.scrollY > 210) {
         this.goto.classList.add('show');

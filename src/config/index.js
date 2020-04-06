@@ -39,10 +39,11 @@ instance.setConfig = (vm) => {
 
 export { instance as axios };
 
-const config = {
+export const config = {
   URL: baseUrl,
   static: {
-    websiteName: '道招',
+    siteName: '道招',
+    siteDes: '关注互联网|聚焦Web',
+    siteUrl: 'https://www.daozhao.com',
   },
 };
-export { config };

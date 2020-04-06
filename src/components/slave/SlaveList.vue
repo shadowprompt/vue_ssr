@@ -16,15 +16,6 @@ export default {
   data() {
     return {
       isOpen: true,
-      styles: [
-        {
-          transform: 'translateX(147%)',
-        },
-        {
-          transform: 'translateX(0)',
-          right: 0,
-        },
-      ],
       recommend: {
         list: [
           {
@@ -52,7 +43,7 @@ export default {
       },
       qr: {
         title: '关注道招网公众帐号',
-        image: 'https://www.baidu.com/img/baidu_jgylogo3.gif'
+        image: '/qrcode.jpg',
       },
     };
   },

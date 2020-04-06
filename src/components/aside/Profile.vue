@@ -14,7 +14,7 @@
     name: 'Profile',
     data() {
       return {
-        avatarUrl: require('../../assets/owner.jpg'),
+        avatarUrl: '/owner.jpg',
       };
     }
   }
