@@ -50,7 +50,16 @@ export function createStore() {
       async _getCategories(context, params) {
         const res = await axios.post('/graphql', params);
         if (utils.httpSuccess(res)) {
-          context.commit('SET_CATEGORIES', res.data.data.data);
+          const fetchedCategories = res.data.data.data || [];
+          const allCategories = [
+            {
+              description: '首页',
+              name: '首页',
+              slug: '',
+            },
+            ...fetchedCategories,
+          ];
+          context.commit('SET_CATEGORIES', allCategories);
         }
       },
       async _getList(context, params) {
@@ -73,15 +82,6 @@ export function createStore() {
       },
     },
     getters: {
-      categories4Nav(state, getters) {
-        return [
-          {
-            description: '首页',
-            name: '首页',
-            slug: '',
-          },
-        ].concat(state.categories);
-      },
       listTotal(state) {
         const [{ total = 0 } = {}] = state.list;
         return total;

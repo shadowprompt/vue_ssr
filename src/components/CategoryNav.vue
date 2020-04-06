@@ -2,7 +2,7 @@
   <Nav id="nav">
     <a
       class="category-item"
-      v-for="(item, index) in categories4Nav"
+      v-for="(item, index) in categories"
       :key="item.slug + '/' + index"
       :href="item.slug ? '/category/' + item.slug : '/'"
     >
@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 import categoriesQuery from '../schema/category';
 export default {
   name: 'CategoryNav',
@@ -27,8 +27,8 @@ export default {
     // });
   },
   computed: {
-    ...mapGetters({
-      categories4Nav: 'categories4Nav',
+    ...mapState({
+      categories: 'categories',
     }),
   },
   mounted() {
