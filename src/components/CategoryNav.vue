@@ -1,13 +1,13 @@
 <template>
   <Nav id="nav">
-    <router-link
+    <a
       class="category-item"
       v-for="(item, index) in categories4Nav"
       :key="item.slug + '/' + index"
-      :to="item.slug ? '/category/' + item.slug : '/'"
+      :href="item.slug ? '/category/' + item.slug : '/'"
     >
       {{ item.name }}
-    </router-link>
+    </a>
   </Nav>
 </template>
 

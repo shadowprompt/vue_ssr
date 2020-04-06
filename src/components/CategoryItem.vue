@@ -1,6 +1,6 @@
 <template>
   <li class="category-item" :item="item">
-    <router-link :to="'/category/' + item.slug" class="inline-a">{{item.name}}</router-link>
+    <a :href="'/category/' + item.slug" class="inline-a">{{item.name}}</a>
   </li>
 </template>
 

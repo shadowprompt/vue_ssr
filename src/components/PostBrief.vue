@@ -6,12 +6,12 @@
         <category-item v-for="item in data.categories" :item="item" :key="item.term_id"></category-item>
       </ul>
     </div>
-    <router-link  class="post-title" :to="'/' + data.ID + '.html'">{{data.post_title}}</router-link>
+    <a  class="post-title" :href="'/' + data.ID + '.html'">{{data.post_title}}</a>
     <article>{{briefContent}}</article>
     <section class="post-footer">
       <ul class="article-tags">
         <li-item v-for="(item, index) in data.tags" :key="item.term_id" :bgColor="bgColors[index]">
-          <router-link :to="'/tag/' + item.slug" class="inline-a">{{item.name}}</router-link>
+          <a :href="'/tag/' + item.slug" class="inline-a">{{item.name}}</a>
         </li-item>
       </ul>
     </section>

@@ -10,14 +10,22 @@
         @click.native="emitCurrentChange(page)"
         :bgColor="bgColors[index]"
       >
-        <router-link
-          :tag="['<<', '>>'].includes(page) ? 'span' : 'a'"
-          :to="page === 1 ? path.slice(0, path.length-1) : path + 'page/' + page"
-          :title="page"
-          class="inline-a"
-        >
-          {{ page }}
-        </router-link>
+        <template v-if="['<<', '>>'].includes(page)">
+          <span
+            :title="page"
+          >
+            {{ page }}
+          </span>
+        </template>
+        <template v-else>
+          <a
+            :href="page === 1 ? path.slice(0, path.length-1) : path + 'page/' + page"
+            :title="page"
+            class="inline-a"
+          >
+            {{ page }}
+          </a>
+        </template>
       </li-item>
     </ul>
   </section>
