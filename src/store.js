@@ -19,6 +19,7 @@ export function createStore() {
       isCollapsed: true, // 侧边菜单是否折叠
       detail: {},
       bgColors: [],
+      searchWord: '', // 当前的搜索/分类关键字
     },
     mutations: {
       SET_CATEGORIES(state, payload) {
@@ -46,7 +47,10 @@ export function createStore() {
       },
       GEN_BG_COLORS(state) {
         state.bgColors = new Array(10).fill(1).map(() => utils.genColor());
-      }
+      },
+      SET_SEARCH(state, payload){
+        state.searchWord = payload;
+      },
     },
     actions: {
       _getAllCategories(context) {
@@ -93,7 +97,11 @@ export function createStore() {
         return axios.post('/graphql', params).then((res) => {
           // console.log('_getList res-> ', res);
           if (utils.httpSuccess(res)) {
-            context.commit('SET_LIST', res.data.data.data);
+            const data = res.data.data.data;
+            const list = data.list || [];
+            const condition = data.condition || {};
+            context.commit('SET_LIST', list);
+            context.commit('SET_SEARCH', condition.name);
           }
         });
       },
@@ -103,7 +111,9 @@ export function createStore() {
       async _getDetail(context, params) {
         const res = await axios.post('/graphql', params);
         if (utils.httpSuccess(res)) {
-          context.commit('SET_DETAIL', res.data.data.data || {});
+          const detail = res.data.data.data || {};
+          context.commit('SET_DETAIL', detail);
+          context.commit('SET_SEARCH', detail.post_title);
         }
         return res;
       },
