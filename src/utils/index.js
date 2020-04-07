@@ -48,8 +48,14 @@ export const pagination = (totalNum = 5, needEllipsis = true) => (
   total,
   current = total,
 ) => {
-  if (current > total) current = total;
-  if (current < 1) current = 1;
+  if (total === 0) {
+    return [];
+  }
+  if (current > total) {
+    current = total;
+  }else if (current < 1) {
+    current = 1;
+  }
   const res = [current];
   totalNum--;
   let step = 0,
