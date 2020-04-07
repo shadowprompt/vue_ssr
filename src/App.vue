@@ -10,10 +10,8 @@
           <div class="flex-col header-title ellipsis">
             {{ config.static.siteName }}
           </div>
+          <search />
 
-          <span class="top-icon search-wrap">
-            <i class="fa fa-search"></i>
-          </span>
           <span class="top-icon share-wrap">
             <i class="fa fa-share-alt"></i>
           </span>
@@ -40,7 +38,7 @@
         <slave-list></slave-list>
       </section>
 
-      <!--      <jumper />-->
+      <jumper />
       <statement />
     </div>
     <div class="left-con">
@@ -58,6 +56,7 @@ import Statement from './components/Statement';
 import CategoryNav from './components/CategoryNav';
 import asideMenu from './components/aside/Menu';
 import SlaveList from './components/slave/SlaveList';
+import Search from './components/Search';
 import { config } from './config';
 
 export default {
@@ -69,6 +68,7 @@ export default {
     DZMask,
     CategoryNav,
     asideMenu,
+    Search,
   },
   data() {
     return {

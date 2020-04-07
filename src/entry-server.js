@@ -2,6 +2,7 @@
 import Vue from 'vue';
 import { createApp } from './app';
 import { axios } from './config/index';
+import queryString from 'querystring';
 Vue.prototype.$http = axios;
 import './assets/font-awesome/scss/font-awesome.scss';
 import './assets/bootstrap.min.css';
@@ -10,6 +11,8 @@ import './assets/style.scss';
 export default (context) => {
   return new Promise((resolve, reject) => {
     const { app, router, store } = createApp(context);
+    const queryParam = queryString.parse(context.url.replace(/.+\?/, ''));
+    console.log('queryParam -> ', queryParam);
     router.push(context.url);
     router.beforeEach((to, from, next) => {
       console.log(' router.beforeEach-> ', to);
@@ -31,6 +34,7 @@ export default (context) => {
             return Component.asyncData({
               store,
               route: router.currentRoute,
+              query: queryParam,
             });
           }
         }), store.dispatch('_getAllCategories')],

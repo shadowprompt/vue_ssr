@@ -8,7 +8,8 @@
         v-for="(page, index) in pages"
         :key="'page_' + index"
         @click.native="emitCurrentChange(page)"
-        :bgColor="bgColors[index]"
+        :bg-color="bgColors[index]"
+        :is-active="currentPage === page"
       >
         <template v-if="['<<', '>>'].includes(page)">
           <span
@@ -19,7 +20,7 @@
         </template>
         <template v-else>
           <a
-            :href="page === 1 ? path.slice(0, path.length-1) : path + 'page/' + page"
+            :href="page === 1 ? ((path.slice(0, path.length-1) || '/') + keyword) : (path + 'page/' + page + keyword)"
             :title="page"
             class="inline-a"
           >
@@ -53,7 +54,7 @@ export default {
       return this.$parent.$parent;
     },
     path() {
-      const { currentPage = '' } = this.routerPathComp.$route.params || {};
+      const { currentPage = '' } = this.$route.params || {};
       const { path = '/' } = this.$route;
       const mainPath = path.replace('/page/' + currentPage, '');
       return mainPath.length > 1 && mainPath.slice(-1) === '/'
@@ -61,6 +62,10 @@ export default {
         : mainPath.length > 1
         ? mainPath + '/'
         : '/';
+    },
+    keyword() {
+      const { s } = this.$route.query;
+      return s ? `?s=${s}` : '';
     },
   },
   methods: {
