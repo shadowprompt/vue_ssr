@@ -1,11 +1,5 @@
-const cacheName = 'daozhao-v1.0.0';
+const cacheName = 'daozhao-v1.0.4';
 const filesToCache = [
-  '/dist/app.a7cd7a74a7bf1311a97d.js',
-  '/dist/manifest.a7cd7a74a7bf1311a97d.js',
-  '/dist/0.a7cd7a74a7bf1311a97d.js',
-  '/dist/1.a7cd7a74a7bf1311a97d.js',
-  '/dist/2.a7cd7a74a7bf1311a97d.js',
-  '/dist/3.a7cd7a74a7bf1311a97d.js',
   '/favicon.ico',
   '/owner.jpg',
   '/qrcode.jpg',
@@ -122,19 +116,15 @@ self.addEventListener('push', (event) => {
   console.log('[Service Worker] Push msg ', msg);
   console.log('[Service Worker] Push had this data: ', event);
 
-  const title = '测试消息';
+  const title = msg.title || '消息主题';
   const options = {
-    body: msg,
-    icon: '/qrcode.png',
-    badge: 'qrcode.png',
+    body: msg.body || '消息内容',
+    icon: msg.icon || 'https://www.daozhao.com/qrcode.jpg',
+    badge: msg.badge || 'https://www.daozhao.com/owner.jpg',
     actions: [
       {
-        action: 'daozhao.com',
-        title: '主站',
-      },
-      {
-        action: 'daozhao.com.cn',
-        title: '实验室',
+        action: msg.action || 'https://www.daozhao.com',
+        title: msg.actionTitle || '道招网',
       },
     ],
   };
@@ -147,10 +137,10 @@ self.addEventListener('notificationclick', function(event) {
 
   event.notification.close();
   let url;
-  if (event.action === 'daozhao.com') {
-    url = 'https://www.daozhao.com';
+  if (/http(s)?:\/\//.test(event.action)) {
+    url = event.action;
   } else {
-    url = 'https://www.daozhao.com.cn';
+    url = 'https://www.daozhao.com';
   }
   event.waitUntil(self.clients.openWindow(url));
 });
@@ -158,4 +148,11 @@ self.addEventListener('notificationclick', function(event) {
 self.addEventListener('sync', (event) => {
   console.log('[Service Worker] Sync Received.', event);
   console.log(`[Service Worker] Sync had this data: ${event.tag}`);
+});
+
+self.addEventListener('message', function (event) {
+  console.log(' message event -> ', event);
+  if (event.data.action === 'skipWaiting') {
+    self.skipWaiting();
+  }
 });

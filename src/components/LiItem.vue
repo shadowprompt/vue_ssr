@@ -1,5 +1,5 @@
 <template>
-  <li class="tag-item" :style="{backgroundColor: bgColor}">
+  <li class="page-item" :style="{backgroundColor: backgroundColor}">
     <slot></slot>
   </li>
 </template>
@@ -7,6 +7,11 @@
 <script>
   export default {
     name: 'LiItem',
-    props: ['bgColor'],
+    props: ['bgColor', 'isActive'],
+    computed: {
+      backgroundColor() {
+        return this.isActive ? '#df3473' : this.bgColor;
+      }
+    }
   }
 </script>

@@ -5,8 +5,12 @@ ol,
 li {
   margin: 0;
 }
+* {
+ outline: none;
+}
 
 $primaryColor: #df3473; // 主色调
+$primaryColorInput: #fa4588;
 $headerGradientEnd: #ea396f;
 $contrastPrimaryColor: #ffffff; // 主色调对应的高反差字体颜色
 $titleFontColor: #3C4858; // 标题字体颜色
@@ -39,6 +43,12 @@ $normalFontColor: #2c3e50;
   &:hover,&:focus,&:active {
     color: $contrastPrimaryColor;
   }
+}
+
+pre { // 防止代码将外层div撑破
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  word-break: break-all;
 }
 
 #app {
@@ -98,6 +108,25 @@ $normalFontColor: #2c3e50;
     .top-icon {
       margin-left: 16px;
       margin-right: 16px;
+      &.search-wrap {
+        position: absolute;
+        left: 0;
+        margin: 0 0 0 4px;
+      }
+    }
+    #search-input {
+      height: 20px;
+      width: 20px;
+      border: none;
+      background-color: $primaryColor; // 实际上是让它看不见
+      color: $primaryColor;
+      &:focus {
+        width: 80px;
+        border-radius: 4px;
+        background-color: $primaryColorInput;
+        color: $contrastPrimaryColor;
+        padding: 4px 4px 4px 20px;
+      }
     }
   }
 }
@@ -282,11 +311,12 @@ $normalFontColor: #2c3e50;
       }
     }
     &.open {
-      transform: translateX(0);
-      right: 0;
-      background-color: white;
-      padding-left: 24px;
-      max-width: 240px;
+      //transform: translateX(0);
+      //right: 0;
+      //background-color: white;
+      //padding-left: 24px;
+      //max-width: 240px;
+      display: none;
       .arrow-right {
         &:after {
           background: url(./arrow-right.png) center no-repeat;
@@ -441,12 +471,15 @@ img {
   display: block;
   list-style: none;
   padding: 0;
-  .tag-item {
+  .page-item {
     display: inline-block;
     margin-right: 8px;
     margin-bottom: 8px;
     border-radius: 4px;
     padding: 2px 12px;
+    &.active {
+      background-color: black;
+    }
   }
 }
 
@@ -489,3 +522,8 @@ img {
   justify-content: center;
   padding: 24px;
 }
+// 隐藏百度统计相关
+.hm-t-container {
+  display: none;
+}
+

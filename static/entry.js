@@ -1,4 +1,5 @@
 let swRegistration;
+let newWorker;
 let isSubscribed = false;
 const applicationServerPublicKey =
   'BGwZ7R1oOio1xs61Jgm34qguAKsU2w96XrSs22TpK-yK9goD0Qidfp7tpjDvG8T1Zu4vdKJp_Ev93U0iWPRmP9c';
@@ -19,6 +20,11 @@ const applicationServerPublicKey =
 //   })
 //   .catch((err) => console.log('err', err));
 
+document.querySelector('.share-wrap').addEventListener('click', () => {
+  console.log('reload event -> ', newWorker);
+  newWorker && newWorker.postMessage({ action: 'skipWaiting' });
+});
+
 if ('serviceWorker' in navigator && 'PushManager' in window) {
   window.addEventListener('load', function() {
     navigator.serviceWorker
@@ -26,6 +32,18 @@ if ('serviceWorker' in navigator && 'PushManager' in window) {
       .then((swReg) => {
         swRegistration = swReg;
         console.log('Service Worker Registered', swReg);
+        swReg.addEventListener('updatefound', () => {
+          console.log(' updatefound event-> ', );
+          // An updated service worker has appeared in reg.installing!
+          newWorker = swReg.installing;
+          newWorker.addEventListener('statechange', () => {
+            // Has service worker state changed?
+            if (newWorker.state === 'installed') {
+              // There is a new service worker available, show the notification
+              console.log(' installed-> ', );
+            }
+          });
+        });
         start();
       })
       .catch((err) => {

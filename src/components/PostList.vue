@@ -1,16 +1,21 @@
 <template>
   <div class="post-list">
-    <post-brief
-      v-for="(item, index) in list"
-      :key="'list-' + index"
-      :data="item"
-    />
-    <page-nav
-      :current-page="currentPage"
-      :total="listTotal"
-      :page-size="pageSize"
-      @current-change="onCurrentChange"
-    ></page-nav>
+    <template v-if="list.length > 0">
+      <post-brief
+        v-for="(item, index) in list"
+        :key="'list-' + index"
+        :data="item"
+      />
+      <page-nav
+        :current-page="currentPage"
+        :total="listTotal"
+        :page-size="pageSize"
+        @current-change="onCurrentChange"
+      ></page-nav>
+    </template>
+    <template v-else>
+      <p>没有符合您条件的结果。请换关键词搜索试试。</p>
+    </template>
   </div>
 </template>
 

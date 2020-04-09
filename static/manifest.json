@@ -6,7 +6,7 @@
   "background_color": "#ffffff",
   "description": "道招网 关注互联网|聚焦Web",
   "orientation": "portrait",
-  "theme_color": "#3f51b5",
+  "theme_color": "#df3473",
   "icons": [{
       "src": "/res/mipmap-mdpi/ic_launcher.png",
       "sizes": "48x48",
