@@ -10,12 +10,12 @@ export function createRouter() {
     routes: [
       {
         path: "/",
-        name: "index",
+        name: "indexList",
         component: () => import("./views/indexPostList.vue")
       },
       {
         path: "/page/:currentPage",
-        name: "indexPage",
+        name: "indexListPage",
         component: () => import("./views/indexPostList.vue")
       },
       {
@@ -25,23 +25,38 @@ export function createRouter() {
       },
       {
         path: "/category/:slug",
-        name: "categoryDetail",
+        name: "categoryList",
         component: () => import("./views/categoryPostList.vue")
       },
       {
         path: "/category/:slug/page/:currentPage",
-        name: "categoryDetailPage",
+        name: "categoryListPage",
         component: () => import("./views/categoryPostList.vue")
       },
       {
         path: "/tag/:slug",
-        name: "tagDetail",
+        name: "tagList",
         component: () => import("./views/tagPostList.vue")
       },
       {
         path: "/tag/:slug/page/:currentPage",
-        name: "tagDetailPage",
+        name: "tagListPage",
         component: () => import("./views/tagPostList.vue")
+      },
+      {
+        path: "/date/:year",
+        name: "dateListPage",
+        component: () => import("./views/datePostList.vue")
+      },
+      {
+        path: "/date/:year/:month/",
+        name: "dateListPage",
+        component: () => import("./views/datePostList.vue")
+      },
+      {
+        path: "/date/:year/:month/:day",
+        name: "dateListPage",
+        component: () => import("./views/datePostList.vue")
       },
     ]
   });

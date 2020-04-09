@@ -1,6 +1,6 @@
 export default `
-query($currentPage: Int, $slug: String, $keyword: String){
-  data: posts(currentPage: $currentPage, slug: $slug, keyword: $keyword, pageSize: 10, post_type: "post", post_status: "publish", order:["ID", "DESC"]){
+query($currentPage: Int, $slug: String, $keyword: String, $year: String, $month: String, $day: String){  
+  data: posts(currentPage: $currentPage, slug: $slug, keyword: $keyword, year: $year, month: $month, day: $day, pageSize: 10, post_type: "post", post_status: "publish", order:["ID", "DESC"]){    
     condition {
       term_id
       name
