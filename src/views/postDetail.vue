@@ -1,29 +1,36 @@
-<template>
-  <div class="post-content-container">
-    <section
-      class="post-detail-item anim"
-      :class="$store.state.isLoading ? 'in' : ''"
-    >
-      <h1>{{ detail.post_title }}</h1>
-      <article v-html="briefContent"></article>
-    </section>
-  </div>
-</template>
+<!--<template>-->
+<!--  <div class="post-content-container">-->
+<!--    <section-->
+<!--      class="post-detail-item anim"-->
+<!--      :class="isLoading ? 'in' : ''"-->
+<!--    >-->
+<!--      <h1>{{ detail.post_title }}</h1>-->
+<!--      <article v-html="briefContent"></article>-->
+<!--      <prev-next></prev-next>-->
+<!--    </section>-->
+<!--  </div>-->
+<!--</template>-->
 
 <script>
 import { mapState } from 'vuex';
 import queryStr from '../schema/detail';
+import queryPrevNextStr from '../schema/prevNext';
+import { httpSuccess } from '../utils';
+// import PrevNext from '../components/detail/PrevNext';
 
 export default {
   name: 'postDetail',
   componentName: '$detail',
+  components: {
+    // PrevNext,
+  },
   data() {
     return {
-      // detail: {},
+      hookArr: [],
     };
   },
   computed: {
-    ...mapState(['detail']),
+    ...mapState(['isLoading', 'detail']),
     briefContent() {
       return this.detail.post_content;
     },
@@ -35,7 +42,67 @@ export default {
       variables: {
         id: route.params.id,
       },
+    }).then((result) => {
+      if (httpSuccess(result)) {
+        const postDate = result.data.data.data.post_date;
+        if (postDate) {
+          return store.dispatch('_getPrevNext', {
+            query: queryPrevNextStr,
+            variables: {
+              post_date: postDate * 1, // 需要变成数值型的时间戳
+            }
+          });
+        }
+      }
     });
+  },
+  render(h) {
+    return h('div', {
+      class: {
+        'post-content-container': true,
+      },
+    }, [h('section', {
+      class: {
+        "post-detail-item anim": true,
+        "in": this.isLoading,
+      }
+    }, [
+      h('h1', [this.detail.post_title]),
+      h('article', {
+        domProps: {
+          'innerHTML': this.briefContent,
+        }
+      }),
+      h('div', {
+        class: {
+          'up-bottom-marin10': true,
+        }
+      }, [h('post-categories', {
+        style: {
+          paddingLeft: 0,
+        },
+        props: {
+          text: '分类：',
+          data: this.detail.categories,
+        }
+      })]),
+      h('div', {
+        class: {
+          'up-bottom-marin10': true,
+        }
+      }, [h('post-tags', {
+        props: {
+          text: '标签：',
+          data: this.detail.tags,
+        }
+      })]),
+      ...this.hooks(h),
+      // h('h4', [this.detail.user.display_name])
+    ])
+    ])
+  },
+  created() {
+    this.hookArr.push('prev-next');
   },
   mounted() {
     // 确保每次打开请求时从头开始看
@@ -47,5 +114,10 @@ export default {
       next(); // 避免loading效果过快消失
     }, 400);
   },
+  methods: {
+    hooks(h) {
+      return this.hookArr.map(item => h(item));
+    }
+  }
 };
 </script>

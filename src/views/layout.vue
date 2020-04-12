@@ -40,6 +40,7 @@
 
       <jumper />
       <statement />
+      <footer-block></footer-block>
     </div>
     <div class="left-con">
       <aside-menu :show="!isCollapsed"></aside-menu>
@@ -49,31 +50,51 @@
 </template>
 
 <script>
-  import Vue from 'vue';
   import { mapState, mapMutations, mapActions } from 'vuex';
   import DZMask from '../components/common/Mask';
   import Jumper from '../components/common/Jumper';
   import Statement from '../components/Statement';
+  import FooterBlock from '../components/FooterBlock';
   import CategoryNav from '../components/CategoryNav';
-  import asideMenu from '../components/aside/Menu';
+  import AsideMenu from '../components/aside/Menu';
   import SlaveList from '../components/slave/SlaveList';
   import Search from '../components/Search';
   import { config } from '../config';
 
+  import categoriesQuery from '../schema/category';
+  import archiveListQuery from '../schema/archiveList';
+  import recentListQuery from '../schema/recentList';
+
   export default {
     name: 'Layout',
     components: {
+      FooterBlock,
       SlaveList,
       Statement,
       Jumper,
       DZMask,
       CategoryNav,
-      asideMenu,
+      AsideMenu,
       Search,
     },
     asyncData({ store, route }) {
       // 触发 action 后，会返回 Promise
-      return Promise.all([store.dispatch('_getAllCategories'), store.dispatch('_getArchiveList')]);
+      return Promise.all([
+        store.dispatch('_getAllCategories', {
+          query: categoriesQuery,
+          variables: {
+            currentPage: 1,
+            pageSize: 20,
+            taxonomy: 'category',
+          },
+        }),
+        store.dispatch('_getArchiveList', {
+          query: archiveListQuery,
+        }),
+        store.dispatch('_getRecentList', {
+          query: recentListQuery,
+        }),
+      ]);
     },
     data() {
       return {
