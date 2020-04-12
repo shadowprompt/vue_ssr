@@ -7,12 +7,16 @@ query($currentPage: Int, $slug: String, $keyword: String, $year: String, $month:
       slug
       term_group
     }
+    date
     list {
       ID
       post_title
       post_content
       post_date
       total
+      user {
+        display_name
+      }
       tags{
         term_taxonomy_id
         term_id

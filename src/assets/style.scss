@@ -4,6 +4,7 @@ ul,
 ol,
 li {
   margin: 0;
+  padding: 0;
 }
 * {
  outline: none;
@@ -43,6 +44,10 @@ $normalFontColor: #2c3e50;
   &:hover,&:focus,&:active {
     color: $contrastPrimaryColor;
   }
+}
+
+.up-bottom-marin10 {
+  margin: 10px 0;
 }
 
 pre { // 防止代码将外层div撑破
@@ -156,8 +161,12 @@ pre { // 防止代码将外层div撑破
 .links > li > a:hover {
   background-color: initial;
 }
-.links > li:hover {
-  background-color: $hoverBgColor;
+.links {
+  &.hover {
+    &> li:hover {
+      background-color: $hoverBgColor;
+    }
+  }
 }
 
 .media-container {
@@ -168,6 +177,7 @@ pre { // 防止代码将外层div撑破
 .flex-column,
 .flex-row-vertical {
   display: flex;
+  height: 100%;
 }
 
 .flex-row-vertical {
@@ -197,8 +207,7 @@ pre { // 防止代码将外层div撑破
   .links {
     margin: 0;
     padding: 12px 0;
-    height: 300px;
-    min-height: calc(100% - 115px);
+    //min-height: calc(100% - 115px);
     list-style: none;
     line-height: 44px;
     li {
@@ -348,13 +357,14 @@ pre { // 防止代码将外层div撑破
 .waves-effect {
   position: relative;
   cursor: pointer;
-  display: inline-block;
+  display: block;
   overflow: hidden;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
-}
-.waves-block {
-  display: block;
+  .inline-link {
+    display: block;
+    padding: 4px 0;
+  }
 }
 .waves-circle {
   text-align: center;
@@ -410,17 +420,6 @@ img {
         padding: 0.5em;
       }
     }
-    .article-categories {
-      position: relative;
-      display: inline;
-      list-style: none;
-      font-weight: 700;
-      .category-item {
-        display: inline;
-        margin-left: 6px;
-        color: #ff4081;
-      }
-    }
   }
   .post-item,
   .post-detail-item {
@@ -433,7 +432,8 @@ img {
     box-shadow: 0 1px 2px rgba(151, 151, 151, 0.58);
   }
   .post-detail-item {
-    margin-top: -100px;
+    margin-top: -50px;
+    //margin-top: -100px;
     min-height: 120px;
     img {
       display: block; // 兼容前期markdown文章，让图片自动换行
@@ -441,10 +441,22 @@ img {
     &.anim {
       opacity: 1;
       transition: 0.4s ease-in-out;
-      transform: translateY(50px);
+      //transform: translateY(50px);
       &.in {
         opacity: 1;
-        transform: none;
+        //transform: none;
+      }
+    }
+    .post-detail-prev-next {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px 0;
+      border-top: 1px solid $primaryColor;
+      .pn-item {
+        flex: 1;
+        &:last-child {
+          margin-left: 4px;
+        }
       }
     }
   }
@@ -465,20 +477,38 @@ img {
     border-top: 1px solid #ddd;
   }
 }
-
+.article-categories {
+  position: relative;
+  display: inline-block;
+  list-style: none;
+  .category-item {
+    display: inline;
+    font-weight: 700;
+    color: #ff4081;
+    &:not(:last-child) {
+      margin-right: 6px;
+    }
+  }
+}
+.author-item {
+  display: inline;
+  margin-left: 4px;
+}
 .article-tags {
   position: relative;
-  display: block;
+  display: inline-block;
   list-style: none;
   padding: 0;
   .page-item {
     display: inline-block;
-    margin-right: 8px;
     margin-bottom: 8px;
     border-radius: 4px;
     padding: 2px 12px;
     &.active {
       background-color: black;
+    }
+    &:not(:last-child) {
+      margin-right: 8px;
     }
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <li class="page-item" :style="{backgroundColor: backgroundColor}">
+  <li :style="{backgroundColor: backgroundColor}">
     <slot></slot>
   </li>
 </template>

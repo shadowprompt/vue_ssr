@@ -1,10 +1,8 @@
 <template>
   <section class="block-item" :style="{minWidth: minWidth,height: height}" v-if="content">
-    <h5 class="title">{{content.title}}</h5>
+    <h5 class="title" v-if="content.title">{{content.title}}</h5>
     <template v-if="Array.isArray(content.list)">
-      <p v-for="item in content.list">
-        <a :href="item.href" class="pointer inline-a">{{item.title}}</a>
-      </p>
+      <links :data="content.list"></links>
     </template>
     <template v-if="content.image">
       <img :src="content.image" :style="{maxWidth: maxWidth}"/>

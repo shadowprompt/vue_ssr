@@ -1,12 +1,9 @@
 /* eslint-disable */
 import Vue from 'vue';
+import register from './plugin';
+Vue.use(register);
 import { createApp } from './app';
-import { axios } from './config/index';
 import queryString from 'querystring';
-Vue.prototype.$http = axios;
-import './assets/font-awesome/scss/font-awesome.scss';
-import './assets/bootstrap.min.css';
-import './assets/style.scss';
 
 export default (context) => {
   return new Promise((resolve, reject) => {
@@ -37,7 +34,7 @@ export default (context) => {
               query: queryParam,
             });
           }
-        }), store.dispatch('_getAllCategories')],
+        })],
       )
         .then((result) => {
           // 在所有预取钩子(preFetch hook) resolve 后，

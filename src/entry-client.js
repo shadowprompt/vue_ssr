@@ -1,11 +1,8 @@
 /* eslint-disable */
 import Vue from 'vue';
+import register from './plugin';
+Vue.use(register);
 import { createApp } from './app';
-import { axios } from './config/index';
-Vue.prototype.$http = axios;
-import './assets/font-awesome/scss/font-awesome.scss';
-import './assets/bootstrap.min.css';
-import './assets/style.scss';
 
 Vue.mixin({
   beforeMount() {

@@ -7,6 +7,7 @@
       <li-item
         v-for="(page, index) in pages"
         :key="'page_' + index"
+        class="page-item"
         @click.native="emitCurrentChange(page)"
         :bg-color="bgColors[index]"
         :is-active="currentPage === page"
@@ -34,7 +35,6 @@
 
 <script>
 import { mapState } from 'vuex';
-import LiItem from '../components/LiItem';
 import { pagination } from '../utils';
 export default {
   name: 'PageNav',
