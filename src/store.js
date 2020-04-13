@@ -52,11 +52,11 @@ export function createStore() {
       SET_PREV_NEXT(state, [prev = {}, next = {}]) {
         state.prevNext= {
           prev: {
-            text: prev.post_title || '到底了',
+            title: prev.post_title || '到底了',
             href: prev.ID ? `/${prev.ID}.html` : '',
           },
           next: {
-            text: next.post_title || '到顶了',
+            title: next.post_title || '到顶了',
             href: next.ID ? `/${next.ID}.html` : '',
           }
         };
