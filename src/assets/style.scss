@@ -448,8 +448,13 @@ img {
     margin-top: -50px;
     //margin-top: -100px;
     min-height: 120px;
-    img {
-      display: block; // 兼容前期markdown文章，让图片自动换行
+    article {
+      img {
+        display: block; // 兼容前期markdown文章，让图片自动换行
+      }
+      ul, ol {
+        padding-left: 40px; // markdown列表缩进
+      }
     }
     &.anim {
       opacity: 1;

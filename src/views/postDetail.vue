@@ -83,9 +83,6 @@ export default {
           'up-bottom-marin10': true,
         }
       }, [h('post-categories', {
-        style: {
-          paddingLeft: 0,
-        },
         props: {
           text: '分类：',
           data: this.detail.categories,
