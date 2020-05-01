@@ -1,5 +1,5 @@
 <template>
-  <div style="position: relative">
+  <div style="position: relative;margin-right: 16px;">
     <span class="top-icon search-wrap">
       <label for="search-input" class="fa fa-search"></label>
     </span>

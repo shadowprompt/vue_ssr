@@ -18,6 +18,7 @@ import PostCategories from './components/PostCategories';
 import PostTags from './components/PostTags';
 import PostTime from './components/PostTime';
 import PostAuthor from './components/PostAuthor';
+import Tip from './components/Tip';
 
 import RecentList from './components/slave/RecentList';
 
@@ -30,6 +31,7 @@ Vue.component('post-categories', PostCategories);
 Vue.component('post-tags', PostTags);
 Vue.component('post-time', PostTime);
 Vue.component('post-author', PostAuthor);
+Vue.component('tip', Tip);
 Vue.component('recent-list', RecentList);
 
 

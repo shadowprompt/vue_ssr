@@ -39,9 +39,6 @@ import { pagination } from '../utils';
 export default {
   name: 'PageNav',
   props: ['currentPage', 'pageSize', 'pageSizes', 'total'],
-  components: {
-    LiItem,
-  },
   computed: {
     ...mapState(['bgColors']),
     totalPages() {

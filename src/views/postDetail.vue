@@ -15,7 +15,7 @@
 import { mapState } from 'vuex';
 import queryStr from '../schema/detail';
 import queryPrevNextStr from '../schema/prevNext';
-import { httpSuccess } from '../utils';
+import { httpSuccess, timeStampFormat} from '../utils';
 // import PrevNext from '../components/detail/PrevNext';
 
 export default {
@@ -68,6 +68,11 @@ export default {
       }
     }, [
       h('h1', [this.detail.post_title]),
+      h('tip', {
+        props: {
+          data: this.detail,
+        }
+      }),
       h('article', {
         domProps: {
           'innerHTML': this.briefContent,
@@ -94,6 +99,16 @@ export default {
         props: {
           text: '标签：',
           data: this.detail.tags,
+        }
+      })]),
+      h('div', {
+        class: {
+          'up-bottom-marin10': true,
+        }
+      }, [h('post-tags', {
+        props: {
+          text: '更新日期：',
+          data: timeStampFormat(this.detail.post_date, 'yyyy-MM-dd hh:MM'),
         }
       })]),
       ...this.hooks(h),

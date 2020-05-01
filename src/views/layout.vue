@@ -10,11 +10,8 @@
           <div class="flex-col header-title ellipsis">
             {{ config.static.siteName }}
           </div>
-          <search />
-
-          <span class="top-icon share-wrap">
-            <i class="fa fa-share-alt"></i>
-          </span>
+          <search></search>
+          <share></share>
         </div>
       </header>
       <section class="main-header">
@@ -59,6 +56,7 @@
   import AsideMenu from '../components/aside/Menu';
   import SlaveList from '../components/slave/SlaveList';
   import Search from '../components/Search';
+  import Share from '../components/Share';
   import { config } from '../config';
 
   import categoriesQuery from '../schema/category';
@@ -76,6 +74,7 @@
       CategoryNav,
       AsideMenu,
       Search,
+      Share,
     },
     asyncData({ store, route }) {
       // 触发 action 后，会返回 Promise
