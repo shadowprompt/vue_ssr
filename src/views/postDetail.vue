@@ -105,12 +105,15 @@ export default {
         class: {
           'up-bottom-marin10': true,
         }
-      }, [h('post-tags', {
-        props: {
-          text: '更新日期：',
-          data: timeStampFormat(this.detail.post_date, 'yyyy-MM-dd hh:MM'),
-        }
-      })]),
+      }, [
+        h('span', ['更新时间：']),
+        h('post-time', {
+          props: {
+            date: this.detail.date,
+            dateUrl: this.detail.dateUrl,
+          }
+        })
+      ]),
       ...this.hooks(h),
       // h('h4', [this.detail.user.display_name])
     ])

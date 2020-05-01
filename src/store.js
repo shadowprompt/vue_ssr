@@ -46,7 +46,8 @@ export function createStore() {
       SET_DETAIL(state, payload = {}) {
         state.detail = {
           ...payload,
-          date: utils.timeStampFormat(payload.post_date, 'yyyy-MM-dd'),
+          date: utils.timeStampFormat(payload.post_date, 'yyyy-MM-dd HH:mm'),
+          dateUrl: utils.timeStampFormat(payload.post_date, 'yyyy/MM/dd'),
         };
       },
       SET_PREV_NEXT(state, [prev = {}, next = {}]) {
