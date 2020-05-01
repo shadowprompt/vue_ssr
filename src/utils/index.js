@@ -102,8 +102,6 @@ export const genColor = () => {
 };
 
 export const getSafeHtml = (html = '', maxLength = 200) => {
-  return html.replace(/</gm, ' ')
-    .replace(/>/gm, ' ')
-    .replace(/"/gm, ' ')
+  return html.replace(/<\/?[^>]+>/g, ' ')
     .slice(0, maxLength)
 };
