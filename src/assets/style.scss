@@ -494,6 +494,20 @@ img {
     padding: 12px 0 4px 0;
     border-top: 1px solid #ddd;
   }
+  .card-container{
+    .card {
+      display: inline-block;
+      margin-top: 16px;
+      margin-bottom: 16px;
+      border-radius: 6px;
+      box-shadow: 0 2px 2px 0 #00000024;
+    }
+    .block-content {
+      background-color: $contrastPrimaryColor;
+      padding: 15px 30px;
+    }
+  }
+
 }
 .article-categories {
   position: relative;

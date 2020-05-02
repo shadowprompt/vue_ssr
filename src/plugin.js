@@ -11,6 +11,7 @@ import config from './pluginConfig';
 import LiItem from './components/common/LiItem';
 import Links from './components/common/Links';
 import Block from './components/common/Block';
+import Card from './components/common/Card';
 import SpanA from './components/common/SpanA';
 
 import PrevNext from './components/detail/PrevNext';
@@ -21,10 +22,12 @@ import PostAuthor from './components/PostAuthor';
 import Tip from './components/Tip';
 
 import RecentList from './components/slave/RecentList';
+import RelatedBlock from './components/detail/RelatedBlock';
 
 Vue.component('li-item', LiItem);
 Vue.component('links', Links);
 Vue.component('block', Block);
+Vue.component('card', Card);
 Vue.component('span-a', SpanA);
 Vue.component('prev-next', PrevNext);
 Vue.component('post-categories', PostCategories);
@@ -33,6 +36,7 @@ Vue.component('post-time', PostTime);
 Vue.component('post-author', PostAuthor);
 Vue.component('tip', Tip);
 Vue.component('recent-list', RecentList);
+Vue.component('related-block', RelatedBlock);
 
 
 export default {

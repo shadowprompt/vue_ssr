@@ -23,6 +23,7 @@ export function createStore() {
         prev: {},
         next: {},
       },
+      relatedList: [], // 相关文章
       recentList: [], // 最近文章
     },
     mutations: {
@@ -61,6 +62,13 @@ export function createStore() {
             href: next.ID ? `/${next.ID}.html` : '',
           }
         };
+      },
+      SET_RELATED_LIST(state, payload) {
+        state.relatedList = payload.map(item => ({
+          title: item.post_title,
+          content: utils.getSafeHtml(item.post_content, 100),
+          href: `/${item.ID}.html`
+        }));
       },
       SET_RECENT_LIST(state, payload) {
         state.recentList = payload.map(item => ({
@@ -143,7 +151,6 @@ export function createStore() {
             if (utils.httpSuccess(res)) {
               const data = res.data.data.data;
               const list = data.list || [];
-              // console.log(' listlist-> ', list);
               context.commit('SET_RECENT_LIST', list);
             }
           });
@@ -165,6 +172,14 @@ export function createStore() {
         if (utils.httpSuccess(res)) {
           const [prevList, nextList] = res.data.data.data;
           context.commit('SET_PREV_NEXT', [prevList[0], nextList[0]]);
+        }
+        return res;
+      },
+      async _getRelated(context, params) {
+        const res = await axios.post('/graphql', params);
+        if (utils.httpSuccess(res)) {
+          const relatedList = res.data.data.data || [];
+          context.commit('SET_RELATED_LIST', relatedList);
         }
         return res;
       },

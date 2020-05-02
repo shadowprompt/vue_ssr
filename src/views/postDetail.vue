@@ -15,7 +15,9 @@
 import { mapState } from 'vuex';
 import queryStr from '../schema/detail';
 import queryPrevNextStr from '../schema/prevNext';
+import queryRelatedStr from '../schema/related';
 import { httpSuccess, timeStampFormat} from '../utils';
+import { config } from '../config';
 // import PrevNext from '../components/detail/PrevNext';
 
 export default {
@@ -44,15 +46,26 @@ export default {
       },
     }).then((result) => {
       if (httpSuccess(result)) {
-        const postDate = result.data.data.data.post_date;
+        const data = result.data.data.data || {};
+        const postDate = data.post_date;
+        const ID = data.ID;
+        const [firstTag, secondTag = firstTag] = data.tags || [];
         if (postDate) {
-          return store.dispatch('_getPrevNext', {
+          store.dispatch('_getPrevNext', {
             query: queryPrevNextStr,
             variables: {
               post_date: postDate * 1, // 需要变成数值型的时间戳
             }
           });
         }
+        store.dispatch('_getRelated', {
+          query: queryRelatedStr,
+          variables: {
+            id: ID,
+            tags: [firstTag.term_id, secondTag.term_id],
+            limit: 6,
+          }
+        });
       }
     });
   },
@@ -67,7 +80,12 @@ export default {
         "in": this.isLoading,
       }
     }, [
-      h('h1', [this.detail.post_title]),
+      h('a', {
+        domProps: {
+          href: `${config.URL}/${this.detail.ID}.html`,
+          className: 'post-title'
+        }
+      }, [h('h1', [this.detail.post_title])]),
       h('tip', {
         props: {
           data: this.detail,
@@ -112,9 +130,7 @@ export default {
         })
       ]),
       ...this.hooks(h),
-      // h('h4', [this.detail.user.display_name])
-    ])
-    ])
+    ]), h('related-block')])
   },
   created() {
     this.hookArr.push('prev-next');
