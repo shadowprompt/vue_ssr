@@ -2,7 +2,7 @@
   <div class="card-container">
     <div class="row">
       <div class="col-md-12">
-        <h2 class="title text-center">{{content.title}}</h2>
+        <h3 class="title text-center">{{content.title}}</h3>
         <div class="row" v-for="row in content.list">
           <div class="col-md-4" v-for="item in row">
             <div class="card card-blog">

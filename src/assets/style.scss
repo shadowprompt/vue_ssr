@@ -15,10 +15,10 @@ $primaryColorInput: #fa4588;
 $headerGradientEnd: #ea396f;
 $contrastPrimaryColor: #ffffff; // 主色调对应的高反差字体颜色
 $titleFontColor: #3C4858; // 标题字体颜色
-$articleFontColor: #2c3e50;
+$articleFontColor: #24292e; // 正文字体颜色
 $hoverBgColor: #eeeeee; // 左侧链接hover颜色
 $linkFontColor: #727272; // 左侧链接字体颜色
-$normalFontColor: #2c3e50;
+$normalFontColor: #24292e;
 
 
 @keyframes loading-anim {
@@ -454,6 +454,9 @@ img {
       }
       ul, ol {
         padding-left: 40px; // markdown列表缩进
+        li {
+          margin-bottom: 6px;
+        }
       }
     }
     &.anim {

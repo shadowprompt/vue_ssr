@@ -82,7 +82,7 @@ export default {
     }, [
       h('a', {
         domProps: {
-          href: `${config.URL}/${this.detail.ID}.html`,
+          href: `${config.static.siteUrl}/${this.detail.ID}.html`,
           className: 'post-title'
         }
       }, [h('h1', [this.detail.post_title])]),
