@@ -1,4 +1,4 @@
-let cacheName = 'daozhao-v1.1.14';
+let cacheName = 'daozhao-v1.1.23';
 let filesToCache;
 const site = 'https://www.daozhao.com.cn';
 
@@ -85,11 +85,15 @@ const site = 'https://www.daozhao.com.cn';
           caches.open(cacheName)
             .then((cache) => {
               if (event.request.method !== 'POST') { // can not handle POST method
-                const whiteList = ['webpack', 'hmr', 'service-worker'];
-                const notToCache = whiteList.some(item => url.pathname.includes(item));
+                // webpack hmr service-worker 列表类（/、 /xxx）不缓存,
+                // 具体文件（/xxx.html、/xxx.php）缓存
+                const whiteListReg = /webpack|hmr|service-worker|(\/.*(?<!\.\w+)$)/;
+                const notToCache = whiteListReg.test(url.pathname);
                 if (!notToCache) {
                   console.log('push to filesToCache -> ', url.pathname);
                   cache.put(event.request, responseToCache);
+                } else {
+                  console.log('not to cache -> ', url.pathname);
                 }
               }
             });

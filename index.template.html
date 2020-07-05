@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title> {{ state.searchWord ? state.searchWord + ' – ' : '' }}{{ siteName }}</title>
+    <title>{{ state.searchWord ? state.searchWord + ' – ' : '' }}{{ siteName }} | {{ siteDes }}</title>
     <meta charset="utf-8" />
+    <meta name="keywords" content="{{ keywords }}">
+    <meta name="description" content="{{ description }}">
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, minimal-ui"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui" />
     <meta name="theme-color" content="#3f51b5" />
 <!--    <link rel="manifest" id="manifest" />-->
     <!-- 动态设置manifest有坑-->

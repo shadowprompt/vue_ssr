@@ -56,20 +56,24 @@ function render(req, res) {
   const startTime = Date.now();
   res.setHeader('Content-Type', 'text/html');
 
+  const errorTemplatePath = resolve('./error.template.html');
+  const errorTemplate = fs.readFileSync(errorTemplatePath, 'utf-8');
+
   const handleError = (err) => {
     if (err.url) {
       res.redirect(err.url);
     } else if (err.code === 404) {
-      res.status(404).send('404 | Page Not Found');
+      // res.status(404).send('404 | Page Not Found');
+      res.status(200).send(errorTemplate);
     } else {
-      res.status(500).send('500 | Internal Server Error~');
+      // res.status(500).send('500 | Internal Server Error~');
+      res.status(200).send(errorTemplate);
       console.log(err);
     }
   };
 
   const context = {
-    siteName: config.static.siteName,
-    siteUrl: config.static.siteUrl,
+    ...config.static,
     url: req.url,
   };
   renderer.renderToString(context, (err, html) => {
