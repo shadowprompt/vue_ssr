@@ -15,6 +15,6 @@ Disallow: /*.css$
 # Disallow parsing individual post feeds, categories and trackbacks..
 Disallow: /trackback/*
 Disallow: /feed/*
-Disallow: /category/* 
+Disallow: /category/*
 
-Sitemap: http://www.daozhao.com/sitemap_baidu.xml
+Sitemap: https://www.daozhao.com/sitemap.xml

@@ -1,4 +1,4 @@
-let cacheName = 'daozhao-v4.0.0';
+let cacheName = 1000;
 let filesToCache;
 const site = 'https://www.daozhao.com.cn';
 
@@ -84,10 +84,10 @@ self.addEventListener('fetch', (event) => {
         // // to clone it so we have two streams.
         caches.open(cacheName)
           .then((cache) => {
-            if (event.request.method === 'GET') { // only handle GET method
+            if (event.request.method !== 'POST') { // can not handle POST method
               // webpack hmr service-worker 列表类（/、 /xxx）不缓存,
               // 具体文件（/xxx.html、/xxx.php）缓存
-              const whiteListReg = /webpack|hmr|entry|service-worker|wp-admin\/|(\/.*(?<!\.\w+)$)/;
+              const whiteListReg = /webpack|hmr|service-worker|(\/.*(?<!\.\w+)$)/;
               const notToCache = whiteListReg.test(url.pathname);
               if (!notToCache) {
                 console.log('push to filesToCache -> ', url.pathname);
