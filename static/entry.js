@@ -89,7 +89,7 @@ function doSubscription() {
 }
 
 function storeSubscription({ subscription, subscribe }) {
-  fetch('https://www.daozhao.com.cn/push/subscribe', {
+  fetch('https://api.daozhao.net/push/subscribe', {
     method: 'post',
     body: JSON.stringify({
       subscription,
