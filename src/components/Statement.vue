@@ -1,10 +1,11 @@
 <template>
   <footer class="statements">
     <div class="left-state">
-      <template v-for="item in leftStatements">
+      <template v-for="item in leftStatements" :key="item.href">
         <a
           v-if="item.href"
           :href="item.href"
+          :target="item.target || '_blank'"
           :title="item.title"
           class="state-item inline-a"
           >{{ item.title }}</a
@@ -13,10 +14,11 @@
       </template>
     </div>
     <div class="right-state">
-      <template v-for="item in rightStatements">
+      <template v-for="item in rightStatements" :key="item.href">
         <a
           v-if="item.href"
           :href="item.href"
+          :target="item.target || '_blank'"
           :title="item.title"
           class="state-item inline-a"
           >{{ item.title }}</a
@@ -39,17 +41,18 @@ export default {
           position: 'left',
         },
         {
-          title: '道招网',
+          title: '道招',
           href: 'https://www.daozhao.com/sitemap.xml',
           position: 'left',
         },
         {
-          title: 'Draw lessons from hexo-theme-material-indigo',
-          href: 'https://github.com/yscoder/hexo-theme-indigo',
-          position: 'right',
+          title: '鄂ICP备2020023502号',
+          href: 'https://beian.miit.gov.cn/',
+          position: 'left',
         },
         {
-          title: 'Redesigned by Shadow Prompt',
+          title: '改编自hexo-theme-material-indigo',
+          href: 'https://github.com/yscoder/hexo-theme-indigo',
           position: 'right',
         },
       ],
