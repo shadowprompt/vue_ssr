@@ -31,6 +31,7 @@ const serve = (path, cache) =>
 app.use('/manifest', manifestRouter);
 app.use('/dist', serve('./dist', true));
 app.use('/', serve('./static', true));
+app.use('/', serve('./static/verify', true)); // 验证网址owner等
 
 function createRenderer(bundle, options) {
   return createBundleRenderer(
