@@ -13,7 +13,6 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import categoriesQuery from '../schema/category';
 export default {
   name: 'CategoryNav',
   // asyncData({ store }) {

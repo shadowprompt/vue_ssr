@@ -8,7 +8,6 @@
 </template>
 <script>
 import { mapActions } from 'vuex';
-import listQuery from '../schema/list';
 export default {
   name: 'Search',
   data() {
