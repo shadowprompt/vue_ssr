@@ -1,9 +1,9 @@
 import axios from 'axios';
 const baseUrl =
   process.env.NODE_ENV === 'production'
-    ? 'https://api.daozhao.net'
+    ? 'https://api.daozhao.com.cn'
     : process.env.NODE_ENV === 'prodDev'
-    ? 'https://api.daozhao.net'
+    ? 'https://api.daozhao.com.cn'
     : 'http://127.0.0.1:5050';
 const axiosConfig = {
   timeout: 30000,

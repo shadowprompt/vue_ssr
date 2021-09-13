@@ -1,6 +1,6 @@
-let cacheName = 'daozhao-v4.0.0';
+let cacheName = 'daozhao-v4.2.0';
 let filesToCache;
-const site = 'https://api.daozhao.net';
+const site = 'https://api.daozhao.com.cn';
 
 // const registerListener = () => {
 self.addEventListener('install', (e) => {
@@ -85,9 +85,9 @@ self.addEventListener('fetch', (event) => {
         caches.open(cacheName).then((cache) => {
           if (event.request.method === 'GET') {
             // only handle GET method
-            // webpack hmr service-worker 列表类（/、 /xxx）不缓存,
+            // webpack hmr service-worker 列表类（/、 /xxx）.xml文件不缓存
             // 具体文件（/xxx.html、/xxx.php）缓存
-            const whiteListReg = /webpack|hmr|entry|service-worker|wp-admin\/|(\/.*(?<!\.\w+)$)/;
+            const whiteListReg = /webpack|hmr|entry|service-worker|wp-admin\/|.+\.xml|(\/.*(?<!\.\w+)$)/;
             const notToCache = whiteListReg.test(url.pathname);
             if (!notToCache) {
               console.log('push to filesToCache -> ', url.pathname);

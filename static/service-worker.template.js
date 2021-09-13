@@ -1,6 +1,6 @@
 let cacheName = 1000;
 let filesToCache;
-const site = 'https://api.daozhao.net';
+const site = 'https://api.daozhao.com.cn';
 
 // const registerListener = () => {
 self.addEventListener('install', (e) => {
