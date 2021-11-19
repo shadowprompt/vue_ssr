@@ -48,7 +48,7 @@ export default {
           position: 'left',
         },
         {
-          title: '鄂ICP备2020023502号-3',
+          title: '鄂ICP备2020023502号',
           href: 'https://beian.miit.gov.cn/',
           position: 'left',
         },
