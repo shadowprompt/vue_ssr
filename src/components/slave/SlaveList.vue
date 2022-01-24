@@ -18,8 +18,8 @@ export default {
         image: '/qrcode.jpg',
       },
       wechatGroup: {
-        title: '道招开发者二群',
-        image: '/wechatGroup.jpg',
+        title: '联系博主',
+        image: '/wechat.jpg',
       },
     };
   },
