@@ -7,7 +7,7 @@
     "scripts": {
         "dev": "cross-env PORT=8899 node server.js",
         "start": "npm run dev",
-        "server": "cross-env NODE_ENV=production PORT=8800 node server.js",
+        "prd": "cross-env NODE_ENV=production PORT=8800 node server.js",
         "unit": "jest --config test/unit/jest.conf.js --coverage",
         "e2e": "node test/e2e/runner.js",
         "test": "npm run unit && npm run e2e",
