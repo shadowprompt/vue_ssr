@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app-container">
     <div id="loading" :class="isLoading ? 'active' : ''"></div>
     <div class="main-con">
       <header class="top-header" :class="{ fixed: topFixed }">
