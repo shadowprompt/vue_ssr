@@ -1,6 +1,6 @@
-let cacheName = 'daozhao-v4.2.0';
+let cacheName = 'daozhao-v3.0.0';
 let filesToCache = [];
-const site = 'https://gateway.daozhao.com.cn/daozhao';
+const site = 'https://public.daozhao.com.cn/daozhao';
 
 // const registerListener = () => {
 self.addEventListener('install', (e) => {
@@ -65,15 +65,16 @@ self.addEventListener('fetch', (event) => {
       // Cache hit - return response
       const url = new URL(event.request.url);
       if (response) {
-        console.log('hit successful');
+        console.log('hit successful', event.request.url);
         return response;
       }
-      console.log('hit fail');
+      console.log('hit fail', event.request.url);
       const fetchResult = fetch(event.request);
       fetchResult.then((response) => {
         // Check if we received a valid response, 'basic' indicates that it's a request from our origin
         if (!response || response.status !== 200 || response.type !== 'basic') {
-          return response;
+          console.log('ignore? -> ', event.request.url);
+          // return response;
         }
 
         // 如果需要将未命中的存入缓存
@@ -95,11 +96,14 @@ self.addEventListener('fetch', (event) => {
             } else {
               console.log('not to cache -> ', url.pathname);
             }
+          } else {
+            console.log('ignore not GET -> ', event.request.url);
           }
         });
         return response;
+      }).catch(err => {
+        console.log('fetch error -> ', err.message);
       });
-      console.log('fetchResult -> ', fetchResult);
       return fetchResult;
     }),
   );
@@ -172,6 +176,7 @@ const init = () => {
       if (data.filesToCache) {
         filesToCache = data.filesToCache;
       }
+      console.log('newest -> ', cacheName, filesToCache);
     })
     .finally(() => {
       // registerListener();
