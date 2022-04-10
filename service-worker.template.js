@@ -1,6 +1,5 @@
-let cacheName = 1000;
-let filesToCache;
-const site = 'https://api.daozhao.com.cn';
+let filesToCache = [];
+const site = 'https://public.daozhao.com.cn/daozhao';
 
 // const registerListener = () => {
 self.addEventListener('install', (e) => {
@@ -51,7 +50,7 @@ self.addEventListener('activate', (e) => {
       );
       // By default, a page's fetches won't go through a service worker unless the page request itself went through a service worker.
       // So you'll need to refresh the page to see the effects of the service worker
-      //clients.claim() can override this default, and take control of non-controlled pages.
+      // clients.claim() can override this default, and take control of non-controlled pages.
     }),
   );
   return self.clients.claim();
@@ -65,15 +64,16 @@ self.addEventListener('fetch', (event) => {
       // Cache hit - return response
       const url = new URL(event.request.url);
       if (response) {
-        console.log('hit successful');
+        console.log('hit successful', event.request.url);
         return response;
       }
-      console.log('hit fail');
+      console.log('hit fail', event.request.url);
       const fetchResult = fetch(event.request);
       fetchResult.then((response) => {
         // Check if we received a valid response, 'basic' indicates that it's a request from our origin
         if (!response || response.status !== 200 || response.type !== 'basic') {
-          return response;
+          console.log('ignore? -> ', event.request.url);
+          // return response;
         }
 
         // 如果需要将未命中的存入缓存
@@ -82,24 +82,27 @@ self.addEventListener('fetch', (event) => {
         // // and because we want the browser to consume the response
         // // as well as the cache consuming the response, we need
         // // to clone it so we have two streams.
-        caches.open(cacheName)
-          .then((cache) => {
-            if (event.request.method !== 'POST') { // can not handle POST method
-              // webpack hmr service-worker 列表类（/、 /xxx）不缓存,
-              // 具体文件（/xxx.html、/xxx.php）缓存
-              const whiteListReg = /webpack|hmr|service-worker|(\/.*(?<!\.\w+)$)/;
-              const notToCache = whiteListReg.test(url.pathname);
-              if (!notToCache) {
-                console.log('push to filesToCache -> ', url.pathname);
-                cache.put(event.request, responseToCache);
-              } else {
-                console.log('not to cache -> ', url.pathname);
-              }
+        caches.open(cacheName).then((cache) => {
+          if (event.request.method === 'GET') {
+            // only handle GET method
+            // webpack hmr service-worker 列表类（/、 /xxx）.xml文件不缓存
+            // 具体文件（/xxx.html、/xxx.php）缓存
+            const whiteListReg = /webpack|hmr|entry|service-worker|wp-admin\/|.+\.xml|(\/.*(?<!\.\w+)$)/;
+            const notToCache = whiteListReg.test(url.pathname);
+            if (!notToCache) {
+              console.log('push to filesToCache -> ', url.pathname);
+              cache.put(event.request, responseToCache);
+            } else {
+              console.log('not to cache -> ', url.pathname);
             }
-          });
+          } else {
+            console.log('ignore not GET -> ', event.request.url);
+          }
+        });
         return response;
+      }).catch(err => {
+        console.log('fetch error -> ', err.message);
       });
-      console.log('fetchResult -> ', fetchResult);
       return fetchResult;
     }),
   );
@@ -120,8 +123,8 @@ self.addEventListener('push', (event) => {
   const title = msg.title || '消息主题';
   const options = {
     body: msg.body || '消息内容',
-    icon: msg.icon || 'https://www.daozhao.com/qrcode.jpg',
-    badge: msg.badge || 'https://www.daozhao.com/owner.jpg',
+    icon: msg.icon || 'https://www.daozhao.com/icon.jpg',
+    badge: msg.badge || 'https://www.daozhao.com/icon.png',
     actions: [
       {
         action: msg.action || 'https://www.daozhao.com',
@@ -130,7 +133,11 @@ self.addEventListener('push', (event) => {
     ],
   };
 
-  event.waitUntil(self.registration.showNotification(title, options));
+  event.waitUntil(self.registration.showNotification(title, options)).then(res => {
+    console.log('showNotification -> success', );
+  }).catch(err => {
+    console.log('showNotification -> error', err.message);
+  });
 });
 
 self.addEventListener('notificationclick', function(event) {
@@ -151,7 +158,7 @@ self.addEventListener('sync', (event) => {
   console.log(`[Service Worker] Sync had this data: ${event.tag}`);
 });
 
-self.addEventListener('message', function (event) {
+self.addEventListener('message', function(event) {
   console.log(' message event -> ', event);
   if (event.data.action === 'skipWaiting') {
     self.skipWaiting();
@@ -160,18 +167,20 @@ self.addEventListener('message', function (event) {
 // };
 
 const init = () => {
-  self.fetch(`${site}/push/cacheList`, {
-    method: 'post',
-  }).then(response => response.json()).then(data => {
-    if (data.cacheName) {
-      cacheName = data.cacheName;
-    }
-    if (data.filesToCache) {
-      filesToCache = data.filesToCache;
-    }
-  }).finally(() => {
-    // registerListener();
-  });
+  self
+    .fetch(`${site}/push/cacheList`, {
+      method: 'post',
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.filesToCache) {
+        filesToCache = data.filesToCache;
+      }
+      console.log('newest -> ', cacheName, filesToCache);
+    })
+    .finally(() => {
+      // registerListener();
+    });
 };
 
 init();

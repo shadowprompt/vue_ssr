@@ -42,11 +42,12 @@ if ('serviceWorker' in navigator && 'PushManager' in window && 'Notification' in
     })
 
     function registerServiceWorker() {
-      return navigator.serviceWorker.register('service-worker.js')
-        .then(registration => {
-          console.log('Service worker successfully registered.');
-          return registration;
-        })
+      return navigator.serviceWorker.register('/service-worker.js', {
+        scope: '/',
+      }).then(registration => {
+        console.log('Service worker successfully registered.');
+        return registration;
+      })
     }
     // 启动
     function start() {

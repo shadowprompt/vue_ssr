@@ -4,6 +4,7 @@ const express = require('express');
 const LRU = require('lru-cache');
 
 const manifestRouter = require('./manifestRouter');
+const swrRouter = require('./swrRouter');
 
 const { createBundleRenderer } = require('vue-server-renderer');
 const devServer = require('./build/setup-dev-server');
@@ -29,6 +30,7 @@ const serve = (path, cache) =>
     maxAge: cache && isProd ? 1000 * 60 * 60 * 24 * 30 : 0,
   });
 app.use('/manifest', manifestRouter);
+app.use('/service-worker.js', swrRouter);
 app.use('/dist', serve('./dist', true));
 app.use('/', serve('./static', true));
 app.use('/', serve('./static/verify', true)); // 验证网址owner等
