@@ -1,6 +1,6 @@
 let cacheName = 'daozhao-v4.2.0';
-let filesToCache;
-const site = 'https://api.daozhao.com.cn';
+let filesToCache = [];
+const site = 'https://gateway.daozhao.com.cn/daozhao';
 
 // const registerListener = () => {
 self.addEventListener('install', (e) => {
@@ -120,8 +120,8 @@ self.addEventListener('push', (event) => {
   const title = msg.title || '消息主题';
   const options = {
     body: msg.body || '消息内容',
-    icon: msg.icon || 'https://www.daozhao.com/qrcode.jpg',
-    badge: msg.badge || 'https://www.daozhao.com/owner.jpg',
+    icon: msg.icon || 'https://www.daozhao.com/icon.png',
+    badge: msg.badge || 'https://www.daozhao.com/icon.png',
     actions: [
       {
         action: msg.action || 'https://www.daozhao.com',
@@ -167,7 +167,7 @@ const init = () => {
     .then((response) => response.json())
     .then((data) => {
       if (data.cacheName) {
-        cacheName = data.cacheName;
+        cacheName = 'daozhao-v' + data.cacheName;
       }
       if (data.filesToCache) {
         filesToCache = data.filesToCache;

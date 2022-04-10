@@ -297,6 +297,12 @@ pre { // 防止代码将外层div撑破
     text-align: left;
   }
 }
+@media screen and (min-width: 761px) {
+  // 大尺寸下始终隐藏
+  #subscribe-area {
+    display: none !important;
+  }
+}
 
 @media screen and (max-width: 760px) {
   #menu {
@@ -348,6 +354,45 @@ pre { // 防止代码将外层div撑破
   }
   .statements {
     display: inline-block;
+  }
+  #subscribe-area {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient($primaryColor, $headerGradientEnd);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    padding: 6px;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    #subscribe-area-close {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      right: 12px;
+      top: 6px;
+    }
+
+    #subscribe-area-close::before, #subscribe-area-close::after {
+      position: absolute;
+      content: ' ';
+      background-color: #ffffff;
+      left: 20px;
+      width: 2px;
+      height: 12px;
+    }
+
+    #subscribe-area-close::before {
+      transform: rotate(45deg);
+    }
+
+    #subscribe-area-close::after {
+      transform: rotate(-45deg);
+    }
   }
 }
 
