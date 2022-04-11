@@ -192,22 +192,33 @@ if ('serviceWorker' in navigator && 'PushManager' in window && 'Notification' in
       // beforeinstallprompt event fired
       deferredPrompt = e;
       // 取消默认事件
-      e.preventDefault();
-      // 显示自定义的订阅区域 未忽略或距离上次忽略大于24小时
-      if ((lastIgnoreTs === 0) || (lastIgnoreTs - Date.now() > 86400000)) {
-        subscribeAreaId.style.display = 'flex';
-        console.log('Show custom install prompt');
-      } else {
-        console.log('Ignore custom install prompt', lastIgnoreTs - Date.now());
-      }
-      return false;
+      // 放弃自定义安装过程
+      // e.preventDefault();
+      // // 显示自定义的订阅区域 未忽略或距离上次忽略大于24小时
+      // if ((lastIgnoreTs === 0) || (lastIgnoreTs - Date.now() > 86400000)) {
+      //   subscribeAreaId.style.display = 'flex';
+      //   console.log('Show custom install prompt');
+      // } else {
+      //   console.log('Ignore custom install prompt', lastIgnoreTs - Date.now());
+      // }
+      // return false;
     });
     // 用户选择了安装
     window.addEventListener('appinstalled', (event) => {
       console.log('appinstalled event', event);
       // 已经有权限了say Hello
-      swRegistration && swRegistration.showNotification('Thanks for install Daozhao PWA! ').then(res => {
-        console.log('Said hello to PWA -> ');
+      swRegistration && swRegistration.showNotification('Thanks for install Daozhao lite! ', {
+        body: 'Study together! Enjoy together ! ',
+        icon: 'https://www.daozhao.com/res/icons/icon-384.png',
+        badge: 'https://www.daozhao.com/res/icons/icon-384.png',
+        actions: [
+          {
+            action: 'https://www.daozhao.com',
+            title: 'Daozhao',
+          },
+        ],
+      }).then(res => {
+        console.log('Said hello to Daozhao lite -> ');
       });
     });
 
