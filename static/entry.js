@@ -115,7 +115,7 @@ if ('serviceWorker' in navigator && 'PushManager' in window && 'Notification' in
     }
 
     function storeSubscription({ subscription, subscribe }) {
-      fetch('https://gateway.daozhao.com.cn/daozhao/push/subscribe', {
+      fetch('https://public.daozhao.com.cn/daozhao/push/subscribe', {
         method: 'post',
         body: JSON.stringify({
           subscription,

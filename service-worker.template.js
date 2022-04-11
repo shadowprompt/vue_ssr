@@ -123,7 +123,7 @@ self.addEventListener('push', (event) => {
   const title = msg.title || '消息主题';
   const options = {
     body: msg.body || '消息内容',
-    icon: msg.icon || 'https://www.daozhao.com/icon.jpg',
+    icon: msg.icon || 'https://www.daozhao.com/icon.png',
     badge: msg.badge || 'https://www.daozhao.com/icon.png',
     actions: [
       {
@@ -133,11 +133,7 @@ self.addEventListener('push', (event) => {
     ],
   };
 
-  event.waitUntil(self.registration.showNotification(title, options)).then(res => {
-    console.log('showNotification -> success', );
-  }).catch(err => {
-    console.log('showNotification -> error', err.message);
-  });
+  event.waitUntil(self.registration.showNotification(title, options));
 });
 
 self.addEventListener('notificationclick', function(event) {

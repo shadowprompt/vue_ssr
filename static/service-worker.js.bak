@@ -1,6 +1,6 @@
-let cacheName = 'daozhao-v3.0.0';
+let cacheName = 'daozhao-v5.0.0';
 let filesToCache = [];
-const site = 'https://public.daozhao.com.cn/daozhao';
+const site = 'https://gateway.daozhao.com.cn/daozhao';
 
 // const registerListener = () => {
 self.addEventListener('install', (e) => {
@@ -104,6 +104,7 @@ self.addEventListener('fetch', (event) => {
       }).catch(err => {
         console.log('fetch error -> ', err.message);
       });
+      console.log('fetchResult -> ', fetchResult);
       return fetchResult;
     }),
   );
