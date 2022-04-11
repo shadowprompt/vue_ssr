@@ -49,7 +49,7 @@ export default {
         const data = result.data.data.data || {};
         const postDate = data.post_date;
         const ID = data.ID;
-        const [firstTag, secondTag = firstTag] = data.tags || [];
+        const [firstTag = {}, secondTag = firstTag] = data.tags || [];
         if (postDate) {
           store.dispatch('_getPrevNext', {
             query: queryPrevNextStr,
