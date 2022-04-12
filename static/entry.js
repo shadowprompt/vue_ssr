@@ -209,8 +209,8 @@ if ('serviceWorker' in navigator && 'PushManager' in window && 'Notification' in
       // 已经有权限了say Hello
       swRegistration && swRegistration.showNotification('Thanks for install Daozhao lite! ', {
         body: 'Study together! Enjoy together ! ',
-        icon: 'https://www.daozhao.com/res/icons/icon-384.png',
-        badge: 'https://www.daozhao.com/res/icons/icon-384.png',
+        icon: 'https://www.daozhao.com/res/icons/icon-384x384.png',
+        badge: 'https://www.daozhao.com/icon.png',
         actions: [
           {
             action: 'https://www.daozhao.com',
