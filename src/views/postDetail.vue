@@ -46,26 +46,26 @@ export default {
       },
     }).then((result) => {
       if (httpSuccess(result)) {
-        const data = result.data.data.data || {};
-        const postDate = data.post_date;
-        const ID = data.ID;
-        const [firstTag = {}, secondTag = firstTag] = data.tags || [];
-        if (postDate) {
-          store.dispatch('_getPrevNext', {
-            query: queryPrevNextStr,
-            variables: {
-              post_date: postDate * 1, // 需要变成数值型的时间戳
-            }
-          });
-        }
-        store.dispatch('_getRelated', {
-          query: queryRelatedStr,
-          variables: {
-            id: ID,
-            tags: [firstTag.term_id, secondTag.term_id],
-            limit: 6,
-          }
-        });
+        // const data = result.data.data.data || {};
+        // const postDate = data.post_date;
+        // const ID = data.ID;
+        // const [firstTag = {}, secondTag = firstTag] = data.tags || [];
+        // if (postDate) {
+        //   store.dispatch('_getPrevNext', {
+        //     query: queryPrevNextStr,
+        //     variables: {
+        //       post_date: postDate * 1, // 需要变成数值型的时间戳
+        //     }
+        //   });
+        // }
+        // store.dispatch('_getRelated', {
+        //   query: queryRelatedStr,
+        //   variables: {
+        //     id: ID,
+        //     tags: [firstTag.term_id, secondTag.term_id],
+        //     limit: 6,
+        //   }
+        // });
       }
     });
   },

@@ -4,7 +4,7 @@ const baseUrl =
     ? 'http://127.0.0.1:5050'
     : process.env.NODE_ENV === 'prodDev'
     ? 'https://api.daozhao.com'
-    : 'http://127.0.0.1:5050';
+    : 'https://www.daozhao.com';
 const axiosConfig = {
   timeout: 30000,
   baseURL: baseUrl,

@@ -7,6 +7,29 @@ import { axios } from './config/index';
 
 import * as utils from './utils/index';
 
+// 映射wp-json数组为graphql使用字段
+function mapPostItem(item,  total) {
+  const categories = item.categories || [];
+  const tags = item.tags || [];
+  const { author: [aut = {}] = [], 'wp:term': wpTerm = []} = item._embedded || {};
+  const wpTermList = wpTerm.flat();
+  return {
+    ID: item.id,
+    post_title: item.title.rendered,
+    post_content: item.content.rendered,
+    user: {
+      display_name: aut.name
+    },
+    categories: categories.map(item => {
+      return wpTermList.find(it => it.id === item);
+    }),
+    tags: tags.map(item => {
+      return wpTermList.find(it => it.id === item);
+    }),
+    total,
+  }
+}
+
 export function createStore() {
   return new Vuex.Store({
     strict: process.env.NODE_ENV !== 'production',
@@ -93,10 +116,15 @@ export function createStore() {
     actions: {
       _getAllCategories(context, params) {
         return axios
-          .post('/graphql', params)
+          .get('/wp-json/wp/v2/categories?_embed=1', params)
           .then((res) => {
+            // console.log('_getAllCategories -> ', res.data);
             if (utils.httpSuccess(res)) {
-              const fetchedCategories = res.data.data.data || [];
+              const fetchedCategories = (res.data || []).map(item => ({
+                description: item.description,
+                name: item.name,
+                slug: item.slug,
+              }));
               const allCategories = [
                 {
                   description: '首页',
@@ -110,9 +138,13 @@ export function createStore() {
           });
       },
       async _getCategories(context, params) {
-        const res = await axios.post('/graphql', params);
+        const res = await axios.get('/wp-json/wp/v2/categories?_embed=1', params);
         if (utils.httpSuccess(res)) {
-          const fetchedCategories = res.data.data.data || [];
+          const fetchedCategories = (res.data || []).map(item => ({
+            description: item.description,
+            name: item.name,
+            slug: item.slug,
+          }));
           const allCategories = [
             {
               description: '首页',
@@ -125,32 +157,40 @@ export function createStore() {
         }
       },
       async _getList(context, params) {
-        return axios.post('/graphql', params).then((res) => {
+        const currentPage = params.variables && params.variables.currentPage || 1;
+        return axios.get(`/wp-json/wp/v2/posts?_embed=1&orderby=date&order=desc&page=${currentPage}`, params).then((res) => {
           if (utils.httpSuccess(res)) {
-            const data = res.data.data.data;
-            const list = data.list || [];
-            const condition = data.condition || {};
+            const total = res.headers['x-wp-total'];
+            const totalPages = res.headers['x-wp-totalpages'];
+            // const data = res.data.data.data;
+            // const list = data.list || [];
+            const list = (res.data || []).map((item) => mapPostItem(item, total, totalPages));
+            // const condition = data.condition || {};
             context.commit('SET_LIST', list);
-            context.commit('SET_SEARCH', condition.name);
+            // context.commit('SET_SEARCH', condition.name);
           }
         });
       },
       async _getArchiveList(context, params) {
-        return axios
-          .post('/graphql', params)
-          .then((res) => {
-            if (utils.httpSuccess(res)) {
-              const list = res.data.data.data || [];
-              context.commit('SET_ARCHIVE_LIST', list);
-            }
-          });
+        return [];
+        // return axios
+        //   .post('/graphql', params)
+        //   .then((res) => {
+        //     if (utils.httpSuccess(res)) {
+        //       const list = res.data.data.data || [];
+        //       context.commit('SET_ARCHIVE_LIST', list);
+        //     }
+        //   });
       },
       _getRecentList(context, params) {
-        return axios.post('/graphql', params)
+        return axios.get('/wp-json/wp/v2/posts?_embed=1&orderby=date&order=desc', params)
           .then((res) => {
             if (utils.httpSuccess(res)) {
-              const data = res.data.data.data;
-              const list = data.list || [];
+              // const data = res.data.data.data;
+              // const list = data.list || [];
+              const list = (res.data || []).map((item => {
+                mapPostItem(item, 0)
+              });
               context.commit('SET_RECENT_LIST', list);
             }
           });
@@ -159,16 +199,17 @@ export function createStore() {
         context.commit('TOGGLE_LOADING', params);
       },
       async _getDetail(context, params) {
-        const res = await axios.post('/graphql', params);
+        const id = params.variables && params.variables.id;
+        const res = await axios.get(`/wp-json/wp/v2/posts/${id}?_embed=1`, params);
         if (utils.httpSuccess(res)) {
-          const detail = res.data.data.data || {};
+          const detail = mapPostItem(res.data, 0);
           context.commit('SET_DETAIL', detail);
           context.commit('SET_SEARCH', detail.post_title);
         }
         return res;
       },
       async _getPrevNext(context, params) {
-        const res = await axios.post('/graphql', params);
+        const res = await axios.post('/wp-json/wp/v2/posts?_embed=1', params);
         if (utils.httpSuccess(res)) {
           const [prevList, nextList] = res.data.data.data;
           context.commit('SET_PREV_NEXT', [prevList[0], nextList[0]]);
@@ -176,7 +217,7 @@ export function createStore() {
         return res;
       },
       async _getRelated(context, params) {
-        const res = await axios.post('/graphql', params);
+        const res = await axios.get('/wp-json/wp/v2/posts?_embed=1', params);
         if (utils.httpSuccess(res)) {
           const relatedList = res.data.data.data || [];
           context.commit('SET_RELATED_LIST', relatedList);
