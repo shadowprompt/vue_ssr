@@ -36,7 +36,7 @@ router.get('/', (req, res) => {
         type: 'image/png',
       },
       {
-        src: '/web_hi_res_512.png',
+        src: '/res/web_hi_res_512.png',
         sizes: '512x512',
         type: 'image/png',
       },

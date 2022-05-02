@@ -12,7 +12,7 @@ export function createRouter() {
         path: '/',
         name: 'base',
         component: () => import('./views/layout.vue'),
-        redirect:  'indexList',
+        redirect: 'indexList',
         children: [
           {
             path: '/',

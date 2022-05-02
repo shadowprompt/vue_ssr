@@ -85,9 +85,9 @@ self.addEventListener('fetch', (event) => {
         caches.open(cacheName).then((cache) => {
           if (event.request.method === 'GET') {
             // only handle GET method
-            // webpack hmr service-worker 列表类（/、 /xxx）.xml文件不缓存
+            // webpack hmr service-worker .xml文件不缓存
             // 具体文件（/xxx.html、/xxx.php）缓存
-            const whiteListReg = /webpack|hmr|entry|service-worker|wp-admin\/|.+\.xml|(\/.*(?<!\.\w+)$)/;
+            const whiteListReg = /webpack|hmr|entry|service-worker|wp-admin\/|.+\.xml/;
             const notToCache = whiteListReg.test(url.pathname);
             if (!notToCache) {
               console.log('push to filesToCache -> ', url.pathname);
@@ -98,8 +98,11 @@ self.addEventListener('fetch', (event) => {
           } else {
             console.log('ignore not GET -> ', event.request.url);
           }
+          return response;
+        }).catch(err => {
+          console.log('open cache error -> ', err.message);
+          return response;
         });
-        return response;
       }).catch(err => {
         console.log('fetch error -> ', err.message);
       });

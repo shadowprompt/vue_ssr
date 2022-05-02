@@ -11,8 +11,8 @@ module.exports = {
   context: path.resolve(__dirname, '../'),
   devtool: isProd ? 'source-map' : '#cheap-module-source-map',
   output: {
-    path: path.resolve(__dirname, '../dist'),
-    publicPath: '/dist/',
+    path: path.resolve(__dirname, '../_dist'),
+    publicPath: '/_dist/',
     filename: '[name].[hash].js',
   },
   resolve: {

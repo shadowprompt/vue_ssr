@@ -42,7 +42,7 @@ if ('serviceWorker' in navigator && 'PushManager' in window && 'Notification' in
     })
 
     function registerServiceWorker() {
-      return navigator.serviceWorker.register('/service-worker.js', {
+      return navigator.serviceWorker.register('/_service-worker.js', {
         scope: '/',
       }).then(registration => {
         console.log('Service worker successfully registered.');

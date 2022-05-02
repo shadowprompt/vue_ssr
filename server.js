@@ -29,9 +29,9 @@ const serve = (path, cache) =>
   express.static(resolve(path), {
     maxAge: cache && isProd ? 1000 * 60 * 60 * 24 * 30 : 0,
   });
-app.use('/manifest', manifestRouter);
-app.use('/service-worker.js', swrRouter);
-app.use('/dist', serve('./dist', true));
+app.use('/_manifest', manifestRouter);
+app.use('/_service-worker.js', swrRouter);
+app.use('/_dist', serve('./_dist', true));
 app.use('/', serve('./static', true));
 app.use('/', serve('./static/verify', true)); // 验证网址owner等
 
@@ -39,7 +39,7 @@ function createRenderer(bundle, options) {
   return createBundleRenderer(
     bundle,
     Object.assign(options, {
-      basedir: resolve('./dist'),
+      basedir: resolve('./_dist'),
       runInNewContext: false,
     }),
   );
@@ -99,8 +99,8 @@ const templatePath = resolve('./index.template.html');
 
 if (isProd) {
   const template = fs.readFileSync(templatePath, 'utf-8');
-  const bundle = require('./dist/vue-ssr-server-bundle.json');
-  const clientManifest = require('./dist/vue-ssr-client-manifest.json'); // 将js文件注入到页面中
+  const bundle = require('./_dist/vue-ssr-server-bundle.json');
+  const clientManifest = require('./_dist/vue-ssr-client-manifest.json'); // 将js文件注入到页面中
   renderer = createRenderer(bundle, {
     template,
     clientManifest,
