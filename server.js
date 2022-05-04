@@ -5,6 +5,7 @@ const LRU = require('lru-cache');
 
 const manifestRouter = require('./manifestRouter');
 const swrRouter = require('./swrRouter');
+const oauthRouter = require('./oidc-provider/oauthRouter');
 
 const { createBundleRenderer } = require('vue-server-renderer');
 const devServer = require('./build/setup-dev-server');
@@ -29,8 +30,13 @@ const serve = (path, cache) =>
   express.static(resolve(path), {
     maxAge: cache && isProd ? 1000 * 60 * 60 * 24 * 30 : 0,
   });
+const port = process.env.PORT || 8899;
+
+app.set('view engine', 'ejs');
+app.set('views', path.resolve(__dirname, './views'));
 app.use('/_manifest', manifestRouter);
 app.use('/_service-worker.js', swrRouter);
+app.use('/_oauth', oauthRouter('/_oauth', port));
 app.use('/_dist', serve('./_dist', true));
 app.use('/', serve('./static', true));
 app.use('/', serve('./static/verify', true)); // 验证网址owner等
@@ -120,7 +126,6 @@ app.get(
       },
 );
 
-const port = process.env.PORT || 8899;
 app.listen(port, () => {
   console.log(`server started at localhost:${port}`);
 });

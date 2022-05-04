@@ -19,8 +19,7 @@ instance.setConfig = (vm) => {
   axios.interceptors.request.use(
     (config) => {
       // Do something before request is sent
-      config.headers.guest = 'Shadow'; //将token放到请求头发送给服务器
-      console.log('axios url -> ', config.request.url);
+      config.headers.guest = 'Shadow'; // 将token放到请求头发送给服务器
       return config;
     },
     (error) => {
