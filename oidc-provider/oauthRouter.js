@@ -5,11 +5,10 @@ const base64url = require('oidc-provider/lib/helpers/base64url');
 const axios = require('axios')
 const bodyParser = require('body-parser');
 const assert = require('assert');
-const {DAOZHAO_CLIENT_ID, DAOZHAO_CLIENT_SECERT, DAOZHAO_CLIENT_REDIRECT_URIS, DAOZHAO_CLIENT_CODE_VERIFIER, DAOZHAO_CLIENT_CODE_CHALLENGE} = require('../../config/index')
+const {DAOZHAO_OAUTH_URL, DAOZHAO_CLIENT_ID, DAOZHAO_CLIENT_SECERT, DAOZHAO_CLIENT_REDIRECT_URIS, DAOZHAO_CLIENT_CODE_VERIFIER, DAOZHAO_CLIENT_CODE_CHALLENGE} = require('../../config/index')
 const AccountService = require('./accountService');
 
-// 需要connect后使用
-const mongodbAdapter = require('./mongodbAdapter');
+const redisAdapter = require('./redisAdapter');
 
 function setNoCache(req, res, next) {
   res.set('Pragma', 'no-cache');
@@ -19,15 +18,14 @@ function setNoCache(req, res, next) {
 const parse = bodyParser.urlencoded({ extended: false });
 
 function oauthRouter(basePath, port) {
-  const BASE_URL = process.env.NODE_ENV === 'production' ? 'https://www.daozhao.com' : 'http://localhost:' + port;
+  const BASE_URL = process.env.NODE_ENV === 'production' ? DAOZHAO_OAUTH_URL : 'http://localhost:' + port;
   const configuration = {
     // ... see the available options in Configuration options section
     claims: {
-      email: ['email', 'email_verified'],
-      phone: ['phone_number', 'phone_number_verified'],
-      profile: ['birthdate', 'family_name', 'gender', 'given_name', 'locale', 'middle_name', 'name', 'nickname', 'picture', 'preferred_username', 'profile', 'updated_at', 'website', 'zoneinfo']
+      email: ['user_email'],
+      profile: ['user_login', 'user_nicename', 'user_url', 'preferred_username', 'user_registered', 'display_name']
     },
-    scopes: ['api1'],
+    claimsSupported: ['user_login', 'user_nicename', 'user_url', 'preferred_username', 'user_registered', 'display_name', 'user_email'],
     clients: [
       {
         client_id: DAOZHAO_CLIENT_ID,
@@ -37,6 +35,7 @@ function oauthRouter(basePath, port) {
         code_challenge: DAOZHAO_CLIENT_CODE_CHALLENGE,
       }
     ],
+    adapter: redisAdapter,
     async findAccount(ctx, id) {
       return {
         accountId: id,
@@ -52,9 +51,8 @@ function oauthRouter(basePath, port) {
           const [user] = list;
           console.log('findAccount user -> ', user);
           return {
-            _fix: true,
             sub: id,
-            ...user,
+            ...user
           };
         },
       };
@@ -215,7 +213,10 @@ function oauthRouter(basePath, port) {
         res.send(result2.data);
       });
     }).catch((err) => {
-      console.log('err -> ', err);
+      console.log('callback err -> ', err.message, err.response && err.response.data && err.response.data.error);
+      if (err.response && err.response.data) {
+        console.log('callback err response -> ', err.response.data.error, ':', err.response.data.error_description);
+      }
       res.send('error');
     });
   });
