@@ -2,7 +2,7 @@
 const Redis = require('ioredis'); // eslint-disable-line import/no-unresolved
 const isEmpty = require('lodash/isEmpty');
 
-const client = new Redis(process.env.REDIS_URL, { keyPrefix: 'oidc:' });
+const client = new Redis(6379, '150.158.172.229', { keyPrefix: 'oidc:' });
 
 const grantable = new Set([
   'AccessToken',
