@@ -14,7 +14,7 @@
     name: 'Profile',
     data() {
       return {
-        avatarUrl: '/res/avatar.jpg',
+        avatarUrl: '/_res/avatar.jpg',
       };
     }
   }

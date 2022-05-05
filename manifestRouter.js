@@ -11,32 +11,32 @@ router.get('/', (req, res) => {
     theme_color: '#5eace0',
     icons: [
       {
-        src: '/res/mipmap-mdpi/ic_launcher.png',
+        src: '/_res/mipmap-mdpi/ic_launcher.png',
         sizes: '48x48',
         type: 'image/png',
       },
       {
-        src: '/res/mipmap-hdpi/ic_launcher.png',
+        src: '/_res/mipmap-hdpi/ic_launcher.png',
         sizes: '72x72',
         type: 'image/png',
       },
       {
-        src: '/res/mipmap-xhdpi/ic_launcher.png',
+        src: '/_res/mipmap-xhdpi/ic_launcher.png',
         sizes: '96x96',
         type: 'image/png',
       },
       {
-        src: '/res/mipmap-xxhdpi/ic_launcher.png',
+        src: '/_res/mipmap-xxhdpi/ic_launcher.png',
         sizes: '144x144',
         type: 'image/png',
       },
       {
-        src: '/res/mipmap-xxxhdpi/ic_launcher.png',
+        src: '/_res/mipmap-xxxhdpi/ic_launcher.png',
         sizes: '192x192',
         type: 'image/png',
       },
       {
-        src: '/res/web_hi_res_512.png',
+        src: '/_res/web_hi_res_512.png',
         sizes: '512x512',
         type: 'image/png',
       },

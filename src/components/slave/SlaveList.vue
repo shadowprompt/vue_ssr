@@ -15,11 +15,11 @@ export default {
       isOpen: true,
       qr: {
         title: '关注道招网公众帐号',
-        image: '/res/qrcode.jpg',
+        image: '/_res/qrcode.jpg',
       },
       wechatGroup: {
         title: '联系博主',
-        image: '/res/wechat.jpg',
+        image: '/_res/wechat.jpg',
       },
     };
   },

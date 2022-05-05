@@ -126,8 +126,8 @@ self.addEventListener('push', (event) => {
   const title = msg.title || '消息主题';
   const options = {
     body: msg.body || '消息内容',
-    icon: msg.icon || 'https://www.daozhao.com/res/icons/icon-384x384.png',
-    badge: msg.badge || 'https://www.daozhao.com/icon.png',
+    icon: msg.icon || 'https://www.daozhao.com/_res/icons/icon-384x384.png',
+    badge: msg.badge || 'https://www.daozhao.com/_res/icon.png',
     actions: [
       {
         action: msg.action || 'https://www.daozhao.com',
