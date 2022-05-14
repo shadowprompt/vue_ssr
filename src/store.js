@@ -1,6 +1,7 @@
 /* eslint-disable */
 import Vue from 'vue';
 import Vuex from 'vuex';
+import defaultAxios from 'axios';
 Vue.use(Vuex);
 
 import { axios } from './config/index';
@@ -25,6 +26,7 @@ export function createStore() {
       },
       relatedList: [], // 相关文章
       recentList: [], // 最近文章
+      adMap: {}, // 广告信息
     },
     mutations: {
       SET_CATEGORIES(state, payload) {
@@ -88,6 +90,9 @@ export function createStore() {
       },
       SET_SEARCH(state, payload) {
         state.searchWord = payload;
+      },
+      SET_AD_MAP(state, payload) {
+        state.adMap = payload;
       },
     },
     actions: {
@@ -183,6 +188,13 @@ export function createStore() {
         }
         return res;
       },
+      async _getAllAds(context) {
+        const port = process.env.PORT || 8899;
+        const res = await defaultAxios.get(`http://localhost:${port}/_res/ad.json`);
+        if (utils.httpSuccess(res)) {
+          context.commit('SET_AD_MAP', res.data);
+        }
+      }
     },
     getters: {
       listTotal(state) {

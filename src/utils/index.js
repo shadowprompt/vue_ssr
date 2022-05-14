@@ -105,3 +105,11 @@ export const getSafeHtml = (html = '', maxLength = 200) => {
   return html.replace(/<\/?[^>]+>/g, ' ')
     .slice(0, maxLength)
 };
+
+// 将匹配项依此替换为对应数组内容
+export const replaceMatchedRegexpWithArr = (str = '', regexp, arr) => {
+  let i = 0;
+  return str.replace(regexp, (text) => {
+    return arr[i++] || text;
+  });
+}

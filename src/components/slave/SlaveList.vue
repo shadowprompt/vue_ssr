@@ -4,12 +4,17 @@
     <recent-list></recent-list>
     <block :content="qr"></block>
     <block :content="wechatGroup"></block>
+    <Ad type="slave"/>
   </section>
 </template>
 
 <script>
+import Ad from '../common/Ad';
 export default {
   name: 'SlaveList',
+  components: {
+    Ad,
+  },
   data() {
     return {
       isOpen: true,

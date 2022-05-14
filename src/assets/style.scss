@@ -549,6 +549,8 @@ img {
       margin-bottom: 16px;
       border-radius: 6px;
       box-shadow: 0 2px 2px 0 #00000024;
+      width: 100%;
+      overflow: hidden;
     }
     .block-content {
       background-color: $contrastPrimaryColor;

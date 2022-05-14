@@ -93,6 +93,7 @@
         store.dispatch('_getRecentList', {
           query: recentListQuery,
         }),
+        store.dispatch('_getAllAds'), // 获取所以广告信息
       ]);
     },
     data() {

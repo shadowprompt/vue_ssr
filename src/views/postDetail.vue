@@ -16,7 +16,7 @@ import { mapState } from 'vuex';
 import queryStr from '../schema/detail';
 import queryPrevNextStr from '../schema/prevNext';
 import queryRelatedStr from '../schema/related';
-import { httpSuccess, timeStampFormat} from '../utils';
+import {httpSuccess, replaceMatchedRegexpWithArr} from '../utils';
 import { config } from '../config';
 // import PrevNext from '../components/detail/PrevNext';
 
@@ -32,9 +32,12 @@ export default {
     };
   },
   computed: {
-    ...mapState(['isLoading', 'detail']),
+    ...mapState(['isLoading', 'detail', 'adMap']),
+    detailAdList() {
+      return this.adMap['detail'] || [];
+    },
     briefContent() {
-      return this.detail.post_content;
+      return replaceMatchedRegexpWithArr(this.detail.post_content, /<p>__AD__<\/p>/, [this.detailAdList]);
     },
   },
   asyncData({ store, route }) {
