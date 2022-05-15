@@ -1,5 +1,5 @@
 <template>
-  <div class="ad-container" :style="adInfo.style" v-if="adInfo._ad" v-html="adInfo._ad">
+  <div class="ad-container" :style="adInfo.style" v-if="adInfo.html" v-html="adHtml">
   </div>
 </template>
 
@@ -15,6 +15,9 @@ export default {
     adInfo() {
       const adMap = this.$store.state.adMap || {};
       return adMap[this.type] || {};
+    },
+    adHtml() {
+      return decodeURIComponent(this.adInfo.html || '')
     }
   }
 }
