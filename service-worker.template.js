@@ -58,6 +58,11 @@ self.addEventListener('activate', (e) => {
 
 self.addEventListener('fetch', (event) => {
   console.log('fetch', event.request.url);
+  // 谷歌广告的，会cors报错
+  if (/googlesyndication.com\/dtt/.test(event.request.url)) {
+    console.log('ignore fetch -> ', event.request.url);
+    return;
+  }
 
   event.respondWith(
     caches.match(event.request).then((response) => {
