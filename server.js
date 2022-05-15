@@ -39,7 +39,6 @@ app.use('/_service-worker.js', swrRouter);
 app.use('/_oauth', oauthRouter('/_oauth', port));
 app.use('/_dist', serve('./_dist', true));
 app.use('/', serve('./static', true));
-app.use('/', serve('./static/verify', true)); // 验证网址owner等
 
 function createRenderer(bundle, options) {
   return createBundleRenderer(
