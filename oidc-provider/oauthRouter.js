@@ -8,7 +8,7 @@ const assert = require('assert');
 const {DAOZHAO_OAUTH_URL, DAOZHAO_CLIENT_ID, DAOZHAO_CLIENT_SECERT, DAOZHAO_CLIENT_REDIRECT_URIS, DAOZHAO_CLIENT_CODE_VERIFIER, DAOZHAO_CLIENT_CODE_CHALLENGE} = require('../../config/index')
 const AccountService = require('./accountService');
 
-const redisAdapter = require('./redisAdapter');
+const adapter = require('./memoryAdaper');
 
 function setNoCache(req, res, next) {
   res.set('Pragma', 'no-cache');
@@ -35,7 +35,7 @@ function oauthRouter(basePath, port) {
         code_challenge: DAOZHAO_CLIENT_CODE_CHALLENGE,
       }
     ],
-    adapter: redisAdapter,
+    adapter,
     async findAccount(ctx, id) {
       return {
         accountId: id,
