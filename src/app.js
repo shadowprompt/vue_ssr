@@ -10,9 +10,9 @@ export function createApp(ssrContext) {
 
   router.beforeEach((to, from, next) => {
     // 上报PV至百度统计代码
-    if (typeof _hmt !== 'undefined') {
-      _hmt.push(['_trackPageview', to.fullPath]) // 必须是以"/"（斜杠）开头的相对路径
-    }
+    // if (typeof _hmt !== 'undefined') {
+    //   _hmt.push(['_trackPageview', to.fullPath]) // 必须是以"/"（斜杠）开头的相对路径
+    // }
     next()
   })
 

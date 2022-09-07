@@ -37,7 +37,7 @@ export default {
       return this.adMap['detail'] || [];
     },
     briefContent() {
-      return replaceMatchedRegexpWithArr(this.detail.post_content, /<p>__AD__<\/p>/, [this.detailAdList]);
+      return replaceMatchedRegexpWithArr(this.detail.post_content, /<p>%%AD%%<\/p>/, [this.detailAdList]);
     },
   },
   asyncData({ store, route }) {
