@@ -6,6 +6,7 @@ const LRU = require('lru-cache');
 const manifestRouter = require('./manifestRouter');
 const swrRouter = require('./swrRouter');
 const oauthRouter = require('./oidc-provider/oauthRouter');
+const urlRouter = require('./urlRouter');
 
 const { createBundleRenderer } = require('vue-server-renderer');
 const devServer = require('./build/setup-dev-server');
@@ -36,6 +37,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.resolve(__dirname, './views'));
 app.use('/_manifest', manifestRouter);
 app.use('/_service-worker.js', swrRouter);
+app.use('/_url', urlRouter);
 app.use('/_oauth', oauthRouter('/_oauth', port));
 app.use('/_dist', serve('./_dist', true));
 app.use('/', serve('./static', true));
