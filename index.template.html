@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<!-- 只针对首页 -->
+<html lang="en" class="{{ /(^\/$)|(^\/\?)/.test(url) && state && state.isGrayDay ? '_gray' : ''}}">
   <head>
-    <title>{{ state.searchWord ? state.searchWord + ' – ' : '' }}{{ siteName }} | {{ siteDes }}</title>
+    <title>{{ state && state.searchWord ? state.searchWord + ' – ' : '' }}{{ siteName }} | {{ siteDes }}</title>
     <meta charset="utf-8" />
     <meta name="keywords" content="{{ keywords }}">
     <meta name="description" content="{{ description }}">
@@ -25,7 +26,7 @@
     <!--vue-ssr-outlet-->
   </body>
 
-  <script src="/_res/entry.js"></script>
+<!--  <script src="/_res/entry.js"></script>-->
   <script defer src="https://jspassport.ssl.qhimg.com/11.0.1.js?d182b3f28525f2db83acfaaf6e696dba"></script>
   <!-- 头条自动收录 -->
   <script defer id="ttzz" src="https://sf1-scmcdn-tos.pstatp.com/goofy/ttzz/push.js?86bbea13e6bc1d5ee1cc34443fff943c2195878180daa2822b38595521c58dbcccb9e47f0a71a98b31ea1e3bc18645dbf97cfaa5a308d660eae5d4969119c34f"></script>
