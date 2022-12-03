@@ -10,6 +10,7 @@ export default (context) => {
     const { app, router, store } = createApp(context);
     const queryParam = queryString.parse(context.url.replace(/.+\?/, ''));
     console.log('queryParam -> ', queryParam);
+    context.state = store.state;
     router.push(context.url);
     router.beforeEach((to, from, next) => {
       console.log(' router.beforeEach-> ', to);
@@ -42,7 +43,7 @@ export default (context) => {
           // 当我们将状态附加到上下文，
           // 并且 `template` 选项用于 renderer 时，
           // 状态将自动序列化为 `window.__INITIAL_STATE__`，并注入 HTML。
-          context.state = store.state;
+          // context.state = store.state;
           // Promise 应该 resolve 应用程序实例，以便它可以渲染
           resolve(app);
         })
