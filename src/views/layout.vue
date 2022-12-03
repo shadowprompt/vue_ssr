@@ -93,7 +93,8 @@
         store.dispatch('_getRecentList', {
           query: recentListQuery,
         }),
-        store.dispatch('_getAllAds'), // 获取所以广告信息
+        store.dispatch('_getAllAds'), // 获取所有广告信息
+        store.dispatch('_getGrayDay'), // 获取重大悲伤日信息
       ]);
     },
     data() {
@@ -122,9 +123,6 @@
       this.goto = document.querySelector('#goto');
       // window.document.addEventListener('scroll', this.scrollFn);
       window.vm = this;
-      if (this.$route.fullPath === '/') {
-        document.documentElement.classList.add('gray');
-      }
     },
     beforeDestroy() {
       // window.document.removeEventListener('scroll', this.scrollFn);

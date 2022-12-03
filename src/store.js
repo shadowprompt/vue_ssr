@@ -27,6 +27,7 @@ export function createStore() {
       relatedList: [], // 相关文章
       recentList: [], // 最近文章
       adMap: {}, // 广告信息
+      isGrayDay: false, // 是否是重大悲伤日（比如512），需要网站置灰
     },
     mutations: {
       SET_CATEGORIES(state, payload) {
@@ -93,6 +94,9 @@ export function createStore() {
       },
       SET_AD_MAP(state, payload) {
         state.adMap = payload;
+      },
+      SET_GRAY_DAY(state, payload) {
+        state.isGrayDay = payload;
       },
     },
     actions: {
@@ -193,6 +197,18 @@ export function createStore() {
         const res = await defaultAxios.get(`http://localhost:${port}/_res/ad.json`);
         if (utils.httpSuccess(res)) {
           context.commit('SET_AD_MAP', res.data);
+        }
+      },
+      // 是否是重大悲伤日，需要网站置灰的
+      async _getGrayDay(context) {
+        const port = process.env.PORT || 8899;
+        const res = await axios.post('https://gateway.daozhao.com.cn/daozhao/grayDays', {
+          days: [],
+        });
+        if (utils.httpSuccess(res)) {
+          const list = res.data.newDays || [];
+          const hasGrayDay = list.some(item => Date.now() < new Date(item).getTime())
+          context.commit('SET_GRAY_DAY', hasGrayDay);
         }
       }
     },

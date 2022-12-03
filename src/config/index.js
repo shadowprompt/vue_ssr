@@ -1,4 +1,5 @@
 import axios from 'axios';
+const https = require("https");
 const baseUrl =
   process.env.NODE_ENV === 'production'
     ? 'http://127.0.0.1:5050'
@@ -6,6 +7,9 @@ const baseUrl =
     ? 'https://api.daozhao.com'
     : 'http://127.0.0.1:5050';
 const axiosConfig = {
+  httpsAgent: new https.Agent({
+    rejectUnauthorized: false,
+  }),
   timeout: 30000,
   baseURL: baseUrl,
   headers: {
