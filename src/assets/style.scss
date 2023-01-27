@@ -515,6 +515,10 @@ img {
           margin-bottom: 6px;
         }
       }
+      th, td {
+        border: 1px solid #f2f2f2;
+        padding: 4px 8px;
+      }
     }
     &.anim {
       opacity: 1;
