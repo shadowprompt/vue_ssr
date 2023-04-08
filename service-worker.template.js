@@ -59,7 +59,8 @@ self.addEventListener('activate', (e) => {
 self.addEventListener('fetch', (event) => {
   console.log('fetch', event.request.url);
   // 谷歌广告的，会cors报错
-  if (/googlesyndication.com/.test(event.request.url)) {
+  // chrome-extension不支持cache
+  if (/googlesyndication.com|chrome-extension/.test(event.request.url)) {
     console.log('ignore fetch -> ', event.request.url);
     return;
   }
@@ -127,6 +128,10 @@ self.addEventListener('push', (event) => {
 
   console.log('[Service Worker] Push msg ', msg);
   console.log('[Service Worker] Push had this data: ', event);
+  // hms推送消息
+  if (msg.hmsOptions && msg.notification) {
+    msg = msg.notification;
+  }
 
   const title = msg.title || '消息主题';
   const options = {
