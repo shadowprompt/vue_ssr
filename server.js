@@ -37,6 +37,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.resolve(__dirname, './views'));
 app.use('/_manifest', manifestRouter);
 app.use('/_service-worker.js', swrRouter);
+app.use('/hms-messaging-sw.js', swrRouter);
 app.use('/_url', urlRouter);
 app.use('/_oauth', oauthRouter('/_oauth', port));
 app.use('/_dist', serve('./_dist', true));
