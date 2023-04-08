@@ -129,7 +129,7 @@ self.addEventListener('push', (event) => {
   console.log('[Service Worker] Push msg ', msg);
   console.log('[Service Worker] Push had this data: ', event);
   // hms推送消息
-  if (msg.hmsOptions && msg.notification) {
+  if (msg.notification) {
     msg = msg.notification;
   }
 
