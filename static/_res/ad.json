@@ -5,7 +5,7 @@
     "style": "height: 160px;overflow:auto;"
   },
   "slave": {
-    "html": "%3Cscript%20async%20src%3D%22https%3A%2F%2Fpagead2.googlesyndication.com%2Fpagead%2Fjs%2Fadsbygoogle.js%3Fclient%3Dca-pub-3013839362871866%22%0A%20%20%20%20%20crossorigin%3D%22anonymous%22%3E%3C%2Fscript%3E%0A%3Cins%20class%3D%22adsbygoogle%22%0A%20%20%20%20%20style%3D%22display%3Ablock%22%0A%20%20%20%20%20data-ad-format%3D%22autorelaxed%22%0A%20%20%20%20%20data-ad-client%3D%22ca-pub-3013839362871866%22%0A%20%20%20%20%20data-ad-slot%3D%226074440210%22%3E%3C%2Fins%3E%0A%3Cscript%3E%0A%20%20%20%20%20(adsbygoogle%20%3D%20window.adsbygoogle%20%7C%7C%20%5B%5D).push(%7B%7D)%3B%0A%3C%2Fscript%3E",
+    "html": "",
     "style": "width: 200px;height: 125px;overflow:auto"
   }
 }
