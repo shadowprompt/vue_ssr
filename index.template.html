@@ -26,7 +26,6 @@
     <!--vue-ssr-outlet-->
   </body>
 
-  <script src="/_res/entry.js"></script>
   <script defer src="https://jspassport.ssl.qhimg.com/11.0.1.js?d182b3f28525f2db83acfaaf6e696dba"></script>
   <!-- 头条自动收录 -->
   <script defer id="ttzz" src="https://sf1-scmcdn-tos.pstatp.com/goofy/ttzz/push.js?86bbea13e6bc1d5ee1cc34443fff943c2195878180daa2822b38595521c58dbcccb9e47f0a71a98b31ea1e3bc18645dbf97cfaa5a308d660eae5d4969119c34f"></script>
@@ -38,8 +37,11 @@
   <!-- 灵雀应用监控 -->
   <script src="https://sdk.51.la/perf/js-sdk-perf.min.js" crossorigin="anonymous"></script>
   <script>
-    new window.LingQue?.Monitor().init({id:"JsP4ZJEVEairn0Dj",sendSuspicious:true,sendSpaPv:true});
+    if (window.LingQue && typeof window.LingQue.Monitor === 'function') {
+      new window.LingQue.Monitor().init({id:"JsP4ZJEVEairn0Dj",sendSuspicious:true,sendSpaPv:true});
+    }
   </script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3013839362871866"
           crossorigin="anonymous"></script>
+  <script src="https://push-static.dbankcdn.com/hms-messaging.js"></script>
 </html>

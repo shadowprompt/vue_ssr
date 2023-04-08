@@ -3,18 +3,20 @@
     <router-view></router-view>
     <div id="subscribe-area">
       <div id="subscribe-area-close"></div>
-      <div class="subscribe-btn">安装</div>
-      <HMS />
+      <PWA />
+      <PWA_HMS />
     </div>
   </div>
 </template>
 
 <script>
-import HMS from './HMS.vue';
+import PWA from './PWA.vue';
+import PWA_HMS from './PWA_HMS.vue';
 export default {
   name: 'App',
   components: {
-    HMS,
+    PWA,
+    PWA_HMS,
   }
 };
 </script>

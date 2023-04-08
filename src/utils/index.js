@@ -114,3 +114,60 @@ export const replaceMatchedRegexpWithArr = (str = '', regexp, arr, originRemain 
     return result || (originRemain ? text : '');
   });
 }
+
+/**
+ * 返回一个等待ms后resolved的Promise
+ * @param ms
+ * @returns {Promise<unknown>}
+ */
+export function timeoutPromise(ms) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(`_timeout_${ms}`);
+    }, ms)
+  })
+}
+
+/**
+ *
+ * @param ms
+ * @param timeoutCallback
+ * @returns {function(*, ...[*]): Promise<Awaited<unknown>>}
+ */
+export const timeoutCallCreator = (ms, timeoutCallback = () => {}) => (callFn, ...rest) => {
+  return Promise.race([timeoutPromise(ms), callFn(...rest)]).then(res => {
+    if (/^_timeout_/.test(res)) {
+      console.log(`after ${ms}ms still pending`, ...rest);
+      // 返回一直一直pending的新Promise
+      timeoutCallback(res);
+      return new Promise(() => {});
+    }
+    return res;
+  })
+}
+
+export function timeoutCallWithLaTrack(ms, trackName, trackType) {
+  return timeoutCallCreator(ms, (result) => {
+    if (window.LA) {
+      window.LA.track(trackName, {
+        type: trackType,
+        result,
+      });
+    }
+  });
+}
+
+export function urlB64ToUint8Array(base64String) {
+  const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
+  const base64 = (base64String + padding)
+    .replace(/\-/g, '+')
+    .replace(/_/g, '/');
+
+  const rawData = window.atob(base64);
+  const outputArray = new Uint8Array(rawData.length);
+
+  for (let i = 0; i < rawData.length; ++i) {
+    outputArray[i] = rawData.charCodeAt(i);
+  }
+  return outputArray;
+}
