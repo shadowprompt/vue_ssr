@@ -408,6 +408,46 @@ pre { // 防止代码将外层div撑破
   }
 }
 
+.requestNotify-area {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient($primaryColor, $headerGradientEnd);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  padding: 6px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  .requestNotify-area-close {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    right: 12px;
+    top: 6px;
+  }
+
+  .requestNotify-area-close::before, .requestNotify-area-close::after {
+    position: absolute;
+    content: ' ';
+    background-color: #ffffff;
+    left: 20px;
+    width: 2px;
+    height: 12px;
+  }
+
+  .requestNotify-area-close::before {
+    transform: rotate(45deg);
+  }
+
+  .requestNotify-area-close::after {
+    transform: rotate(-45deg);
+  }
+}
+
 #menu-off {
   position: absolute;
   top: 0;
