@@ -12,7 +12,7 @@
         if (navigator.share) {
           navigator.share({
             title: document.title,
-            text: '关注互联网|聚焦Web',
+            text: '关注互联网',
             url: location.href
           }).then(res => {
             console.log(' res-> ', res);

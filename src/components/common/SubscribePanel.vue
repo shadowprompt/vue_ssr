@@ -1,7 +1,7 @@
 <template>
   <section class="subscribe-container">
     <h5 class="title">订阅通知</h5>
-    <div class="content">道招网更新文章时会发送通知</div>
+    <div class="content">道招网关注互联网，分享IT资讯，前沿科技、编程技术，订阅后可及时收到更新通知。</div>
     <div class="sub_area">
       <div :class="'sub_btn ' + subscribeStatus" @click="this.handleNotifyClick">{{subscribeStatusText}}</div>
     </div>

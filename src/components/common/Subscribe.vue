@@ -1,7 +1,7 @@
 <template>
   <div class="requestNotify-area" :style="{display: this.displayNotify}">
     <div class="title">消息推送</div>
-    <div class="content">道招网关注互联网，聚焦Web，是否允许文章更新后推送通知消息。</div>
+    <div class="content">道招网关注互联网，分享IT资讯，前沿科技、编程技术，是否允许文章更新后推送通知消息。</div>
     <div class="action_area">
       <div class="action confirm" @click="this.handleNotifyClick">允许</div>
       <div class="action cancel" @click="this.handleCancelNotifyClick">不用了</div>

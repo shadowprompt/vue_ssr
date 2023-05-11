@@ -1,11 +1,11 @@
 import axios from 'axios';
-const https = require("https");
+const https = require('https');
 const baseUrl =
   process.env.NODE_ENV === 'production'
     ? 'http://127.0.0.1:5050'
     : process.env.NODE_ENV === 'prodDev'
-    ? 'https://api.daozhao.com'
-    : 'http://127.0.0.1:5050';
+      ? 'https://api.daozhao.com'
+      : 'http://127.0.0.1:5050';
 const axiosConfig = {
   httpsAgent: new https.Agent({
     rejectUnauthorized: false,
@@ -46,7 +46,7 @@ export const config = {
   URL: baseUrl,
   static: {
     siteName: '道招',
-    siteDes: '关注互联网|聚焦Web',
+    siteDes: '关注互联网',
     siteUrl: 'https://www.daozhao.com',
   },
 };
