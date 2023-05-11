@@ -432,7 +432,7 @@ pre { // 防止代码将外层div撑破
 
 .requestNotify-area {
   position: fixed;
-  bottom: 16px;
+  bottom: 32px;
   left: 16px;
   background: #ffffff;
   display: none;
@@ -452,30 +452,6 @@ pre { // 防止代码将外层div撑破
     text-align: left;
     margin-top: 20px;
     margin-bottom: 16px;
-  }
-  .close {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    right: 12px;
-    top: 6px;
-    cursor: pointer;
-  }
-
-  .close::before, .close::after {
-    position: absolute;
-    content: ' ';
-    background-color: #c2c2c2;
-    left: 20px;
-    width: 2px;
-    height: 12px;
-  }
-
-  .close::before {
-    transform: rotate(45deg);
-  }
-  .close::after {
-    transform: rotate(-45deg);
   }
   .action_area{
     display: flex;
