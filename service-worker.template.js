@@ -57,7 +57,7 @@ self.addEventListener('activate', (e) => {
 });
 
 self.addEventListener('fetch', (event) => {
-  console.log('fetch', event.request.url);
+  // console.log('fetch', event.request.url);
   // 谷歌广告的，会cors报错
   // chrome-extension不支持cache
   if (/googlesyndication.com|chrome-extension/.test(event.request.url)) {
@@ -70,7 +70,7 @@ self.addEventListener('fetch', (event) => {
       // Cache hit - return response
       const url = new URL(event.request.url);
       if (response) {
-        console.log('hit successful', event.request.url);
+        // console.log('hit successful', event.request.url);
         return response;
       }
       console.log('hit fail', event.request.url);
@@ -93,10 +93,10 @@ self.addEventListener('fetch', (event) => {
             // only handle GET method
             // webpack hmr service-worker .xml文件不缓存
             // 具体文件（/xxx.html、/xxx.php）缓存
-            const whiteListReg = /webpack|hmr|entry|service-worker|wp-admin\/|.+\.xml/;
+            const whiteListReg = /webpack|hmr|entry|service-worker|hms-messaging-sw|wp-admin\/|.+\.xml/;
             const notToCache = whiteListReg.test(url.pathname);
             if (!notToCache) {
-              console.log('push to filesToCache -> ', url.pathname);
+              // console.log('push to filesToCache -> ', url.pathname);
               cache.put(event.request, responseToCache);
             } else {
               console.log('not to cache -> ', url.pathname);

@@ -2,7 +2,7 @@
   <section class="slave-container" :class="isOpen ? 'open' : ''">
     <i class="arrow-right" @click="onClick"></i>
     <recent-list></recent-list>
-    <Subscribe />
+    <SubscribePanel />
     <block :content="qr"></block>
     <block :content="wechatGroup"></block>
     <Ad type="slave"/>
@@ -11,12 +11,12 @@
 
 <script>
 import Ad from '../common/Ad';
-import Subscribe from '../common/Subscribe.vue';
+import SubscribePanel from '../common/SubscribePanel';
 export default {
   name: 'SlaveList',
   components: {
     Ad,
-    Subscribe,
+    SubscribePanel,
   },
   data() {
     return {

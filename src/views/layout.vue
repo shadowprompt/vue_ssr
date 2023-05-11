@@ -122,7 +122,6 @@
       this.body = document.querySelector('body');
       this.goto = document.querySelector('#goto');
       // window.document.addEventListener('scroll', this.scrollFn);
-      window.vm = this;
     },
     beforeDestroy() {
       // window.document.removeEventListener('scroll', this.scrollFn);

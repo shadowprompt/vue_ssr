@@ -1,12 +1,13 @@
 <template>
-  <section class="subscribe-container">
-    <div>订阅后能及时收到消息</div>
-    <div :style="{background: this.subscribeBgColor}" @click="this.handleNotifyClick">订阅</div>
-    <div class="requestNotify-area" :style="{display: this.displayNotify}">
-      <div class="requestNotify-area-close" @click="this.handleCancelNotifyClick"></div>
-      <div class="requestNotify-btn" @click="this.handleNotifyClick">Allow</div>
+  <div class="requestNotify-area" :style="{display: this.displayNotify}">
+    <div class="close" @click="this.handleCancelNotifyClick"></div>
+    <div class="title">订阅</div>
+    <div class="content">道招网关注互联网，聚焦Web，开启订阅能接收最新。</div>
+    <div class="action_area">
+      <div class="action confirm" @click="this.handleNotifyClick">订阅</div>
+      <div class="action cancel" @click="this.handleCancelNotifyClick">不用了</div>
     </div>
-  </section>
+  </div>
 </template>
 
 <script>
@@ -22,22 +23,20 @@ export default {
       isSubscribed: void 0,
     }
   },
-  computed: {
-    subscribeBgColor() {
-      if (this.isSubscribed === void 0) {
-        return ''
-      } else if (this.isSubscribed) {
-        return 'grey';
-      } else {
-        return 'blue';
-      }
-    }
-  },
   mounted() {
     this.init();
-    // this.register();
-    // this.PWAListenerRegister();
-    // this.start();
+    this.shareRegister();
+    this.PWAListenerRegister();
+    this.serviceworkerRegister();
+    this.$eventBus.$on('subscribe', this.handleNotifyClick);
+  },
+  beforeMount() {
+    this.$eventBus.$off('subscribe', this.handleNotifyClick);
+  },
+  watch: {
+    isSubscribed(value) {
+      this.$eventBus.$emit('subscribeStatus', value);
+    }
   },
   methods: {
     init() {
@@ -61,8 +60,8 @@ export default {
       this.display = 'none';
     },
     handleNotifyClick() {
-      this.requestPermission();
       this.displayNotify = 'none';
+      this.registerProcess();
     },
     handleCancelNotifyClick() {
       localStorage.setItem('_pwaIgnore', Date.now());
@@ -76,7 +75,7 @@ export default {
         return registration;
       })
     },
-    start() {
+    serviceworkerRegister() {
       this.registerServiceWorker().then(swReg => {
         this.swRegistration = swReg;
         console.log('Service Worker Registered', swReg);
@@ -92,67 +91,57 @@ export default {
             }
           });
         });
-        this.tryToRegister();
-      }).catch((err) => {
-        console.log('Service Worker Registered failed', err);
-      });
-    },
-    tryToRegister() {
-      if (this.timeId) {
-        clearTimeout(this.timeId);
-        this.timeId = null;
-        this.checkNotify();
-      } else {
-        this.timeId = setTimeout(() => {
-          this.tryToRegister();
-        }, 5000)
-      }
-    },
-    afterRegister() {
-      this.displayNotify = 'block';
-    },
-    checkNotify() {
-      // 检测订阅情况
-      this.getInitialSubscribeStatus().then(status => {
-        if (status) {
-          return;
-        }
-        // 未订阅则显示订阅入口
-        this.displayNotify = 'block';
-      });
-    },
-    getInitialSubscribeStatus() {
-      return new Promise((resolve) => {
-        this.swRegistration.pushManager.getSubscription().then((subscription) => {
-          console.log('initializeSubscription ', subscription);
-          const isSubscribed = subscription !== null;
-          this.isSubscribed = isSubscribed;
-          // 如果已经订阅则存储subscription信息，否则尝试订阅
-          if (this.isSubscribed) {
-            console.log('User IS subscribed.');
-            console.log('storing subscription');
+        this.getInitialSubscribeStatus().then(subscription => {
+          if (subscription) {
             // 确保服务器保存有subscription信息，此处在服务器再保存下
             this.storeSubscription({
               subscribe: true,
               subscription,
             });
           } else {
-            console.log('User IS NOT subscribed.');
-            console.log('try to subscribing');
-            this.subscribeUser();
+            this.serviceworkerRegisterProcess();
           }
-          resolve(isSubscribed);
+        });
+      }).catch((err) => {
+        console.log('Service Worker Registered failed', err);
+      });
+    },
+    serviceworkerRegisterProcess() {
+      if (this.timeId) {
+        clearTimeout(this.timeId);
+        this.timeId = null;
+        if (this.canAutoNotifyAgain()) {
+          this.showSubscribeTips();
+          return;
+        }
+      }
+      this.timeId = setTimeout(() => {
+        this.serviceworkerRegisterProcess();
+      }, 5000)
+    },
+    showSubscribeTips() {
+      this.displayNotify = 'block';
+    },
+    getInitialSubscribeStatus() {
+      return new Promise((resolve) => {
+        this.swRegistration.pushManager.getSubscription().then((subscription) => {
+          const isSubscribed = subscription !== null;
+          this.isSubscribed = isSubscribed;
+          console.log('User isSubscribed ? ', isSubscribed);
+          resolve(subscription);
         });
       })
     },
-    requestPermission() {
+    registerProcess() {
       console.log('444')
       // 如果未用户曾选择过是否接收通知，会通知用户选择
       Notification.requestPermission(result => {
         if (result === 'granted') {
           console.log('Access granted! :)')
+          this.subscribeUser();
         } else if (result === 'denied') {
           console.log('Access denied! :(')
+          alert('Notifications are blocked. Please open your browser preferences or click the lock near the address bar to change your notification preferences.');
         } else {
           console.log('Request ignored! :/')
         }
@@ -183,7 +172,7 @@ export default {
     },
     subscribeUser() {
       this.doSubscription().then((subscription) => {
-        console.log('User is subscribed.');
+        console.log('User is subscribed now.');
         this.storeSubscription({
           subscribe: true,
           subscription,
@@ -249,11 +238,14 @@ export default {
         });
       });
     },
-    register() {
+    shareRegister() {
       document.querySelector('.share-wrap').addEventListener('click', () => {
         console.log('reload event -> ', this.newWorker);
         this.newWorker && this.newWorker.postMessage({ action: 'skipWaiting' });
       });
+    },
+    canAutoNotifyAgain() {
+      return this.lastIgnoreTs === 0 || this.lastIgnoreTs - Date.now() > 86400000;
     }
   }
 }
