@@ -1,5 +1,5 @@
 <template>
-  <section class="subscribe-container">
+  <section class="block-item subscribe-container">
     <h5 class="title">订阅通知</h5>
     <div class="content">道招网更新文章时会发送通知</div>
     <div class="sub_area">

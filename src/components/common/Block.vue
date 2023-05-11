@@ -15,10 +15,10 @@
     name: 'Block',
     props: {
       minWidth: {
-        default: '200px',
+        default: '240px',
       },
       maxWidth: {
-        default: '200px',
+        default: '240px',
       },
       height: {
         default: ''
