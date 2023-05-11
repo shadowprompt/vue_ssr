@@ -279,6 +279,24 @@ pre { // 防止代码将外层div撑破
   }
 }
 
+@media screen and (max-width: 1040px) {
+  .banner-header {
+    padding: 20px 0;
+  }
+  .media-container {
+    width: 100%;
+    padding: 20px 24px;
+    text-align: left;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .media-container {
+    max-width: 1170px;
+    width: auto;
+  }
+}
+
 @media screen and (max-width: 1240px) {
   .main-con {
     padding-left: 0;
@@ -293,22 +311,12 @@ pre { // 防止代码将外层div撑破
   }
 }
 
-@media screen and (min-width: 1200px) {
-  .media-container {
-    max-width: 1170px;
-    width: auto;
+@media screen and (max-width: 1800px) {
+  .slave-container {
+    min-width: 280px;
   }
 }
-@media screen and (max-width: 1040px) {
-  .banner-header {
-    padding: 20px 0;
-  }
-  .media-container {
-    width: 100%;
-    padding: 20px 24px;
-    text-align: left;
-  }
-}
+
 @media screen and (min-width: 761px) {
   // 大尺寸下始终隐藏
   #subscribe-area {
@@ -408,6 +416,10 @@ pre { // 防止代码将外层div撑破
   }
 }
 .subscribe-container {
+  border-top: 4px solid red;
+  padding: 12px;
+  max-width: 280px;
+  border-radius: 4px;
   .content {
     margin: 12px 0;
   }
@@ -676,11 +688,7 @@ img {
   flex: 1;
   padding-left: 0;
   .block-item {
-    max-width: 360px;
     margin: 0 auto 24px auto;
-    padding: 12px;
-    border-radius: 4px;
-    border-top: 4px solid red;
     .title {
       color: $articleFontColor;
     }
