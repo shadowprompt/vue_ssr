@@ -426,17 +426,24 @@ pre { // 防止代码将外层div撑破
   .sub_area {
     text-align: left;
     .sub_btn {
+      width: 130px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       padding: 12px 20px;
-      display: inline-block;
       border-radius: 6px;
       font-weight: 700;
       cursor: pointer;
       &.subscribed {
         background: #e2e2e2;
+        color: #666666;
       }
       &.unsubscribed {
         background: linear-gradient($primaryColor, $headerGradientEnd);
         color: #fff;
+      }
+      .sub_text {
+        margin-left: 12px;
       }
     }
   }
@@ -469,7 +476,7 @@ pre { // 防止代码将外层div撑破
     display: flex;
     justify-content: flex-end;
     .action {
-      padding: 12px 16px;
+      padding: 8px 22px;
       border-radius: 6px;
       cursor: pointer;
       &.confirm {
