@@ -14,7 +14,7 @@ export default {
       const relatedList = [...this.relatedList];
       // 插入相关文章的广告位置
       const relatedAd = this.adMap['related'];
-      if (relatedAd) {
+      if (relatedAd && relatedAd.html) {
         // 广告位的位置不能太靠前
         if (relatedList.length > 2) {
           relatedList.splice(-1, 0, {
