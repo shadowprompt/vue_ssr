@@ -138,12 +138,7 @@ self.addEventListener('push', (event) => {
     body: msg.body || '消息内容',
     icon: msg.icon || 'https://www.daozhao.com/_res/icons/icon-384x384.png',
     badge: msg.badge || 'https://www.daozhao.com/_res/icon.png',
-    actions: [
-      {
-        action: msg.action || 'https://www.daozhao.com',
-        title: msg.actionTitle || '道招网',
-      },
-    ],
+    actions: msg.actions,
   };
 
   event.waitUntil(self.registration.showNotification(title, options));
