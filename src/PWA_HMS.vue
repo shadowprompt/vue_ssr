@@ -1,5 +1,4 @@
 <template>
-  <div>HMS</div>
 </template>
 
 <script>
