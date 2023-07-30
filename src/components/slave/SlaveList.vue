@@ -4,7 +4,7 @@
     <recent-list></recent-list>
     <SubscribePanel />
     <block :content="qr"></block>
-    <block :content="wechatGroup"></block>
+<!--    <block :content="wechatGroup"></block>-->
     <Ad type="slave"/>
   </section>
 </template>

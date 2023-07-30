@@ -4,7 +4,7 @@
       <div class="avatar waves-effect waves-circle waves-light">
         <img :src="avatarUrl" />
       </div>
-        <h5 class="nickname">锅巴匆匆</h5>
+<!--        <h5 class="nickname">锅巴匆匆</h5>-->
     </div>
   </div>
 </template>
