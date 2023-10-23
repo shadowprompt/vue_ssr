@@ -94,7 +94,7 @@
           query: recentListQuery,
         }),
         store.dispatch('_getAllAds'), // 获取所有广告信息
-        store.dispatch('_getGrayDay'), // 获取重大悲伤日信息
+        // store.dispatch('_getGrayDay'), // 获取重大悲伤日信息
       ]);
     },
     data() {
