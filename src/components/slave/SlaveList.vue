@@ -4,6 +4,7 @@
     <recent-list></recent-list>
     <SubscribePanel />
     <block :content="qr"></block>
+    <block :content="link"></block>
 <!--    <block :content="wechatGroup"></block>-->
     <Ad type="slave"/>
   </section>
@@ -21,6 +22,14 @@ export default {
   data() {
     return {
       isOpen: true,
+      link: {
+        title: '友情链接',
+        list: [{
+          title: '运动记录转换工具',
+          target: '_target',
+          href: 'https://convert.fit'
+        }]
+      },
       qr: {
         title: '关注道招网公众帐号',
         image: '/_res/qrcode.jpg',
