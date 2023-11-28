@@ -280,8 +280,10 @@ pre { // 防止代码将外层div撑破
 }
 
 @media screen and (max-width: 1040px) {
-  .banner-header {
-    padding: 20px 0;
+  .main-header {
+    .banner-header {
+      padding: 20px 0;
+    }
   }
   .media-container {
     width: 100%;
@@ -325,6 +327,20 @@ pre { // 防止代码将外层div撑破
 }
 
 @media screen and (max-width: 760px) {
+  .main-header {
+    .banner-header {
+      padding: 20px 0 0 0;
+    }
+    #nav{
+      padding: 12px 24px 24px 24px;
+      .category-item {
+        font-size: 20px;
+      }
+    }
+  }
+  .media-container {
+    padding: 36px 24px 0 24px;
+  }
   #menu {
     .links {
       line-height: 36px;
