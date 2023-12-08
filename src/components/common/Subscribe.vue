@@ -23,11 +23,11 @@ export default {
     }
   },
   mounted() {
-    this.init();
-    this.shareRegister();
-    this.PWAListenerRegister();
-    this.serviceworkerRegister();
-    this.$eventBus.$on('subscribe', this.handleNotifyClick);
+    // this.init();
+    // this.shareRegister();
+    // this.PWAListenerRegister();
+    // this.serviceworkerRegister();
+    // this.$eventBus.$on('subscribe', this.handleNotifyClick);
   },
   beforeMount() {
     this.$eventBus.$off('subscribe', this.handleNotifyClick);

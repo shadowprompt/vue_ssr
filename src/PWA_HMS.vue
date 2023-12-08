@@ -91,8 +91,8 @@
   export default {
     name: 'PWA_HMS',
     mounted() {
-      this.init();
-      this.messageRegister();
+      // this.init();
+      // this.messageRegister();
     },
     methods: {
       init() {
