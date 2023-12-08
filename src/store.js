@@ -2,6 +2,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import defaultAxios from 'axios';
+import { DAOZHAO_GATEWAY_SERVER } from '@daozhao/config';
 Vue.use(Vuex);
 
 import { axios } from './config/index';
@@ -202,7 +203,7 @@ export function createStore() {
       // 是否是重大悲伤日，需要网站置灰的
       async _getGrayDay(context) {
         const port = process.env.PORT || 8899;
-        const res = await axios.post('https://gateway.daozhao.com.cn/daozhao/grayDays', {
+        const res = await axios.post(`${DAOZHAO_GATEWAY_SERVER}/daozhao/grayDays`, {
           days: [],
         });
         if (utils.httpSuccess(res)) {

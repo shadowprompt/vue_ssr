@@ -17,6 +17,7 @@
         "build:server": "cross-env NODE_ENV=production node --trace-deprecation ./node_modules/.bin/webpack  --display-entrypoints --config build/webpack.server.config.js --progress --hide-modules"
     },
     "dependencies": {
+        "@daozhao/config": "^1.0.7",
         "@hw-agconnect/auth": "1.4.4",
         "axios": "^0.19.0",
         "es6-promise": "^4.2.4",

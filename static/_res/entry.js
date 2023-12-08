@@ -13,6 +13,7 @@
 //     }
 //   })
 //   .catch((err) => console.log('err', err));
+const DAOZHAO_PUBLIC_SERVER = 'https://public.daozhao.com';
 if ('serviceWorker' in navigator && 'PushManager' in window && 'Notification' in window) {
   document.addEventListener('DOMContentLoaded', function () {
     let swRegistration;
@@ -115,7 +116,7 @@ if ('serviceWorker' in navigator && 'PushManager' in window && 'Notification' in
     }
 
     function storeSubscription({ subscription, subscribe }) {
-      fetch('https://public.daozhao.com.cn/daozhao/push/subscribe', {
+      fetch(`${DAOZHAO_PUBLIC_SERVER}/daozhao/push/subscribe`, {
         method: 'post',
         body: JSON.stringify({
           subscription,

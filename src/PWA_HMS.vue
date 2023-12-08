@@ -6,6 +6,7 @@
   import '@hw-agconnect/auth';
   import '@hw-agconnect/instance';
   import {timeoutCallWithLaTrack} from './utils'
+  import { DAOZHAO_GATEWAY_SERVER } from '@daozhao/config';
 
   var agConnectConfig =
     {
@@ -117,7 +118,7 @@
         });
       },
       storeToken(token) {
-        fetch('https://gateway.daozhao.com.cn/HMS_webPush/storePushToken', {
+        fetch(`${DAOZHAO_GATEWAY_SERVER}/HMS_webPush/storePushToken`, {
           method: 'post',
           body: JSON.stringify({
             pushToken: token,

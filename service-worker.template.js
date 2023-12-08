@@ -1,5 +1,5 @@
 let filesToCache = [];
-const site = 'https://gateway.daozhao.com.cn/daozhao';
+const site = 'https://gateway.daozhao.com/daozhao';
 
 // const registerListener = () => {
 self.addEventListener('install', (e) => {

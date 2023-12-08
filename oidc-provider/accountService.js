@@ -1,10 +1,11 @@
 const axios = require('axios');
 const assert = require('assert');
 const wordpressHashNode = require('wordpress-hash-node');
+const {DAOZHAO_GATEWAY_SERVER} = require('@daozhao/config');
 
 class AccountService {
   static queryAccount(fields) {
-    const url = 'https://gateway.daozhao.com.cn/daozhao/searchUser';
+    const url = `${DAOZHAO_GATEWAY_SERVER}/daozhao/searchUser`;
     return axios.post(url, {
       fields,
     }).then(res => {

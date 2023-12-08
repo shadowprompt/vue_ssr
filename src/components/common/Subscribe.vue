@@ -11,6 +11,7 @@
 
 <script>
 import {timeoutCallWithLaTrack, urlB64ToUint8Array} from '../../utils';
+import { DAOZHAO_PUBLIC_SERVER } from '@daozhao/config';
 // PUSH_PRIVATE_KEY in server config.js
 const applicationServerPublicKey = 'BGwZ7R1oOio1xs61Jgm34qguAKsU2w96XrSs22TpK-yK9goD0Qidfp7tpjDvG8T1Zu4vdKJp_Ev93U0iWPRmP9c';
 
@@ -154,7 +155,7 @@ export default {
         });
     },
     storeSubscription({ subscription, subscribe }) {
-      fetch('https://public.daozhao.com.cn/daozhao/push/subscribe', {
+      fetch(`${DAOZHAO_PUBLIC_SERVER}/daozhao/push/subscribe`, {
         method: 'post',
         body: JSON.stringify({
           subscription,
