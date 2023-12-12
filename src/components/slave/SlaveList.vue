@@ -27,7 +27,7 @@ export default {
         list: [{
           title: '运动记录转换工具',
           target: '_target',
-          href: 'https://convert.fit'
+          href: 'https://www.fitconverter.com'
         }]
       },
       qr: {
