@@ -2,8 +2,8 @@
   <section class="slave-container" :class="isOpen ? 'open' : ''">
     <i class="arrow-right" @click="onClick"></i>
     <recent-list></recent-list>
-<!--    <SubscribePanel />-->
-<!--    <block :content="qr"></block>-->
+    <SubscribePanel />
+    <block :content="qr"></block>
     <block :content="link"></block>
 <!--    <block :content="wechatGroup"></block>-->
     <Ad type="slave"/>
