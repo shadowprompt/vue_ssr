@@ -25,7 +25,7 @@ export default {
       link: {
         title: '友情链接',
         list: [{
-          title: '运动记录转换工具',
+          title: '运动健康转换工具',
           target: '_target',
           href: 'https://www.fitconverter.com'
         }]

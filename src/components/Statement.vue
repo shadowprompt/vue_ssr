@@ -44,7 +44,7 @@ export default {
         },
         {
           title: '道招',
-          href: 'https://www.daozhao.com/sitemap.xml',
+          href: 'https://www.daozhao.com/',
           position: 'left',
         },
         {

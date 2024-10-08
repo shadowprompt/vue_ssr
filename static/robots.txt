@@ -19,5 +19,3 @@ Disallow: /*.css$
 Disallow: /trackback/*
 Disallow: /feed/*
 Disallow: /category/*
-
-Sitemap: https://www.daozhao.com/sitemap.xml
